@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Life Style - Pointage</title>
+
+<style>
+body {
+    font-family: Arial;
+    background-color: #111;
+    color: white;
+    text-align: center;
+}
+
+/* Carte */
+.card {
+    background: #1c1c1c;
+    padding: 20px;
+    margin: 20px auto;
+    width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #ffcc00;
+}
+
+/* Titre */
+h2, h3 {
+    color: #ffcc00;
+}
+
+/* Inputs */
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 8px;
+    border-radius: 8px;
+    border: none;
+}
+
+/* Bouton */
+button {
+    background: #ffcc00;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: gold;
+}
+
+/* Liste */
+li {
+    background: #222;
+    margin: 5px;
+    padding: 8px;
+    border-radius: 8px;
+    list-style: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card" id="loginCard">
+    <h2>🟡 Life Style</h2>
+    <h3>Connexion</h3>
+
+    <input type="text" id="username" placeholder="Nom"><br>
+    <input type="password" id="password" placeholder="Mot de passe"><br>
+    <button onclick="login()">Se connecter</button>
+</div>
+
+<div class="card" id="app" style="display:none;">
+    <h3 id="welcome"></h3>
+
+    <input type="date" id="date"><br>
+    <input type="number" id="hours" placeholder="Heures travaillées"><br>
+    <button onclick="addEntry()">Ajouter</button>
+
+    <h4>📋 Historique</h4>
+    <ul id="list"></ul>
+</div>
+
+<script>
+const users = {
+    "nazim": "202601",
+    "Ilyes": "202602",
+    "Alilou": "202603",
+    "Anas": "202604"
+};
+
+let currentUser = "";
+
+function login() {
+    let u = document.getElementById("username").value;
+    let p = document.getElementById("password").value;
+
+    if (users[u] === p) {
+        currentUser = u;
+        document.getElementById("loginCard").style.display = "none";
+        document.getElementById("app").style.display = "block";
+        document.getElementById("welcome").innerText = "Bienvenue " + u;
+        loadData();
+    } else {
+        alert("Mot de passe incorrect !");
+    }
+}
+
+function addEntry() {
+    let date = document.getElementById("date").value;
+    let hours = document.getElementById("hours").value;
+
+    if (!date || !hours) {
+        alert("Remplis tout !");
+        return;
+    }
+
+    let data = JSON.parse(localStorage.getItem(currentUser)) || [];
+    data.push({date, hours});
+
+    localStorage.setItem(currentUser, JSON.stringify(data));
+    loadData();
+}
+
+function loadData() {
+    let list = document.getElementById("list");
+    list.innerHTML = "";
+
+    let data = JSON.parse(localStorage.getItem(currentUser)) || [];
+
+    data.forEach(e => {
+        let li = document.createElement("li");
+        li.innerText = e.date + " - " + e.hours + "h";
+        list.appendChild(li);
+    });
+}
+</script>
+
+</body>
+</html>

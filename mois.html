@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Life Style - Bilan Mensuel</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #111;
+    color: white;
+    text-align: center;
+}
+
+.card {
+    background: #1c1c1c;
+    padding: 20px;
+    margin: 20px auto;
+    width: 340px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #ffcc00;
+}
+
+h2 {
+    color: #ffcc00;
+}
+
+button {
+    background: #ffcc00;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    margin: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: gold;
+}
+
+li {
+    background: #222;
+    margin: 8px;
+    padding: 10px;
+    border-radius: 10px;
+    list-style: none;
+    font-size: 18px;
+}
+
+#totalGlobal {
+    margin-top: 20px;
+    font-size: 32px;
+    color: #ffcc00;
+    font-weight: bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+    <h2>📊 Bilan Mensuel Life Style</h2>
+
+    <button onclick="calculate()">Afficher</button>
+    <button onclick="resetData()">Nouveau mois (Reset)</button>
+
+    <ul id="result"></ul>
+
+    <div id="totalGlobal"></div>
+</div>
+
+<script>
+const employees = ["nazim", "Ilyes", "Alilou", "Anas"];
+
+function calculate() {
+    let result = document.getElementById("result");
+    let totalGlobal = 0;
+
+    result.innerHTML = "";
+
+    employees.forEach(emp => {
+        let data = JSON.parse(localStorage.getItem(emp)) || [];
+        let total = 0;
+
+        data.forEach(e => {
+            total += parseFloat(e.hours);
+        });
+
+        totalGlobal += total;
+
+        let li = document.createElement("li");
+        li.innerText = emp + " : " + total + " heures";
+        result.appendChild(li);
+    });
+
+    document.getElementById("totalGlobal").innerText =
+        "🔥 TOTAL GLOBAL : " + totalGlobal + " HEURES";
+}
+
+function resetData() {
+    if (confirm("⚠️ Tu veux vraiment effacer toutes les données du mois ?")) {
+
+        employees.forEach(emp => {
+            localStorage.removeItem(emp);
+        });
+
+        document.getElementById("result").innerHTML = "";
+        document.getElementById("totalGlobal").innerText = "";
+
+        alert("✅ Nouveau mois commencé !");
+    }
+}
+</script>
+
+</body>
+</html>
