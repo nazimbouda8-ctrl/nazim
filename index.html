@@ -30,60 +30,61 @@ body{
     padding:35px;
     border-radius:25px;
     border:2px solid #FFD700;
-    box-shadow:
-    0 0 20px rgba(255,215,0,0.4),
-    0 0 40px rgba(255,215,0,0.2);
-    animation:fadeIn 0.8s ease;
+    box-shadow:0 0 20px rgba(255,215,0,0.4);
     text-align:center;
 }
 
-h2,h3,h4{
-    margin-bottom:20px;
+.logo-box{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+    margin-bottom:25px;
 }
+
+.logo{
+    width:95px;
+    height:95px;
+    border:2px solid #FFD700;
+    border-radius:18px;
+    background:#000;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.logo h1{font-size:42px;color:#FFD700;}
+.logo p{font-size:12px;color:#FFD700;}
 
 input{
     width:100%;
     padding:14px;
     margin-top:10px;
-    border:none;
-    outline:none;
     border-radius:12px;
     background:#1f1f1f;
     color:#FFD700;
     border:1px solid #FFD700;
-    transition:0.3s;
-    font-size:15px;
-}
-
-input:focus{
-    transform:scale(1.02);
-    box-shadow:0 0 10px #FFD700;
 }
 
 button{
     width:100%;
     padding:14px;
     margin-top:12px;
-    border:none;
     border-radius:12px;
     background:#FFD700;
     color:#000;
     font-weight:bold;
     cursor:pointer;
-    transition:0.3s;
-    font-size:15px;
 }
 
 button:hover{
-    transform:translateY(-2px) scale(1.02);
     background:#ffea4d;
-    box-shadow:0 0 15px #FFD700;
 }
 
 ul{
     list-style:none;
     margin-top:15px;
-    padding:0;
 }
 
 li{
@@ -92,52 +93,12 @@ li{
     padding:12px;
     border-radius:12px;
     margin-top:10px;
-    animation:slideUp 0.4s ease;
 }
 
-hr{
-    margin-top:15px;
-    border:1px solid #FFD700;
-}
-
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-@keyframes slideUp{
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-@media(max-width:500px){
-
-    .main-box{
-        padding:25px;
-        border-radius:20px;
-    }
-
-    h2{
-        font-size:24px;
-    }
-
-    input,button{
-        font-size:14px;
-        padding:12px;
-    }
-
+.creator{
+    margin-top:30px;
+    font-size:14px;
+    opacity:0.8;
 }
 
 </style>
@@ -147,7 +108,13 @@ hr{
 
 <div class="main-box">
 
-<h2>Connexion Employé</h2>
+<div class="logo-box">
+<div class="logo">
+    <h1>LS</h1>
+    <p>LIFESTYLE</p>
+</div>
+<div>Connexion Employé</div>
+</div>
 
 <input type="text" id="username" placeholder="Nom">
 <input type="password" id="password" placeholder="Mot de passe">
@@ -159,25 +126,20 @@ hr{
 
     <h3 id="welcome"></h3>
 
-    <input type="date" id="date">
-    <input type="number" id="hours" placeholder="Heures travaillées">
-
-    <button onclick="addEntry()">Ajouter</button>
-    <button onclick="resetForm()">Nouveau pointage</button>
+    <button onclick="pointage()">📍 Pointage (Entrée)</button>
+    <button onclick="depointage()">🚪 Dépointage (Sortie)</button>
 
     <h4>Historique</h4>
-
     <ul id="list"></ul>
 
 </div>
 
 <div id="adminPanel" style="display:none;">
-
     <h2>Panel Patron</h2>
-
     <div id="adminData"></div>
-
 </div>
+
+<div class="creator">— created by nazim bouda —</div>
 
 </div>
 
@@ -213,7 +175,6 @@ function login() {
         loadData();
 
     } else {
-
         alert("Erreur mot de passe !");
     }
 }
@@ -231,46 +192,70 @@ function adminLogin() {
         loadAdminData();
 
     } else {
-
         alert("Identifiant patron incorrect !");
     }
 }
 
-function addEntry() {
+/* POINTAGE */
+function pointage() {
 
-    let date = document.getElementById("date").value;
-    let hours = document.getElementById("hours").value;
+    let now = new Date();
+
+    let session = {
+        start: now.toISOString()
+    };
+
+    localStorage.setItem(currentUser + "_current", JSON.stringify(session));
+
+    alert("Pointage effectué à " + now.toLocaleString());
+}
+
+/* DEPOINTAGE */
+function depointage() {
+
+    let session = JSON.parse(localStorage.getItem(currentUser + "_current"));
+
+    if (!session) {
+        alert("Aucun pointage trouvé !");
+        return;
+    }
+
+    let start = new Date(session.start);
+    let end = new Date();
+
+    let diff = (end - start) / 1000 / 3600; // heures
 
     let data = JSON.parse(localStorage.getItem(currentUser)) || [];
 
-    data.push({ date, hours });
+    data.push({
+        start: start.toLocaleString(),
+        end: end.toLocaleString(),
+        hours: diff.toFixed(2)
+    });
 
     localStorage.setItem(currentUser, JSON.stringify(data));
+    localStorage.removeItem(currentUser + "_current");
 
     loadData();
-}
 
-function resetForm() {
-
-    document.getElementById("date").value = "";
-    document.getElementById("hours").value = "";
+    alert("Dépointage effectué !");
 }
 
 function loadData() {
 
     let list = document.getElementById("list");
-
     list.innerHTML = "";
 
-    let data =
-    JSON.parse(localStorage.getItem(currentUser)) || [];
+    let data = JSON.parse(localStorage.getItem(currentUser)) || [];
 
     data.forEach(e => {
 
         let li = document.createElement("li");
 
-        li.innerText =
-        e.date + " - " + e.hours + "h";
+        li.innerHTML =
+        "Début: " + e.start +
+        "<br>Fin: " + e.end +
+        "<br><b>" + e.hours + " h</b>";
 
         list.appendChild(li);
     });
@@ -278,15 +263,12 @@ function loadData() {
 
 function loadAdminData() {
 
-    let adminDiv =
-    document.getElementById("adminData");
-
+    let adminDiv = document.getElementById("adminData");
     adminDiv.innerHTML = "";
 
     for (let user in users) {
 
-        let data =
-        JSON.parse(localStorage.getItem(user)) || [];
+        let data = JSON.parse(localStorage.getItem(user)) || [];
 
         let total = 0;
 
@@ -298,7 +280,7 @@ function loadAdminData() {
 
         box.innerHTML = `
             <h3>${user}</h3>
-            <p>Total des heures : ${total}h</p>
+            <p>Total des heures : ${total.toFixed(2)}h</p>
             <hr>
         `;
 
