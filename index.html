@@ -1,142 +1,136 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Pointage Life Style</title>
 
-  <title>Pointage Life Style</title>
+<style>
+body {
+    font-family: Arial;
+    text-align: center;
+    background-color: #000;
+    color: #FFD700;
+}
 
-  <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-    }
+input, button {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
 
-    h1 {
-      text-align: center;
-      color: #222;
-      margin-bottom: 30px;
-    }
+input {
+    background-color: #111;
+    color: #FFD700;
+    border: 1px solid #FFD700;
+}
 
-    .employee {
-      background: white;
-      padding: 20px;
-      margin-bottom: 15px;
-      border-radius: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+button {
+    background-color: #FFD700;
+    color: #000;
+    cursor: pointer;
+    font-weight: bold;
+}
 
-    .employee h2 {
-      margin: 0 0 15px;
-      font-size: 22px;
-    }
+button:hover {
+    background-color: #e6c200;
+}
 
-    .count {
-      font-size: 28px;
-      font-weight: bold;
-      color: #007bff;
-    }
+#app {
+    margin-top: 20px;
+}
 
-    button {
-      width: 100%;
-      padding: 15px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 10px;
-      font-size: 18px;
-      cursor: pointer;
-    }
+ul {
+    list-style: none;
+    padding: 0;
+}
 
-    .present {
-      background: #28a745;
-      color: white;
-    }
+li {
+    background-color: #111;
+    margin: 5px auto;
+    padding: 8px;
+    width: 250px;
+    border: 1px solid #FFD700;
+    border-radius: 5px;
+}
+</style>
 
-    .reset {
-      background: #dc3545;
-      color: white;
-      margin-top: 30px;
-    }
-  </style>
 </head>
+
 <body>
 
-  <h1>Pointage Life Style</h1>
+<h2>Connexion Employé</h2>
 
-  <div class="employee">
-    <h2>Nazim : <span class="count" id="nazim">0</span></h2>
-    <button class="present" onclick="addPoint('nazim')">
-      Présent
-    </button>
-  </div>
+<input type="text" id="username" placeholder="Nom"><br>
+<input type="password" id="password" placeholder="Mot de passe"><br>
+<button onclick="login()">Se connecter</button>
 
-  <div class="employee">
-    <h2>Ilyes : <span class="count" id="ilyes">0</span></h2>
-    <button class="present" onclick="addPoint('ilyes')">
-      Présent
-    </button>
-  </div>
+<div id="app" style="display:none;">
+    <h3 id="welcome"></h3>
 
-  <div class="employee">
-    <h2>Alilou : <span class="count" id="alilou">0</span></h2>
-    <button class="present" onclick="addPoint('alilou')">
-      Présent
-    </button>
-  </div>
+    <input type="date" id="date"><br>
+    <input type="number" id="hours" placeholder="Heures travaillées"><br>
 
-  <div class="employee">
-    <h2>Anas : <span class="count" id="anas">0</span></h2>
-    <button class="present" onclick="addPoint('anas')">
-      Présent
-    </button>
-  </div>
+    <button onclick="addEntry()">Ajouter</button>
+    <button onclick="resetForm()">Nouveau pointage</button>
 
-  <button class="reset" onclick="resetAll()">
-    Reset Tout
-  </button>
+    <h4>Historique</h4>
+    <ul id="list"></ul>
+</div>
 
-  <script>
-    let points = {
-      nazim: 0,
-      ilyes: 0,
-      alilou: 0,
-      anas: 0
-    };
+<script>
+const users = {
+    "nazim": "202601",
+    "Ilyes": "202602",
+    "Alilou": "202603",
+    "Anas": "202604"
+};
 
-    function addPoint(name) {
-      points[name]++;
-      document.getElementById(name).innerText = points[name];
+let currentUser = "";
 
-      localStorage.setItem("points", JSON.stringify(points));
+function login() {
+    let u = document.getElementById("username").value;
+    let p = document.getElementById("password").value;
+
+    if (users[u] === p) {
+        currentUser = u;
+        document.getElementById("app").style.display = "block";
+        document.getElementById("welcome").innerText = "Bienvenue " + u;
+        loadData();
+    } else {
+        alert("Erreur mot de passe !");
     }
+}
 
-    function resetAll() {
-      points = {
-        nazim: 0,
-        ilyes: 0,
-        alilou: 0,
-        anas: 0
-      };
+function addEntry() {
+    let date = document.getElementById("date").value;
+    let hours = document.getElementById("hours").value;
 
-      for (let name in points) {
-        document.getElementById(name).innerText = 0;
-      }
+    let data = JSON.parse(localStorage.getItem(currentUser)) || [];
+    data.push({ date, hours });
 
-      localStorage.setItem("points", JSON.stringify(points));
-    }
+    localStorage.setItem(currentUser, JSON.stringify(data));
+    loadData();
+}
 
-    let saved = localStorage.getItem("points");
+function resetForm() {
+    document.getElementById("date").value = "";
+    document.getElementById("hours").value = "";
+}
 
-    if (saved) {
-      points = JSON.parse(saved);
+function loadData() {
+    let list = document.getElementById("list");
+    list.innerHTML = "";
 
-      for (let name in points) {
-        document.getElementById(name).innerText = points[name];
-      }
-    }
-  </script>
+    let data = JSON.parse(localStorage.getItem(currentUser)) || [];
+
+    data.forEach(e => {
+        let li = document.createElement("li");
+        li.innerText = e.date + " - " + e.hours + "h";
+        list.appendChild(li);
+    });
+}
+</script>
 
 </body>
 </html>
