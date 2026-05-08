@@ -136,6 +136,11 @@ li{
 
 <div id="adminPanel" style="display:none;">
     <h2>Panel Patron</h2>
+
+    <button onclick="resetAllData()">
+        🗑 Réinitialiser tout le mois
+    </button>
+
     <div id="adminData"></div>
 </div>
 
@@ -223,7 +228,7 @@ function depointage() {
     let start = new Date(session.start);
     let end = new Date();
 
-    let diff = (end - start) / 1000 / 3600; // heures
+    let diff = (end - start) / 1000 / 3600;
 
     let data = JSON.parse(localStorage.getItem(currentUser)) || [];
 
@@ -285,6 +290,27 @@ function loadAdminData() {
         `;
 
         adminDiv.appendChild(box);
+    }
+}
+
+/* RESET TOTAL */
+function resetAllData() {
+
+    let confirmation = confirm(
+        "Supprimer tout l'historique du mois ?"
+    );
+
+    if (confirmation) {
+
+        for (let user in users) {
+
+            localStorage.removeItem(user);
+            localStorage.removeItem(user + "_current");
+        }
+
+        loadAdminData();
+
+        alert("Tout l'historique a été supprimé !");
     }
 }
 
