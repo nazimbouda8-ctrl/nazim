@@ -2,7 +2,13 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+
 <title>Pointage Life Style</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FFD700">
+<link rel="apple-touch-icon" href="logo-192.png">
 
 <style>
 
@@ -54,8 +60,15 @@ body{
     align-items:center;
 }
 
-.logo h1{font-size:42px;color:#FFD700;}
-.logo p{font-size:12px;color:#FFD700;}
+.logo h1{
+    font-size:42px;
+    color:#FFD700;
+}
+
+.logo p{
+    font-size:12px;
+    color:#FFD700;
+}
 
 input{
     width:100%;
@@ -76,6 +89,7 @@ button{
     color:#000;
     font-weight:bold;
     cursor:pointer;
+    border:none;
 }
 
 button:hover{
@@ -109,11 +123,14 @@ li{
 <div class="main-box">
 
 <div class="logo-box">
+
 <div class="logo">
     <h1>LS</h1>
     <p>LIFESTYLE</p>
 </div>
+
 <div>Connexion Employé</div>
+
 </div>
 
 <input type="text" id="username" placeholder="Nom">
@@ -126,15 +143,22 @@ li{
 
     <h3 id="welcome"></h3>
 
-    <button onclick="pointage()">📍 Pointage (Entrée)</button>
-    <button onclick="depointage()">🚪 Dépointage (Sortie)</button>
+    <button onclick="pointage()">
+        📍 Pointage (Entrée)
+    </button>
 
-    <h4>Historique</h4>
+    <button onclick="depointage()">
+        🚪 Dépointage (Sortie)
+    </button>
+
+    <h4 style="margin-top:20px;">Historique</h4>
+
     <ul id="list"></ul>
 
 </div>
 
 <div id="adminPanel" style="display:none;">
+
     <h2>Panel Patron</h2>
 
     <button onclick="resetAllData()">
@@ -142,9 +166,12 @@ li{
     </button>
 
     <div id="adminData"></div>
+
 </div>
 
-<div class="creator">— created by nazim bouda —</div>
+<div class="creator">
+    — created by nazim bouda —
+</div>
 
 </div>
 
@@ -162,6 +189,7 @@ const adminPassword = "010167";
 
 let currentUser = "";
 
+/* LOGIN EMPLOYE */
 function login() {
 
     let u = document.getElementById("username").value;
@@ -180,10 +208,12 @@ function login() {
         loadData();
 
     } else {
+
         alert("Erreur mot de passe !");
     }
 }
 
+/* LOGIN PATRON */
 function adminLogin() {
 
     let u = document.getElementById("username").value;
@@ -197,6 +227,7 @@ function adminLogin() {
         loadAdminData();
 
     } else {
+
         alert("Identifiant patron incorrect !");
     }
 }
@@ -210,17 +241,26 @@ function pointage() {
         start: now.toISOString()
     };
 
-    localStorage.setItem(currentUser + "_current", JSON.stringify(session));
+    localStorage.setItem(
+        currentUser + "_current",
+        JSON.stringify(session)
+    );
 
-    alert("Pointage effectué à " + now.toLocaleString());
+    alert(
+        "Pointage effectué à " +
+        now.toLocaleString()
+    );
 }
 
 /* DEPOINTAGE */
 function depointage() {
 
-    let session = JSON.parse(localStorage.getItem(currentUser + "_current"));
+    let session = JSON.parse(
+        localStorage.getItem(currentUser + "_current")
+    );
 
     if (!session) {
+
         alert("Aucun pointage trouvé !");
         return;
     }
@@ -230,7 +270,9 @@ function depointage() {
 
     let diff = (end - start) / 1000 / 3600;
 
-    let data = JSON.parse(localStorage.getItem(currentUser)) || [];
+    let data = JSON.parse(
+        localStorage.getItem(currentUser)
+    ) || [];
 
     data.push({
         start: start.toLocaleString(),
@@ -238,20 +280,30 @@ function depointage() {
         hours: diff.toFixed(2)
     });
 
-    localStorage.setItem(currentUser, JSON.stringify(data));
-    localStorage.removeItem(currentUser + "_current");
+    localStorage.setItem(
+        currentUser,
+        JSON.stringify(data)
+    );
+
+    localStorage.removeItem(
+        currentUser + "_current"
+    );
 
     loadData();
 
     alert("Dépointage effectué !");
 }
 
+/* HISTORIQUE */
 function loadData() {
 
     let list = document.getElementById("list");
+
     list.innerHTML = "";
 
-    let data = JSON.parse(localStorage.getItem(currentUser)) || [];
+    let data = JSON.parse(
+        localStorage.getItem(currentUser)
+    ) || [];
 
     data.forEach(e => {
 
@@ -266,14 +318,19 @@ function loadData() {
     });
 }
 
+/* PANEL PATRON */
 function loadAdminData() {
 
-    let adminDiv = document.getElementById("adminData");
+    let adminDiv =
+    document.getElementById("adminData");
+
     adminDiv.innerHTML = "";
 
     for (let user in users) {
 
-        let data = JSON.parse(localStorage.getItem(user)) || [];
+        let data = JSON.parse(
+            localStorage.getItem(user)
+        ) || [];
 
         let total = 0;
 
@@ -286,14 +343,14 @@ function loadAdminData() {
         box.innerHTML = `
             <h3>${user}</h3>
             <p>Total des heures : ${total.toFixed(2)}h</p>
-            <hr>
+            <hr style="margin:15px 0;">
         `;
 
         adminDiv.appendChild(box);
     }
 }
 
-/* RESET TOTAL */
+/* RESET */
 function resetAllData() {
 
     let confirmation = confirm(
@@ -305,12 +362,17 @@ function resetAllData() {
         for (let user in users) {
 
             localStorage.removeItem(user);
-            localStorage.removeItem(user + "_current");
+
+            localStorage.removeItem(
+                user + "_current"
+            );
         }
 
         loadAdminData();
 
-        alert("Tout l'historique a été supprimé !");
+        alert(
+            "Tout l'historique a été supprimé !"
+        );
     }
 }
 
