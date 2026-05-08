@@ -2,13 +2,20 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<title>Life Style Pointage</title>
 
-<title>Pointage Life Style</title>
-
-<!-- PWA -->
-<link rel="manifest" href="manifest.json">
+<!-- PWA DIRECT (sans fichier json externe) -->
 <meta name="theme-color" content="#FFD700">
-<link rel="apple-touch-icon" href="logo-192.png">
+
+<link rel="manifest" href='data:application/json,{
+"name":"Life Style Pointage",
+"short_name":"LS",
+"start_url":".",
+"display":"standalone",
+"background_color":"#000000",
+"theme_color":"#FFD700",
+"icons":[{"src":"logo.png","sizes":"192x192","type":"image/png"}]
+}'>
 
 <style>
 
@@ -123,14 +130,11 @@ li{
 <div class="main-box">
 
 <div class="logo-box">
-
 <div class="logo">
     <h1>LS</h1>
     <p>LIFESTYLE</p>
 </div>
-
 <div>Connexion Employé</div>
-
 </div>
 
 <input type="text" id="username" placeholder="Nom">
@@ -143,16 +147,10 @@ li{
 
     <h3 id="welcome"></h3>
 
-    <button onclick="pointage()">
-        📍 Pointage (Entrée)
-    </button>
+    <button onclick="pointage()">📍 Pointage (Entrée)</button>
+    <button onclick="depointage()">🚪 Dépointage (Sortie)</button>
 
-    <button onclick="depointage()">
-        🚪 Dépointage (Sortie)
-    </button>
-
-    <h4 style="margin-top:20px;">Historique</h4>
-
+    <h4>Historique</h4>
     <ul id="list"></ul>
 
 </div>
@@ -161,22 +159,19 @@ li{
 
     <h2>Panel Patron</h2>
 
-    <button onclick="resetAllData()">
-        🗑 Réinitialiser tout le mois
-    </button>
+    <button onclick="resetAllData()">🗑 Reset</button>
 
     <div id="adminData"></div>
 
 </div>
 
-<div class="creator">
-    — created by nazim bouda —
-</div>
+<div class="creator">— created by nazim bouda —</div>
 
 </div>
 
 <script>
 
+/* USERS */
 const users = {
     "nazim": "202601",
     "Ilyes": "202602",
@@ -190,12 +185,12 @@ const adminPassword = "010167";
 let currentUser = "";
 
 /* LOGIN EMPLOYE */
-function login() {
+function login(){
 
     let u = document.getElementById("username").value;
     let p = document.getElementById("password").value;
 
-    if (users[u] === p) {
+    if(users[u] === p){
 
         currentUser = u;
 
@@ -208,18 +203,17 @@ function login() {
         loadData();
 
     } else {
-
-        alert("Erreur mot de passe !");
+        alert("Erreur login !");
     }
 }
 
-/* LOGIN PATRON */
-function adminLogin() {
+/* LOGIN ADMIN */
+function adminLogin(){
 
     let u = document.getElementById("username").value;
     let p = document.getElementById("password").value;
 
-    if (u === adminName && p === adminPassword) {
+    if(u === adminName && p === adminPassword){
 
         document.getElementById("adminPanel").style.display = "block";
         document.getElementById("app").style.display = "none";
@@ -227,153 +221,117 @@ function adminLogin() {
         loadAdminData();
 
     } else {
-
-        alert("Identifiant patron incorrect !");
+        alert("Admin incorrect !");
     }
 }
 
 /* POINTAGE */
-function pointage() {
+function pointage(){
 
     let now = new Date();
+    localStorage.setItem(currentUser+"_start", now.toISOString());
 
-    let session = {
-        start: now.toISOString()
-    };
-
-    localStorage.setItem(
-        currentUser + "_current",
-        JSON.stringify(session)
-    );
-
-    alert(
-        "Pointage effectué à " +
-        now.toLocaleString()
-    );
+    alert("Entrée: " + now.toLocaleString());
 }
 
 /* DEPOINTAGE */
-function depointage() {
+function depointage(){
 
-    let session = JSON.parse(
-        localStorage.getItem(currentUser + "_current")
-    );
+    let start = localStorage.getItem(currentUser+"_start");
 
-    if (!session) {
-
-        alert("Aucun pointage trouvé !");
+    if(!start){
+        alert("Pas de pointage !");
         return;
     }
 
-    let start = new Date(session.start);
-    let end = new Date();
+    let s = new Date(start);
+    let e = new Date();
 
-    let diff = (end - start) / 1000 / 3600;
+    let hours = (e - s)/3600000;
 
-    let data = JSON.parse(
-        localStorage.getItem(currentUser)
-    ) || [];
+    let data = JSON.parse(localStorage.getItem(currentUser)) || [];
 
     data.push({
-        start: start.toLocaleString(),
-        end: end.toLocaleString(),
-        hours: diff.toFixed(2)
+        start: s.toLocaleString(),
+        end: e.toLocaleString(),
+        hours: hours.toFixed(2)
     });
 
-    localStorage.setItem(
-        currentUser,
-        JSON.stringify(data)
-    );
-
-    localStorage.removeItem(
-        currentUser + "_current"
-    );
+    localStorage.setItem(currentUser, JSON.stringify(data));
+    localStorage.removeItem(currentUser+"_start");
 
     loadData();
 
-    alert("Dépointage effectué !");
+    alert("Sortie enregistrée !");
 }
 
 /* HISTORIQUE */
-function loadData() {
+function loadData(){
 
     let list = document.getElementById("list");
-
     list.innerHTML = "";
 
-    let data = JSON.parse(
-        localStorage.getItem(currentUser)
-    ) || [];
+    let data = JSON.parse(localStorage.getItem(currentUser)) || [];
 
-    data.forEach(e => {
+    data.forEach(e=>{
 
         let li = document.createElement("li");
 
         li.innerHTML =
-        "Début: " + e.start +
-        "<br>Fin: " + e.end +
-        "<br><b>" + e.hours + " h</b>";
+        "Début: "+e.start+
+        "<br>Fin: "+e.end+
+        "<br><b>"+e.hours+" h</b>";
 
         list.appendChild(li);
     });
 }
 
-/* PANEL PATRON */
-function loadAdminData() {
+/* ADMIN */
+function loadAdminData(){
 
-    let adminDiv =
-    document.getElementById("adminData");
+    let div = document.getElementById("adminData");
+    div.innerHTML = "";
 
-    adminDiv.innerHTML = "";
+    for(let u in users){
 
-    for (let user in users) {
-
-        let data = JSON.parse(
-            localStorage.getItem(user)
-        ) || [];
+        let data = JSON.parse(localStorage.getItem(u)) || [];
 
         let total = 0;
 
-        data.forEach(e => {
+        data.forEach(e=>{
             total += Number(e.hours);
         });
 
-        let box = document.createElement("div");
-
-        box.innerHTML = `
-            <h3>${user}</h3>
-            <p>Total des heures : ${total.toFixed(2)}h</p>
-            <hr style="margin:15px 0;">
+        div.innerHTML += `
+            <h3>${u}</h3>
+            <p>Total: ${total.toFixed(2)} h</p>
+            <hr>
         `;
-
-        adminDiv.appendChild(box);
     }
 }
 
 /* RESET */
-function resetAllData() {
+function resetAllData(){
 
-    let confirmation = confirm(
-        "Supprimer tout l'historique du mois ?"
-    );
+    if(confirm("Tout supprimer ?")){
 
-    if (confirmation) {
-
-        for (let user in users) {
-
-            localStorage.removeItem(user);
-
-            localStorage.removeItem(
-                user + "_current"
-            );
+        for(let u in users){
+            localStorage.removeItem(u);
+            localStorage.removeItem(u+"_start");
         }
 
         loadAdminData();
-
-        alert(
-            "Tout l'historique a été supprimé !"
-        );
+        alert("Reset terminé !");
     }
+}
+
+/* SERVICE WORKER ULTRA SIMPLE */
+if('serviceWorker' in navigator){
+    navigator.serviceWorker.register(
+        URL.createObjectURL(new Blob([`
+            self.addEventListener('fetch', e=>{});
+        `], {type:'application/javascript'}))
+    );
 }
 
 </script>
