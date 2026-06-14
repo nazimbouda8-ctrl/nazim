@@ -4,122 +4,108 @@
 <meta charset="UTF-8">
 <title>Life Style Pointage</title>
 
-<!-- PWA DIRECT (sans fichier json externe) -->
 <meta name="theme-color" content="#FFD700">
 
-<link rel="manifest" href='data:application/json,{
-"name":"Life Style Pointage",
-"short_name":"LS",
-"start_url":".",
-"display":"standalone",
-"background_color":"#000000",
-"theme_color":"#FFD700",
-"icons":[{"src":"logo.png","sizes":"192x192","type":"image/png"}]
-}'>
-
 <style>
-
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
 }
 
 body{
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg,#000000,#1a1a1a);
-    color:#FFD700;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
+background:linear-gradient(135deg,#000,#1a1a1a);
+color:#FFD700;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
 }
 
-.main-box{
-    width:100%;
-    max-width:420px;
-    background:#111;
-    padding:35px;
-    border-radius:25px;
-    border:2px solid #FFD700;
-    box-shadow:0 0 20px rgba(255,215,0,0.4);
-    text-align:center;
+.main{
+width:100%;
+max-width:450px;
+background:#0f0f0f;
+border:2px solid #FFD700;
+border-radius:25px;
+padding:25px;
+box-shadow:0 0 25px rgba(255,215,0,0.4);
+text-align:center;
 }
 
-.logo-box{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:15px;
-    margin-bottom:25px;
+.title{
+font-size:34px;
+font-weight:bold;
+margin-bottom:10px;
+text-shadow:0 0 10px #FFD700;
 }
 
-.logo{
-    width:95px;
-    height:95px;
-    border:2px solid #FFD700;
-    border-radius:18px;
-    background:#000;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-}
-
-.logo h1{
-    font-size:42px;
-    color:#FFD700;
-}
-
-.logo p{
-    font-size:12px;
-    color:#FFD700;
+.subtitle{
+font-size:14px;
+opacity:0.8;
+margin-bottom:20px;
 }
 
 input{
-    width:100%;
-    padding:14px;
-    margin-top:10px;
-    border-radius:12px;
-    background:#1f1f1f;
-    color:#FFD700;
-    border:1px solid #FFD700;
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:1px solid #FFD700;
+background:#1a1a1a;
+color:#FFD700;
 }
 
 button{
-    width:100%;
-    padding:14px;
-    margin-top:12px;
-    border-radius:12px;
-    background:#FFD700;
-    color:#000;
-    font-weight:bold;
-    cursor:pointer;
-    border:none;
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:none;
+background:#FFD700;
+color:#000;
+font-weight:bold;
+cursor:pointer;
+transition:0.2s;
 }
 
 button:hover{
-    background:#ffea4d;
+background:#ffea70;
+transform:scale(1.02);
+}
+
+.card{
+background:#111;
+border:1px solid #FFD700;
+border-radius:15px;
+padding:15px;
+margin-top:10px;
+box-shadow:0 0 10px rgba(255,215,0,0.2);
+}
+
+h2{
+margin-top:15px;
 }
 
 ul{
-    list-style:none;
-    margin-top:15px;
+list-style:none;
+margin-top:10px;
 }
 
 li{
-    background:#1a1a1a;
-    border:1px solid #FFD700;
-    padding:12px;
-    border-radius:12px;
-    margin-top:10px;
+background:#1a1a1a;
+border:1px solid #FFD700;
+padding:10px;
+margin-top:8px;
+border-radius:10px;
+font-size:13px;
 }
 
-.creator{
-    margin-top:30px;
-    font-size:14px;
-    opacity:0.8;
+.big{
+font-size:20px;
+margin-top:10px;
 }
 
 </style>
@@ -127,212 +113,225 @@ li{
 
 <body>
 
-<div class="main-box">
+<div class="main">
 
-<div class="logo-box">
-<div class="logo">
-    <h1>LS</h1>
-    <p>LIFESTYLE</p>
-</div>
-<div>Connexion Employé</div>
-</div>
+<div class="title">✨ Life Style ✨</div>
+<div class="subtitle">Système de pointage employé</div>
 
-<input type="text" id="username" placeholder="Nom">
-<input type="password" id="password" placeholder="Mot de passe">
+<input id="user" placeholder="Nom">
+<input id="pass" type="password" placeholder="Mot de passe">
 
-<button onclick="login()">Se connecter</button>
-<button onclick="adminLogin()">Connexion Patron</button>
+<button id="btnLogin">Connexion Employé</button>
+<button id="btnAdmin">Connexion Patron</button>
 
-<div id="app" style="display:none;">
+<div id="employee" style="display:none;">
 
-    <h3 id="welcome"></h3>
+<h2 id="welcome"></h2>
 
-    <button onclick="pointage()">📍 Pointage (Entrée)</button>
-    <button onclick="depointage()">🚪 Dépointage (Sortie)</button>
-
-    <h4>Historique</h4>
-    <ul id="list"></ul>
-
+<div class="card">
+<div class="big">Heures : <span id="hours">0</span> h</div>
+<div class="big">Salaire : <span id="salary">0</span> DA</div>
 </div>
 
-<div id="adminPanel" style="display:none;">
+<button id="btnStart">📍 Entrée</button>
+<button id="btnEnd">🚪 Sortie</button>
 
-    <h2>Panel Patron</h2>
-
-    <button onclick="resetAllData()">🗑 Reset</button>
-
-    <div id="adminData"></div>
+<h2>Historique</h2>
+<ul id="history"></ul>
 
 </div>
 
-<div class="creator">— created by nazim bouda —</div>
+<div id="admin" style="display:none;">
+
+<h2>Panel Patron</h2>
+
+<div id="adminData"></div>
+
+<button id="btnReset">🗑 Reset tout</button>
 
 </div>
 
-<script>
+</div>
 
-/* USERS */
-const users = {
-    "nazim": "202601",
-    "Ilyes": "202602",
-    "Alilou": "202603",
-    "Anas": "202604"
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, set, get, child, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+// Ta configuration Firebase transmise
+const firebaseConfig = {
+  apiKey: "AIzaSyDtkWf9ns8COymh_kh8wJzwxODp-HQ3weI",
+  authDomain: "lifestylepointage.firebaseapp.com",
+  databaseURL: "https://lifestylepointage-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "lifestylepointage",
+  storageBucket: "lifestylepointage.firebasestorage.app",
+  messagingSenderId: "816860536305",
+  appId: "1:816860536305:web:a16078d630276470323850"
 };
 
-const adminName = "airouche";
-const adminPassword = "010167";
+// Initialisation de Firebase et de la base de données
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-let currentUser = "";
+const users = {
+  "nazim": "202601",
+  "alilou": "202602",
+  "anas": "202603",
+  "ilyes": "202604",
+  "Amine": "202605"
+};
 
-/* LOGIN EMPLOYE */
-function login(){
+const adminUser = "airouche";
+const adminPass = "010167";
 
-    let u = document.getElementById("username").value;
-    let p = document.getElementById("password").value;
+let current = "";
 
-    if(users[u] === p){
+// Fonctions de connexion
+async function login() {
+  let u = document.getElementById("user").value;
+  let p = document.getElementById("pass").value;
 
-        currentUser = u;
-
-        document.getElementById("app").style.display = "block";
-        document.getElementById("adminPanel").style.display = "none";
-
-        document.getElementById("welcome").innerText =
-        "Bienvenue " + u;
-
-        loadData();
-
-    } else {
-        alert("Erreur login !");
-    }
+  if (users[u] == p) {
+    current = u;
+    document.getElementById("employee").style.display = "block";
+    document.getElementById("admin").style.display = "none";
+    document.getElementById("welcome").innerText = "Bienvenue " + u;
+    await load();
+  } else {
+    alert("Erreur login");
+  }
 }
 
-/* LOGIN ADMIN */
-function adminLogin(){
+async function admin() {
+  let u = document.getElementById("user").value;
+  let p = document.getElementById("pass").value;
 
-    let u = document.getElementById("username").value;
-    let p = document.getElementById("password").value;
-
-    if(u === adminName && p === adminPassword){
-
-        document.getElementById("adminPanel").style.display = "block";
-        document.getElementById("app").style.display = "none";
-
-        loadAdminData();
-
-    } else {
-        alert("Admin incorrect !");
-    }
+  if (u == adminUser && p == adminPass) {
+    document.getElementById("admin").style.display = "block";
+    document.getElementById("employee").style.display = "none";
+    await loadAdmin();
+  } else {
+    alert("Admin incorrect");
+  }
 }
 
-/* POINTAGE */
-function pointage(){
-
-    let now = new Date();
-    localStorage.setItem(currentUser+"_start", now.toISOString());
-
-    alert("Entrée: " + now.toLocaleString());
+// Actions Employé (Écritures Firebase)
+async function start() {
+  try {
+    await set(ref(db, 'starts/' + current), Date.now());
+    alert("Entrée enregistrée");
+  } catch (error) {
+    alert("Erreur Firebase : " + error.message);
+  }
 }
 
-/* DEPOINTAGE */
-function depointage(){
+async function end() {
+  try {
+    const startSnapshot = await get(ref(db, 'starts/' + current));
+    let s = startSnapshot.val();
 
-    let start = localStorage.getItem(currentUser+"_start");
-
-    if(!start){
-        alert("Pas de pointage !");
-        return;
+    if (!s) {
+      alert("Pas d'entrée");
+      return;
     }
 
-    let s = new Date(start);
-    let e = new Date();
+    let startTime = new Date(parseInt(s));
+    let endTime = new Date();
+    let h = (endTime - startTime) / 3600000;
 
-    let hours = (e - s)/3600000;
-
-    let data = JSON.parse(localStorage.getItem(currentUser)) || [];
+    const dataSnapshot = await get(ref(db, 'history/' + current));
+    let data = dataSnapshot.val() || [];
 
     data.push({
-        start: s.toLocaleString(),
-        end: e.toLocaleString(),
-        hours: hours.toFixed(2)
+      start: startTime.toLocaleString(),
+      end: endTime.toLocaleString(),
+      hours: h.toFixed(2)
     });
 
-    localStorage.setItem(currentUser, JSON.stringify(data));
-    localStorage.removeItem(currentUser+"_start");
+    // On met à jour l'historique et supprime le marqueur de début
+    await set(ref(db, 'history/' + current), data);
+    await remove(ref(db, 'starts/' + current));
 
-    loadData();
-
-    alert("Sortie enregistrée !");
+    alert("Sortie enregistrée");
+    await load();
+  } catch (error) {
+    alert("Erreur : " + error.message);
+  }
 }
 
-/* HISTORIQUE */
-function loadData(){
+// Chargement des données de l'employé connecté
+async function load() {
+  try {
+    const snapshot = await get(ref(db, 'history/' + current));
+    let data = snapshot.val() || [];
 
-    let list = document.getElementById("list");
+    let total = 0;
+    let list = document.getElementById("history");
     list.innerHTML = "";
 
-    let data = JSON.parse(localStorage.getItem(currentUser)) || [];
-
-    data.forEach(e=>{
-
-        let li = document.createElement("li");
-
-        li.innerHTML =
-        "Début: "+e.start+
-        "<br>Fin: "+e.end+
-        "<br><b>"+e.hours+" h</b>";
-
-        list.appendChild(li);
+    data.forEach(e => {
+      total += Number(e.hours);
+      let li = document.createElement("li");
+      li.innerHTML = `Début: ${e.start}<br>Fin: ${e.end}<br><b>${e.hours} h</b>`;
+      list.appendChild(li);
     });
+
+    document.getElementById("hours").innerText = total.toFixed(2);
+    document.getElementById("salary").innerText = (total * 100).toFixed(0);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-/* ADMIN */
-function loadAdminData(){
-
+// Chargement du panel Admin
+async function loadAdmin() {
+  try {
     let div = document.getElementById("adminData");
     div.innerHTML = "";
 
-    for(let u in users){
+    for (let u in users) {
+      const snapshot = await get(ref(db, 'history/' + u));
+      let data = snapshot.val() || [];
 
-        let data = JSON.parse(localStorage.getItem(u)) || [];
+      let total = 0;
+      data.forEach(e => {
+        total += Number(e.hours);
+      });
 
-        let total = 0;
-
-        data.forEach(e=>{
-            total += Number(e.hours);
-        });
-
-        div.innerHTML += `
-            <h3>${u}</h3>
-            <p>Total: ${total.toFixed(2)} h</p>
-            <hr>
-        `;
+      div.innerHTML += `
+        <div class="card">
+          <h3>${u}</h3>
+          <p>Heures: ${total.toFixed(2)} h</p>
+          <p>Salaire: ${(total * 100).toFixed(0)} DA</p>
+        </div>
+      `;
     }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-/* RESET */
-function resetAllData(){
-
-    if(confirm("Tout supprimer ?")){
-
-        for(let u in users){
-            localStorage.removeItem(u);
-            localStorage.removeItem(u+"_start");
-        }
-
-        loadAdminData();
-        alert("Reset terminé !");
+// Reset complet (Efface les données de l'arbre Firebase)
+async function reset() {
+  if (confirm("Tout supprimer ?")) {
+    try {
+      for (let u in users) {
+        await remove(ref(db, 'history/' + u));
+        await remove(ref(db, 'starts/' + u));
+      }
+      await loadAdmin();
+      alert("Reset terminé");
+    } catch (error) {
+      alert("Erreur lors du reset : " + error.message);
     }
+  }
 }
 
-/* SERVICE WORKER ULTRA SIMPLE */
-if('serviceWorker' in navigator){
-    navigator.serviceWorker.register(
-        URL.createObjectURL(new Blob([`
-            self.addEventListener('fetch', e=>{});
-        `], {type:'application/javascript'}))
-    );
-}
+// Lier les boutons aux fonctions (Obligatoire à cause du mode module isolé)
+document.getElementById("btnLogin").addEventListener("click", login);
+document.getElementById("btnAdmin").addEventListener("click", admin);
+document.getElementById("btnStart").addEventListener("click", start);
+document.getElementById("btnEnd").addEventListener("click", end);
+document.getElementById("btnReset").addEventListener("click", reset);
 
 </script>
 
