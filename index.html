@@ -2,154 +2,351 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Life Style Pointage</title>
 
 <meta name="theme-color" content="#FFD700">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-body{
-background:linear-gradient(135deg,#000,#1a1a1a);
-color:#FFD700;
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:20px;
+body {
+    background: radial-gradient(circle at center, #151515 0%, #050505 100%);
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0;
 }
 
-.main{
-width:100%;
-max-width:450px;
-background:#0f0f0f;
-border:2px solid #FFD700;
-border-radius:25px;
-padding:25px;
-box-shadow:0 0 25px rgba(255,215,0,0.4);
-text-align:center;
+/* L'application prend tout l'écran de manière fluide */
+.main {
+    width: 100%;
+    max-width: 500px;
+    min-height: 100vh;
+    background: rgba(15, 15, 15, 0.95);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 }
 
-.title{
-font-size:34px;
-font-weight:bold;
-margin-bottom:10px;
-text-shadow:0 0 10px #FFD700;
+/* Logo CSS Vectoriel "LS Life Style" basé sur l'image */
+.logo-container {
+    width: 140px;
+    height: 140px;
+    background: #FFD700;
+    border-radius: 50%;
+    border: 5px solid #252525;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), inset 0 0 15px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    position: relative;
 }
 
-.subtitle{
-font-size:14px;
-opacity:0.8;
-margin-bottom:20px;
+.logo-ls {
+    font-size: 58px;
+    font-weight: 900;
+    color: #000;
+    line-height: 52px;
+    letter-spacing: -3px;
+    font-family: 'Arial Black', Impact, sans-serif;
+    border-bottom: 4px solid #000;
+    padding-bottom: 2px;
+    width: 80%;
+    text-align: center;
 }
 
-input{
-width:100%;
-padding:12px;
-margin-top:10px;
-border-radius:10px;
-border:1px solid #FFD700;
-background:#1a1a1a;
-color:#FFD700;
+.logo-text {
+    font-size: 11px;
+    font-weight: 800;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
 }
 
-button{
-width:100%;
-padding:12px;
-margin-top:10px;
-border-radius:10px;
-border:none;
-background:#FFD700;
-color:#000;
-font-weight:bold;
-cursor:pointer;
-transition:0.2s;
+.logo-sub {
+    font-size: 6px;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-button:hover{
-background:#ffea70;
-transform:scale(1.02);
+/* Signature Nazim stylisée */
+.signature {
+    font-size: 11px;
+    color: #FFD700;
+    opacity: 0.6;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
 }
 
-.card{
-background:#111;
-border:1px solid #FFD700;
-border-radius:15px;
-padding:15px;
-margin-top:10px;
-box-shadow:0 0 10px rgba(255,215,0,0.2);
+.subtitle {
+    font-size: 14px;
+    color: #aaa;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    font-weight: 500;
 }
 
-h2{
-margin-top:15px;
+/* Formulaires épurés */
+.login-box {
+    width: 100%;
 }
 
-ul{
-list-style:none;
-margin-top:10px;
+input {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    background: #1e1e1e;
+    color: #fff;
+    font-size: 16px;
+    transition: all 0.3s ease;
 }
 
-li{
-background:#1a1a1a;
-border:1px solid #FFD700;
-padding:10px;
-margin-top:8px;
-border-radius:10px;
-font-size:13px;
+input:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
 }
 
-.big{
-font-size:20px;
-margin-top:10px;
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #FFD700 0%, #cca300 100%);
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
 }
 
+button:active {
+    transform: scale(0.98);
+}
+
+#btnAdmin {
+    background: transparent;
+    border: 1px solid #FFD700;
+    color: #FFD700;
+    box-shadow: none;
+}
+
+/* Espaces de travail et cartes */
+#employee, #admin {
+    width: 100%;
+    margin-top: 10px;
+}
+
+h2 {
+    font-size: 22px;
+    color: #fff;
+    margin: 25px 0 15px 0;
+    text-align: left;
+    font-weight: 600;
+    border-left: 4px solid #FFD700;
+    padding-left: 10px;
+}
+
+.card {
+    background: linear-gradient(145deg, #161616, #0f0f0f);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: space-around;
+}
+
+.big {
+    font-size: 16px;
+    color: #aaa;
+    text-align: center;
+}
+
+.big span {
+    display: block;
+    font-size: 26px;
+    font-weight: 700;
+    color: #FFD700;
+    margin-top: 5px;
+}
+
+/* Boutons Pointage Pro */
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+#btnStart {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+}
+
+#btnEnd {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Section d'ajout d'employé en Admin */
+.add-box {
+    background: #111;
+    border: 1px dashed #FFD700;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+#btnAddUser {
+    background: #FFD700;
+    color: #000;
+    padding: 10px;
+    font-size: 14px;
+}
+
+/* Liste Historique */
+ul {
+    list-style: none;
+    width: 100%;
+}
+
+li {
+    background: #161616;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 10px;
+    font-size: 14px;
+    border-left: 4px solid #FFD700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.hist-info {
+    color: #ccc;
+    line-height: 1.4;
+}
+
+.hist-time {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFD700;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+/* Bouton PDF RH */
+#btnPDF {
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(52, 73, 94, 0.3);
+}
+
+#btnReset {
+    background: #c0392b;
+    color: #fff;
+}
+
+/* Zone d'impression pour les RH */
+@media print {
+    body { background: #fff; color: #000; }
+    .main { max-width: 100%; background: #fff; padding: 0; }
+    button, input, .logo-container, .subtitle, .signature, .add-box { display: none !important; }
+    li { border: 1px solid #000; background: #fff; color: #000; }
+    .hist-time { color: #000; background: none; }
+    h2 { color: #000; border-left-color: #000; }
+    .big span { color: #000; }
+}
 </style>
 </head>
-
 <body>
 
 <div class="main">
 
-<div class="title">✨ Life Style ✨</div>
-<div class="subtitle">Système de pointage employé</div>
+    <!-- Logo Moderne Intégré en Code -->
+    <div class="logo-container">
+        <div class="logo-ls">LS</div>
+        <div class="logo-text">Life Style</div>
+        <div class="logo-sub">— Casual & Sport —</div>
+    </div>
+    
+    <!-- TA SIGNATURE REMISE ICI ! -->
+    <div class="signature">Created by Nazim</div>
+    
+    <div class="subtitle" id="subHeader">Système de pointage</div>
 
-<input id="user" placeholder="Nom">
-<input id="pass" type="password" placeholder="Mot de passe">
+    <!-- Écran Login -->
+    <div id="loginSection" class="login-box">
+        <input id="user" placeholder="Nom d'utilisateur">
+        <input id="pass" type="password" placeholder="Mot de passe">
+        <button id="btnLogin">Connexion Employé</button>
+        <button id="btnAdmin">Connexion Patron</button>
+    </div>
 
-<button id="btnLogin">Connexion Employé</button>
-<button id="btnAdmin">Connexion Patron</button>
+    <!-- Écran Employé -->
+    <div id="employee" style="display:none;">
+        <h2 id="welcome">Bienvenue</h2>
+        
+        <div class="card">
+            <div class="big">Heures Cumulées<span id="hours">0.00</span></div>
+            <div class="big">Salaire Estimé<span id="salary">0</span> DA</div>
+        </div>
 
-<div id="employee" style="display:none;">
+        <div class="action-buttons">
+            <button id="btnStart">📍 Entrée</button>
+            <button id="btnEnd">🚪 Sortie</button>
+        </div>
 
-<h2 id="welcome"></h2>
+        <h2>Mon Historique</h2>
+        <ul id="history"></ul>
+        
+        <button id="btnPDF">📄 Exporter Rapport RH</button>
+    </div>
 
-<div class="card">
-<div class="big">Heures : <span id="hours">0</span> h</div>
-<div class="big">Salaire : <span id="salary">0</span> DA</div>
-</div>
+    <!-- Écran Admin -->
+    <div id="admin" style="display:none;">
+        <h2>Panel Patron</h2>
+        
+        <!-- Nouveau : Zone d'ajout d'un nouvel employé -->
+        <div class="add-box">
+            <h4 style="color:#FFD700; margin-bottom: 5px; text-align:left;">➕ Ajouter un Employé</h4>
+            <input id="newWorkerName" placeholder="Nom du nouvel employé" style="padding:10px; font-size:14px; margin-top:5px;">
+            <input id="newWorkerPass" placeholder="Code / Mot de passe" style="padding:10px; font-size:14px; margin-top:5px;">
+            <button id="btnAddUser">Enregistrer l'employé</button>
+        </div>
 
-<button id="btnStart">📍 Entrée</button>
-<button id="btnEnd">🚪 Sortie</button>
-
-<h2>Historique</h2>
-<ul id="history"></ul>
-
-</div>
-
-<div id="admin" style="display:none;">
-
-<h2>Panel Patron</h2>
-
-<div id="adminData"></div>
-
-<button id="btnReset">🗑 Reset tout</button>
-
-</div>
+        <div id="adminData"></div>
+        <button id="btnReset">🗑 Réinitialiser les données</button>
+    </div>
 
 </div>
 
@@ -157,7 +354,6 @@ margin-top:10px;
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getDatabase, ref, set, get, child, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-// Ta configuration Firebase transmise
 const firebaseConfig = {
   apiKey: "AIzaSyDtkWf9ns8COymh_kh8wJzwxODp-HQ3weI",
   authDomain: "lifestylepointage.firebaseapp.com",
@@ -168,11 +364,11 @@ const firebaseConfig = {
   appId: "1:816860536305:web:a16078d630276470323850"
 };
 
-// Initialisation de Firebase et de la base de données
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const users = {
+// Liste des utilisateurs de base (On va aussi charger ceux créés dynamiquement)
+let users = {
   "nazim": "202601",
   "alilou": "202602",
   "anas": "202603",
@@ -185,19 +381,34 @@ const adminPass = "010167";
 
 let current = "";
 
-// Fonctions de connexion
+// Charger d'éventuels employés ajoutés en base de données au démarrage
+async function syncUsersList() {
+  try {
+    const snapshot = await get(ref(db, 'app_users/'));
+    if (snapshot.exists()) {
+      const dynamicUsers = snapshot.val();
+      users = { ...users, ...dynamicUsers };
+    }
+  } catch (e) {
+    console.error("Erreur de synchronisation des comptes", e);
+  }
+}
+
 async function login() {
+  await syncUsersList();
   let u = document.getElementById("user").value;
   let p = document.getElementById("pass").value;
 
-  if (users[u] == p) {
+  if (users[u] && users[u] == p) {
     current = u;
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("subHeader").style.display = "none";
     document.getElementById("employee").style.display = "block";
     document.getElementById("admin").style.display = "none";
-    document.getElementById("welcome").innerText = "Bienvenue " + u;
+    document.getElementById("welcome").innerText = "Bonjour, " + u + " ✨";
     await load();
   } else {
-    alert("Erreur login");
+    alert("Identifiants incorrects");
   }
 }
 
@@ -206,19 +417,46 @@ async function admin() {
   let p = document.getElementById("pass").value;
 
   if (u == adminUser && p == adminPass) {
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("subHeader").style.display = "none";
     document.getElementById("admin").style.display = "block";
     document.getElementById("employee").style.display = "none";
     await loadAdmin();
   } else {
-    alert("Admin incorrect");
+    alert("Accès Admin refusé");
   }
 }
 
-// Actions Employé (Écritures Firebase)
+// Ajouter un employé directement dans Firebase sans toucher au code dur
+async function addNewEmployee() {
+  let newName = document.getElementById("newWorkerName").value.trim();
+  let newPass = document.getElementById("newWorkerPass").value.trim();
+
+  if(!newName || !newPass) {
+    alert("Veuillez remplir le nom et le mot de passe.");
+    return;
+  }
+
+  try {
+    // On met à jour la liste locale et on l'envoie sur Firebase
+    users[newName] = newPass;
+    await set(ref(db, 'app_users/' + newName), newPass);
+    
+    // Reset les inputs
+    document.getElementById("newWorkerName").value = "";
+    document.getElementById("newWorkerPass").value = "";
+    
+    alert("Employé " + newName + " enregistré avec succès !");
+    await loadAdmin(); // Recharger le panel pour voir sa fiche
+  } catch(error) {
+    alert("Erreur lors de l'ajout : " + error.message);
+  }
+}
+
 async function start() {
   try {
     await set(ref(db, 'starts/' + current), Date.now());
-    alert("Entrée enregistrée");
+    alert("⏱ Entrée validée à " + new Date().toLocaleTimeString());
   } catch (error) {
     alert("Erreur Firebase : " + error.message);
   }
@@ -230,7 +468,7 @@ async function end() {
     let s = startSnapshot.val();
 
     if (!s) {
-      alert("Pas d'entrée");
+      alert("❌ Vous n'avez pas validé d'entrée pour aujourd'hui.");
       return;
     }
 
@@ -247,18 +485,16 @@ async function end() {
       hours: h.toFixed(2)
     });
 
-    // On met à jour l'historique et supprime le marqueur de début
     await set(ref(db, 'history/' + current), data);
     await remove(ref(db, 'starts/' + current));
 
-    alert("Sortie enregistrée");
+    alert("🚪 Sortie enregistrée avec succès !");
     await load();
   } catch (error) {
     alert("Erreur : " + error.message);
   }
 }
 
-// Chargement des données de l'employé connecté
 async function load() {
   try {
     const snapshot = await get(ref(db, 'history/' + current));
@@ -271,7 +507,13 @@ async function load() {
     data.forEach(e => {
       total += Number(e.hours);
       let li = document.createElement("li");
-      li.innerHTML = `Début: ${e.start}<br>Fin: ${e.end}<br><b>${e.hours} h</b>`;
+      li.innerHTML = `
+        <div class="hist-info">
+            <b>Du:</b> ${e.start}<br>
+            <b>Au:</b> ${e.end}
+        </div>
+        <div class="hist-time">${e.hours} h</div>
+      `;
       list.appendChild(li);
     });
 
@@ -282,9 +524,9 @@ async function load() {
   }
 }
 
-// Chargement du panel Admin
 async function loadAdmin() {
   try {
+    await syncUsersList(); // S'assurer que les nouveaux sont inclus dans la boucle
     let div = document.getElementById("adminData");
     div.innerHTML = "";
 
@@ -298,10 +540,10 @@ async function loadAdmin() {
       });
 
       div.innerHTML += `
-        <div class="card">
-          <h3>${u}</h3>
-          <p>Heures: ${total.toFixed(2)} h</p>
-          <p>Salaire: ${(total * 100).toFixed(0)} DA</p>
+        <div class="card" style="flex-direction:column; text-align:left; gap:5px;">
+          <h3 style="color:#FFD700; text-transform:capitalize;">👤 ${u}</h3>
+          <p style="margin-top:5px;"><b>Total Heures :</b> ${total.toFixed(2)} h</p>
+          <p><b>Salaire dû :</b> ${(total * 100).toFixed(0)} DA</p>
         </div>
       `;
     }
@@ -310,30 +552,36 @@ async function loadAdmin() {
   }
 }
 
-// Reset complet (Efface les données de l'arbre Firebase)
 async function reset() {
-  if (confirm("Tout supprimer ?")) {
+  if (confirm("Attention ! Voulez-vous vraiment purger TOUTES les données de pointage ?")) {
     try {
       for (let u in users) {
         await remove(ref(db, 'history/' + u));
         await remove(ref(db, 'starts/' + u));
       }
       await loadAdmin();
-      alert("Reset terminé");
+      alert("Base de données nettoyée.");
     } catch (error) {
       alert("Erreur lors du reset : " + error.message);
     }
   }
 }
 
-// Lier les boutons aux fonctions (Obligatoire à cause du mode module isolé)
+function exportPDF() {
+    window.print();
+}
+
+// Initialisation au chargement de l'app pour charger les comptes
+syncUsersList();
+
 document.getElementById("btnLogin").addEventListener("click", login);
 document.getElementById("btnAdmin").addEventListener("click", admin);
 document.getElementById("btnStart").addEventListener("click", start);
 document.getElementById("btnEnd").addEventListener("click", end);
 document.getElementById("btnReset").addEventListener("click", reset);
+document.getElementById("btnPDF").addEventListener("click", exportPDF);
+document.getElementById("btnAddUser").addEventListener("click", addNewEmployee);
 
 </script>
-
 </body>
 </html>
