@@ -25,7 +25,6 @@ body {
     padding: 0;
 }
 
-/* L'application prend tout l'écran de manière fluide */
 .main {
     width: 100%;
     max-width: 500px;
@@ -38,7 +37,7 @@ body {
     position: relative;
 }
 
-/* Logo CSS Vectoriel "LS Life Style" basé sur l'image */
+/* Logo CSS Vectoriel */
 .logo-container {
     width: 140px;
     height: 140px;
@@ -84,7 +83,6 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Signature Nazim stylisée */
 .signature {
     font-size: 11px;
     color: #FFD700;
@@ -105,7 +103,6 @@ body {
     font-weight: 500;
 }
 
-/* Formulaires épurés */
 .login-box {
     width: 100%;
 }
@@ -154,7 +151,6 @@ button:active {
     box-shadow: none;
 }
 
-/* Espaces de travail et cartes */
 #employee, #admin {
     width: 100%;
     margin-top: 10px;
@@ -195,7 +191,6 @@ h2 {
     margin-top: 5px;
 }
 
-/* Boutons Pointage Pro */
 .action-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -215,7 +210,6 @@ h2 {
     box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
 }
 
-/* Section d'ajout d'employé en Admin */
 .add-box {
     background: #111;
     border: 1px dashed #FFD700;
@@ -231,7 +225,19 @@ h2 {
     font-size: 14px;
 }
 
-/* Liste Historique */
+/* Bouton de suppression d'un employé */
+.btn-delete-worker {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: #fff;
+    padding: 8px 12px;
+    font-size: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    width: auto;
+    display: inline-block;
+    box-shadow: 0 2px 5px rgba(231, 76, 60, 0.2);
+}
+
 ul {
     list-style: none;
     width: 100%;
@@ -264,7 +270,6 @@ li {
     border-radius: 8px;
 }
 
-/* Bouton PDF RH */
 #btnPDF {
     background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
     color: #fff;
@@ -276,11 +281,10 @@ li {
     color: #fff;
 }
 
-/* Zone d'impression pour les RH */
 @media print {
     body { background: #fff; color: #000; }
     .main { max-width: 100%; background: #fff; padding: 0; }
-    button, input, .logo-container, .subtitle, .signature, .add-box { display: none !important; }
+    button, input, .logo-container, .subtitle, .signature, .add-box, .btn-delete-worker { display: none !important; }
     li { border: 1px solid #000; background: #fff; color: #000; }
     .hist-time { color: #000; background: none; }
     h2 { color: #000; border-left-color: #000; }
@@ -292,19 +296,16 @@ li {
 
 <div class="main">
 
-    <!-- Logo Moderne Intégré en Code -->
     <div class="logo-container">
         <div class="logo-ls">LS</div>
         <div class="logo-text">Life Style</div>
         <div class="logo-sub">— Casual & Sport —</div>
     </div>
     
-    <!-- TA SIGNATURE REMISE ICI ! -->
-    <div class="signature">Created by Nazim</div>
+    <div class="signature">Created by Nazim bouda</div>
     
     <div class="subtitle" id="subHeader">Système de pointage</div>
 
-    <!-- Écran Login -->
     <div id="loginSection" class="login-box">
         <input id="user" placeholder="Nom d'utilisateur">
         <input id="pass" type="password" placeholder="Mot de passe">
@@ -312,7 +313,6 @@ li {
         <button id="btnAdmin">Connexion Patron</button>
     </div>
 
-    <!-- Écran Employé -->
     <div id="employee" style="display:none;">
         <h2 id="welcome">Bienvenue</h2>
         
@@ -332,20 +332,19 @@ li {
         <button id="btnPDF">📄 Exporter Rapport RH</button>
     </div>
 
-    <!-- Écran Admin -->
     <div id="admin" style="display:none;">
         <h2>Panel Patron</h2>
         
-        <!-- Nouveau : Zone d'ajout d'un nouvel employé -->
         <div class="add-box">
             <h4 style="color:#FFD700; margin-bottom: 5px; text-align:left;">➕ Ajouter un Employé</h4>
-            <input id="newWorkerName" placeholder="Nom du nouvel employé" style="padding:10px; font-size:14px; margin-top:5px;">
-            <input id="newWorkerPass" placeholder="Code / Mot de passe" style="padding:10px; font-size:14px; margin-top:5px;">
+            <input id="newWorkerName" placeholder="Nom de l'employé (ex: nazim)">
+            <input id="newWorkerPass" placeholder="Mot de passe / Code">
             <button id="btnAddUser">Enregistrer l'employé</button>
         </div>
 
+        <h2>Liste des Employés & Heures</h2>
         <div id="adminData"></div>
-        <button id="btnReset">🗑 Réinitialiser les données</button>
+        <button id="btnReset">🗑 Réinitialiser toutes les heures</button>
     </div>
 
 </div>
@@ -367,27 +366,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Liste des utilisateurs de base (On va aussi charger ceux créés dynamiquement)
-let users = {
-  "nazim": "202601",
-  "alilou": "202602",
-  "anas": "202603",
-  "ilyes": "202604",
-  "Amine": "202605"
-};
+// Plus d'utilisateurs écrits en dur ! Tout est stocké sur Firebase.
+let users = {};
 
-const adminUser = "airouche";
+const adminUser = "Airouche";
 const adminPass = "010167";
 
 let current = "";
 
-// Charger d'éventuels employés ajoutés en base de données au démarrage
+// Synchronisation dynamique des comptes depuis Firebase
 async function syncUsersList() {
   try {
     const snapshot = await get(ref(db, 'app_users/'));
     if (snapshot.exists()) {
-      const dynamicUsers = snapshot.val();
-      users = { ...users, ...dynamicUsers };
+      users = snapshot.val();
+    } else {
+      users = {}; // Aucun utilisateur en base
     }
   } catch (e) {
     console.error("Erreur de synchronisation des comptes", e);
@@ -396,8 +390,8 @@ async function syncUsersList() {
 
 async function login() {
   await syncUsersList();
-  let u = document.getElementById("user").value;
-  let p = document.getElementById("pass").value;
+  let u = document.getElementById("user").value.trim().toLowerCase();
+  let p = document.getElementById("pass").value.trim();
 
   if (users[u] && users[u] == p) {
     current = u;
@@ -408,13 +402,13 @@ async function login() {
     document.getElementById("welcome").innerText = "Bonjour, " + u + " ✨";
     await load();
   } else {
-    alert("Identifiants incorrects");
+    alert("Identifiants incorrects ou compte inexistant");
   }
 }
 
 async function admin() {
-  let u = document.getElementById("user").value;
-  let p = document.getElementById("pass").value;
+  let u = document.getElementById("user").value.trim();
+  let p = document.getElementById("pass").value.trim();
 
   if (u == adminUser && p == adminPass) {
     document.getElementById("loginSection").style.display = "none";
@@ -427,9 +421,9 @@ async function admin() {
   }
 }
 
-// Ajouter un employé directement dans Firebase sans toucher au code dur
+// Ajouter un employé dans Firebase
 async function addNewEmployee() {
-  let newName = document.getElementById("newWorkerName").value.trim();
+  let newName = document.getElementById("newWorkerName").value.trim().toLowerCase();
   let newPass = document.getElementById("newWorkerPass").value.trim();
 
   if(!newName || !newPass) {
@@ -438,18 +432,30 @@ async function addNewEmployee() {
   }
 
   try {
-    // On met à jour la liste locale et on l'envoie sur Firebase
-    users[newName] = newPass;
     await set(ref(db, 'app_users/' + newName), newPass);
     
-    // Reset les inputs
     document.getElementById("newWorkerName").value = "";
     document.getElementById("newWorkerPass").value = "";
     
-    alert("Employé " + newName + " enregistré avec succès !");
-    await loadAdmin(); // Recharger le panel pour voir sa fiche
+    alert("Employé " + newName + " créé sur Firebase !");
+    await loadAdmin();
   } catch(error) {
     alert("Erreur lors de l'ajout : " + error.message);
+  }
+}
+
+// Supprimer un employé définitivement de Firebase (Bouton dynamique)
+window.deleteEmployee = async function(workerName) {
+  if (confirm("Supprimer définitivement l'employé '" + workerName + "' ainsi que ses données ?")) {
+    try {
+      await remove(ref(db, 'app_users/' + workerName));
+      await remove(ref(db, 'history/' + workerName));
+      await remove(ref(db, 'starts/' + workerName));
+      alert("Employé supprimé.");
+      await loadAdmin();
+    } catch (error) {
+      alert("Erreur lors de la suppression : " + error.message);
+    }
   }
 }
 
@@ -526,9 +532,15 @@ async function load() {
 
 async function loadAdmin() {
   try {
-    await syncUsersList(); // S'assurer que les nouveaux sont inclus dans la boucle
+    await syncUsersList(); 
     let div = document.getElementById("adminData");
     div.innerHTML = "";
+
+    // Si aucun employé n'existe encore sur Firebase
+    if (Object.keys(users).length === 0) {
+        div.innerHTML = "<p style='color:#aaa; font-style:italic; margin-top:15px;'>Aucun employé créé pour le moment.</p>";
+        return;
+    }
 
     for (let u in users) {
       const snapshot = await get(ref(db, 'history/' + u));
@@ -540,10 +552,11 @@ async function loadAdmin() {
       });
 
       div.innerHTML += `
-        <div class="card" style="flex-direction:column; text-align:left; gap:5px;">
+        <div class="card" style="flex-direction:column; text-align:left; gap:5px; position:relative;">
           <h3 style="color:#FFD700; text-transform:capitalize;">👤 ${u}</h3>
           <p style="margin-top:5px;"><b>Total Heures :</b> ${total.toFixed(2)} h</p>
           <p><b>Salaire dû :</b> ${(total * 100).toFixed(0)} DA</p>
+          <button class="btn-delete-worker" onclick="deleteEmployee('${u}')">❌ Supprimer l'employé</button>
         </div>
       `;
     }
@@ -553,14 +566,14 @@ async function loadAdmin() {
 }
 
 async function reset() {
-  if (confirm("Attention ! Voulez-vous vraiment purger TOUTES les données de pointage ?")) {
+  if (confirm("Attention ! Voulez-vous vraiment purger TOUTES les heures de pointage ?")) {
     try {
       for (let u in users) {
         await remove(ref(db, 'history/' + u));
         await remove(ref(db, 'starts/' + u));
       }
       await loadAdmin();
-      alert("Base de données nettoyée.");
+      alert("Toutes les heures ont été réinitialisées.");
     } catch (error) {
       alert("Erreur lors du reset : " + error.message);
     }
@@ -571,7 +584,7 @@ function exportPDF() {
     window.print();
 }
 
-// Initialisation au chargement de l'app pour charger les comptes
+// Initialisation au lancement
 syncUsersList();
 
 document.getElementById("btnLogin").addEventListener("click", login);
