@@ -432,7 +432,6 @@ li {
         </div>
 
         <h2>Tableau de Bord & Présence en Direct</h2>
-        <!-- Input caché pour la mise à jour des employés existants -->
         <input type="file" id="updateWorkerPhoto" accept="image/*" style="display:none;">
         <div id="adminData"></div>
         <button id="btnReset" style="margin-top: 30px;">🗑 Réinitialiser toutes les heures</button>
@@ -440,7 +439,6 @@ li {
 
 </div>
 
-<!-- Canvas caché utilisé pour compresser les photos afin d'économiser l'espace Firebase -->
 <canvas id="compressCanvas" style="display:none;" width="150" height="150"></canvas>
 
 <script type="module">
@@ -467,30 +465,6 @@ let current = "";
 let tempPhotoBase64 = "";
 let workerToUpdatePhoto = "";
 
-if ("Notification" in window) {
-    if (Notification.permission !== "granted" && Notification.permission !== "denied") {
-        Notification.requestPermission();
-    }
-}
-
-setInterval(() => {
-    let maintenant = new Date();
-    if (maintenant.getSeconds() === 0) {
-        if (maintenant.getHours() === 8 && maintenant.getMinutes() === 55) {
-            envoyerNotification("📍 Rappel Life Style", "C'est l'heure ! N'oubliez pas de valider votre ENTRÉE.");
-        }
-        if (maintenant.getHours() === 20 && maintenant.getMinutes() === 55) {
-            envoyerNotification("🚪 Rappel Life Style", "La journée se termine ! N'oubliez pas de valider votre SORTIE.");
-        }
-    }
-}, 1000);
-
-function envoyerNotification(titre, message) {
-    if ("Notification" in window && Notification.permission === "granted") {
-        new Notification(titre, { body: message });
-    }
-}
-
 function afficherAlerteEcran(message, type) {
     const banner = document.getElementById("actionAlert");
     banner.innerText = message;
@@ -499,7 +473,6 @@ function afficherAlerteEcran(message, type) {
     setTimeout(() => { banner.style.display = "none"; }, 6000);
 }
 
-// Compresse l'image pour éviter de saturer Firebase Database
 function compresserImage(file, callback) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -510,12 +483,11 @@ function compresserImage(file, callback) {
             const canvas = document.getElementById("compressCanvas");
             const ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0, 150, 150);
-            callback(canvas.toDataURL("image/jpeg", 0.7)); // Qualité 70%
+            callback(canvas.toDataURL("image/jpeg", 0.7));
         };
     };
 }
 
-// Écouteur pour la création d'un nouvel employé
 document.getElementById("newWorkerPhoto").addEventListener("change", function(e) {
     if(e.target.files.length > 0) {
         compresserImage(e.target.files[0], function(base64Data) {
@@ -525,17 +497,16 @@ document.getElementById("newWorkerPhoto").addEventListener("change", function(e)
     }
 });
 
-// Écouteur pour la mise à jour d'un employé existant
 document.getElementById("updateWorkerPhoto").addEventListener("change", function(e) {
     if(e.target.files.length > 0 && workerToUpdatePhoto !== "") {
         compresserImage(e.target.files[0], async function(base64Data) {
             try {
                 await set(ref(db, 'avatars/' + workerToUpdatePhoto), base64Data);
-                alert("Photo de profil mise à jour avec succès !");
+                alert("Photo de profil mise à jour !");
                 workerToUpdatePhoto = "";
                 await loadAdmin();
             } catch(err) {
-                alert("Erreur lors de la mise à jour : " + err.message);
+                alert("Erreur : " + err.message);
             }
         });
     }
@@ -562,7 +533,6 @@ async function login() {
     document.getElementById("employee").style.display = "block";
     document.getElementById("welcome").innerText = "Bonjour, " + u + " ✨";
     
-    // Charger la photo de profil de l'employé
     const snapshotAvatar = await get(ref(db, 'avatars/' + u));
     document.getElementById("userAvatar").src = snapshotAvatar.exists() 
         ? snapshotAvatar.val() 
@@ -596,18 +566,14 @@ async function addNewEmployee() {
 
   try {
     await set(ref(db, 'app_users/' + newName), newPass);
-    
-    // Si une photo a été choisie, on l'enregistre
     if(tempPhotoBase64 !== "") {
         await set(ref(db, 'avatars/' + newName), tempPhotoBase64);
     }
-
     document.getElementById("newWorkerName").value = "";
     document.getElementById("newWorkerPass").value = "";
     document.getElementById("photoCheckMark").style.display = "none";
     tempPhotoBase64 = "";
-    
-    alert("Employé ajouté avec succès !");
+    alert("Employé ajouté !");
     await loadAdmin();
   } catch(error) {
     alert("Erreur: " + error.message);
@@ -636,7 +602,6 @@ window.deleteEmployee = async function(workerName) {
 async function start() {
   try {
     await set(ref(db, 'starts/' + current), Date.now());
-    envoyerNotification("📍 Pointage Enregistré", "Votre entrée a bien été validée.");
     afficherAlerteEcran("✅ Entrée validée avec succès ! Bon travail.", "success");
   } catch (error) {
     afficherAlerteEcran("❌ Erreur : " + error.message, "danger");
@@ -669,8 +634,7 @@ async function end() {
     await set(ref(db, 'history/' + current), data);
     await remove(ref(db, 'starts/' + current));
 
-    envoyerNotification("🚪 Pointage Enregistré", "Votre sortie a bien été validée. Bonne soirée !");
-    afficherAlerteEcran("✅ Sortie validée ! Session enregistrée dans l'historique.", "success");
+    afficherAlerteEcran("✅ Sortie validée avec succès !", "success");
     await load();
   } catch (error) {
     afficherAlerteEcran("❌ Erreur : " + error.message, "danger");
@@ -705,11 +669,6 @@ async function loadAdmin() {
     let div = document.getElementById("adminData");
     div.innerHTML = "";
 
-    if (Object.keys(users).length === 0) {
-        div.innerHTML = "<p style='color:#aaa; font-style:italic;'>Aucun employé.</p>";
-        return;
-    }
-
     for (let u in users) {
       const snapshotHist = await get(ref(db, 'history/' + u));
       let data = snapshotHist.val() || [];
@@ -722,7 +681,6 @@ async function loadAdmin() {
         ? `<span class="status-badge status-online">🟢 En poste</span>` 
         : `<span class="status-badge status-offline">🔴 Parti</span>`;
 
-      // Charge la photo réelle ou l'avatar par défaut avec les initiales
       const snapshotAvatar = await get(ref(db, 'avatars/' + u));
       let avatarSrc = snapshotAvatar.exists() 
         ? snapshotAvatar.val() 
@@ -741,7 +699,7 @@ async function loadAdmin() {
                 ${badgeHTML}
             </div>
             <p style="margin-top:5px; font-size:13px;"><b>Total :</b> ${total.toFixed(2)} h | <b>Salaire :</b> ${(total * 100).toFixed(0)} DA</p>
-            <button class="btn-delete-worker" onclick="deleteEmployee('${u}')">❌ Licencier / Supprimer</button>
+            <button class="btn-delete-worker" onclick="deleteEmployee('${u}')">❌ Supprimer</button>
           </div>
         </div>
       `;
@@ -776,7 +734,6 @@ document.getElementById("btnEnd").addEventListener("click", end);
 document.getElementById("btnReset").addEventListener("click", reset);
 document.getElementById("btnPDF").addEventListener("click", exportPDF);
 document.getElementById("btnAddUser").addEventListener("click", addNewEmployee);
-
 </script>
 </body>
 </html>
