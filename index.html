@@ -225,7 +225,6 @@ h2 {
     font-size: 14px;
 }
 
-/* Bouton de suppression d'un employé */
 .btn-delete-worker {
     background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
     color: #fff;
@@ -281,10 +280,50 @@ li {
     color: #fff;
 }
 
+/* Éléments pour la gestion Photo & Statuts */
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+}
+.status-online { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
+.status-offline { background: rgba(231, 76, 60, 0.2); color: #e74c3c; border: 1px solid #e74c3c; }
+
+.camera-preview-container {
+    width: 100%;
+    max-width: 200px;
+    height: 150px;
+    background: #222;
+    margin: 15px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #FFD700;
+    display: none;
+    position: relative;
+}
+#video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1); /* Effet miroir pour le selfie */
+}
+
+.employee-avatar {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    border: 2px solid #FFD700;
+    object-fit: cover;
+    background: #222;
+}
+
 @media print {
     body { background: #fff; color: #000; }
     .main { max-width: 100%; background: #fff; padding: 0; }
-    button, input, .logo-container, .subtitle, .signature, .add-box, .btn-delete-worker { display: none !important; }
+    button, input, .logo-container, .subtitle, .signature, .add-box, .btn-delete-worker, .camera-preview-container { display: none !important; }
     li { border: 1px solid #000; background: #fff; color: #000; }
     .hist-time { color: #000; background: none; }
     h2 { color: #000; border-left-color: #000; }
@@ -296,16 +335,18 @@ li {
 
 <div class="main">
 
+    <!-- Logo Moderne Intégré en Code -->
     <div class="logo-container">
         <div class="logo-ls">LS</div>
         <div class="logo-text">Life Style</div>
         <div class="logo-sub">— Casual & Sport —</div>
     </div>
     
-    <div class="signature">Created by Nazim bouda</div>
+    <div class="signature">Created by Nazim</div>
     
     <div class="subtitle" id="subHeader">Système de pointage</div>
 
+    <!-- Écran Login -->
     <div id="loginSection" class="login-box">
         <input id="user" placeholder="Nom d'utilisateur">
         <input id="pass" type="password" placeholder="Mot de passe">
@@ -313,12 +354,18 @@ li {
         <button id="btnAdmin">Connexion Patron</button>
     </div>
 
+    <!-- Écran Employé -->
     <div id="employee" style="display:none;">
         <h2 id="welcome">Bienvenue</h2>
         
         <div class="card">
             <div class="big">Heures Cumulées<span id="hours">0.00</span></div>
             <div class="big">Salaire Estimé<span id="salary">0</span> DA</div>
+        </div>
+
+        <!-- Fenêtre invisible/visible de prévisualisation de la caméra -->
+        <div class="camera-preview-container" id="cameraBox">
+            <video id="video" autoplay playsinline></video>
         </div>
 
         <div class="action-buttons">
@@ -332,9 +379,11 @@ li {
         <button id="btnPDF">📄 Exporter Rapport RH</button>
     </div>
 
+    <!-- Écran Admin -->
     <div id="admin" style="display:none;">
         <h2>Panel Patron</h2>
         
+        <!-- Zone d'ajout d'un nouvel employé -->
         <div class="add-box">
             <h4 style="color:#FFD700; margin-bottom: 5px; text-align:left;">➕ Ajouter un Employé</h4>
             <input id="newWorkerName" placeholder="Nom de l'employé (ex: nazim)">
@@ -342,12 +391,15 @@ li {
             <button id="btnAddUser">Enregistrer l'employé</button>
         </div>
 
-        <h2>Liste des Employés & Heures</h2>
+        <h2>Tableau de Bord & Présence en Direct</h2>
         <div id="adminData"></div>
-        <button id="btnReset">🗑 Réinitialiser toutes les heures</button>
+        <button id="btnReset" style="margin-top: 30px;">🗑 Réinitialiser toutes les heures</button>
     </div>
 
 </div>
+
+<!-- Canvas caché pour capturer les photos en arrière-plan -->
+<canvas id="canvas" style="display:none;" width="320" height="240"></canvas>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -366,25 +418,81 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Plus d'utilisateurs écrits en dur ! Tout est stocké sur Firebase.
 let users = {};
-
 const adminUser = "Airouche";
 const adminPass = "010167";
-
 let current = "";
+let streamFlux = null;
 
-// Synchronisation dynamique des comptes depuis Firebase
+// Gestion des notifications de rappels
+if ("Notification" in window) {
+    if (Notification.permission !== "granted" && Notification.permission !== "denied") {
+        Notification.requestPermission();
+    }
+}
+
+setInterval(() => {
+    let maintenant = new Date();
+    if (maintenant.getSeconds() === 0) {
+        if (maintenant.getHours() === 8 && maintenant.getMinutes() === 55) {
+            envoyerNotification("📍 Rappel Life Style", "C'est l'heure ! N'oubliez pas de valider votre ENTRÉE.");
+        }
+        if (maintenant.getHours() === 20 && maintenant.getMinutes() === 55) {
+            envoyerNotification("🚪 Rappel Life Style", "La journée se termine ! N'oubliez pas de valider votre SORTIE.");
+        }
+    }
+}, 1000);
+
+function envoyerNotification(titre, message) {
+    if ("Notification" in window && Notification.permission === "granted") {
+        new Notification(titre, { body: message });
+    }
+}
+
+// Démarrer la caméra de l'employé au chargement de sa session
+async function startCamera() {
+    try {
+        document.getElementById("cameraBox").style.display = "block";
+        streamFlux = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
+        document.getElementById("video").srcObject = streamFlux;
+    } catch (err) {
+        console.error("Impossible d'accéder à la caméra : ", err);
+        alert("⚠️ Caméra requise pour le pointage. Veuillez autoriser l'accès.");
+    }
+}
+
+// Éteindre la caméra pour économiser la batterie du téléphone
+function stopCamera() {
+    if (streamFlux) {
+        streamFlux.getTracks().forEach(track => track.stop());
+        document.getElementById("cameraBox").style.display = "none";
+    }
+}
+
+// Prendre la photo et la convertir en texte Base64
+function capturePhoto() {
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+    
+    // Inversion de l'image (effet miroir pour que le selfie soit dans le bon sens)
+    context.translate(canvas.width, 0);
+    context.scale(-1, 1);
+    
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+    // Remettre le canvas à l'endroit pour les prochaines captures
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    
+    return canvas.toDataURL("image/jpeg", 0.6); // Compression à 60% pour alléger Firebase
+}
+
 async function syncUsersList() {
   try {
     const snapshot = await get(ref(db, 'app_users/'));
-    if (snapshot.exists()) {
-      users = snapshot.val();
-    } else {
-      users = {}; // Aucun utilisateur en base
-    }
+    users = snapshot.exists() ? snapshot.val() : {};
   } catch (e) {
-    console.error("Erreur de synchronisation des comptes", e);
+    console.error(e);
   }
 }
 
@@ -398,11 +506,11 @@ async function login() {
     document.getElementById("loginSection").style.display = "none";
     document.getElementById("subHeader").style.display = "none";
     document.getElementById("employee").style.display = "block";
-    document.getElementById("admin").style.display = "none";
     document.getElementById("welcome").innerText = "Bonjour, " + u + " ✨";
     await load();
+    await startCamera(); // On active la caméra directement
   } else {
-    alert("Identifiants incorrects ou compte inexistant");
+    alert("Identifiants incorrects");
   }
 }
 
@@ -414,57 +522,53 @@ async function admin() {
     document.getElementById("loginSection").style.display = "none";
     document.getElementById("subHeader").style.display = "none";
     document.getElementById("admin").style.display = "block";
-    document.getElementById("employee").style.display = "none";
     await loadAdmin();
   } else {
     alert("Accès Admin refusé");
   }
 }
 
-// Ajouter un employé dans Firebase
 async function addNewEmployee() {
   let newName = document.getElementById("newWorkerName").value.trim().toLowerCase();
   let newPass = document.getElementById("newWorkerPass").value.trim();
 
-  if(!newName || !newPass) {
-    alert("Veuillez remplir le nom et le mot de passe.");
-    return;
-  }
+  if(!newName || !newPass) return alert("Remplissez tous les champs");
 
   try {
     await set(ref(db, 'app_users/' + newName), newPass);
-    
     document.getElementById("newWorkerName").value = "";
     document.getElementById("newWorkerPass").value = "";
-    
-    alert("Employé " + newName + " créé sur Firebase !");
+    alert("Employé ajouté !");
     await loadAdmin();
   } catch(error) {
-    alert("Erreur lors de l'ajout : " + error.message);
+    alert("Erreur: " + error.message);
   }
 }
 
-// Supprimer un employé définitivement de Firebase (Bouton dynamique)
 window.deleteEmployee = async function(workerName) {
-  if (confirm("Supprimer définitivement l'employé '" + workerName + "' ainsi que ses données ?")) {
+  if (confirm("Supprimer '" + workerName + "' définitivement ?")) {
     try {
       await remove(ref(db, 'app_users/' + workerName));
       await remove(ref(db, 'history/' + workerName));
       await remove(ref(db, 'starts/' + workerName));
-      alert("Employé supprimé.");
+      await remove(ref(db, 'last_photo/' + workerName));
       await loadAdmin();
     } catch (error) {
-      alert("Erreur lors de la suppression : " + error.message);
+      alert(error.message);
     }
   }
 }
 
 async function start() {
   try {
+    let photoData = capturePhoto(); // Capture photo d'entrée
+    
     await set(ref(db, 'starts/' + current), Date.now());
-    alert("⏱ Entrée validée à " + new Date().toLocaleTimeString());
+    await set(ref(db, 'last_photo/' + current), photoData); // Stocke la photo d'entrée
+    
+    alert("⏱ Entrée validée avec photo !");
   } catch (error) {
-    alert("Erreur Firebase : " + error.message);
+    alert("Erreur : " + error.message);
   }
 }
 
@@ -473,11 +577,9 @@ async function end() {
     const startSnapshot = await get(ref(db, 'starts/' + current));
     let s = startSnapshot.val();
 
-    if (!s) {
-      alert("❌ Vous n'avez pas validé d'entrée pour aujourd'hui.");
-      return;
-    }
+    if (!s) return alert("❌ Pas de badge d'entrée valide trouvé.");
 
+    let photoData = capturePhoto(); // Capture photo de sortie
     let startTime = new Date(parseInt(s));
     let endTime = new Date();
     let h = (endTime - startTime) / 3600000;
@@ -492,12 +594,13 @@ async function end() {
     });
 
     await set(ref(db, 'history/' + current), data);
+    await set(ref(db, 'last_photo/' + current), photoData); // Met à jour avec la photo de sortie
     await remove(ref(db, 'starts/' + current));
 
-    alert("🚪 Sortie enregistrée avec succès !");
+    alert("🚪 Sortie validée avec photo !");
     await load();
   } catch (error) {
-    alert("Erreur : " + error.message);
+    alert(error.message);
   }
 }
 
@@ -505,7 +608,6 @@ async function load() {
   try {
     const snapshot = await get(ref(db, 'history/' + current));
     let data = snapshot.val() || [];
-
     let total = 0;
     let list = document.getElementById("history");
     list.innerHTML = "";
@@ -513,13 +615,7 @@ async function load() {
     data.forEach(e => {
       total += Number(e.hours);
       let li = document.createElement("li");
-      li.innerHTML = `
-        <div class="hist-info">
-            <b>Du:</b> ${e.start}<br>
-            <b>Au:</b> ${e.end}
-        </div>
-        <div class="hist-time">${e.hours} h</div>
-      `;
+      li.innerHTML = `<div class="hist-info"><b>Du:</b> ${e.start}<br><b>Au:</b> ${e.end}</div><div class="hist-time">${e.hours} h</div>`;
       list.appendChild(li);
     });
 
@@ -536,27 +632,42 @@ async function loadAdmin() {
     let div = document.getElementById("adminData");
     div.innerHTML = "";
 
-    // Si aucun employé n'existe encore sur Firebase
     if (Object.keys(users).length === 0) {
-        div.innerHTML = "<p style='color:#aaa; font-style:italic; margin-top:15px;'>Aucun employé créé pour le moment.</p>";
+        div.innerHTML = "<p style='color:#aaa; font-style:italic;'>Aucun employé.</p>";
         return;
     }
 
     for (let u in users) {
-      const snapshot = await get(ref(db, 'history/' + u));
-      let data = snapshot.val() || [];
-
+      // 1. Calcul des heures
+      const snapshotHist = await get(ref(db, 'history/' + u));
+      let data = snapshotHist.val() || [];
       let total = 0;
-      data.forEach(e => {
-        total += Number(e.hours);
-      });
+      data.forEach(e => total += Number(e.hours));
+
+      // 2. Vérification du statut en direct (S'il a un timestamp 'start', il est en poste)
+      const snapshotStart = await get(ref(db, 'starts/' + u));
+      let isInOffice = snapshotStart.exists();
+      let badgeHTML = isInOffice 
+        ? `<span class="status-badge status-online">🟢 En poste</span>` 
+        : `<span class="status-badge status-offline">🔴 Parti</span>`;
+
+      // 3. Récupération de sa dernière photo de pointage
+      const snapshotPhoto = await get(ref(db, 'last_photo/' + u));
+      let photoSrc = snapshotPhoto.exists() ? snapshotPhoto.val() : "https://cdn-icons-png.flaticon.com/512/847/847969.png";
 
       div.innerHTML += `
-        <div class="card" style="flex-direction:column; text-align:left; gap:5px; position:relative;">
-          <h3 style="color:#FFD700; text-transform:capitalize;">👤 ${u}</h3>
-          <p style="margin-top:5px;"><b>Total Heures :</b> ${total.toFixed(2)} h</p>
-          <p><b>Salaire dû :</b> ${(total * 100).toFixed(0)} DA</p>
-          <button class="btn-delete-worker" onclick="deleteEmployee('${u}')">❌ Supprimer l'employé</button>
+        <div class="card" style="align-items: center; justify-content: space-between; gap: 15px; text-align: left;">
+          <!-- Photo de l'employé à son dernier clic -->
+          <img src="${photoSrc}" class="employee-avatar" alt="Selfie">
+          
+          <div style="flex-grow: 1;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="color:#FFD700; text-transform:capitalize; display:inline-block;">👤 ${u}</h3>
+                ${badgeHTML}
+            </div>
+            <p style="margin-top:5px; font-size:13px;"><b>Total :</b> ${total.toFixed(2)} h | <b>Salaire :</b> ${(total * 100).toFixed(0)} DA</p>
+            <button class="btn-delete-worker" onclick="deleteEmployee('${u}')">❌ Licencier / Supprimer</button>
+          </div>
         </div>
       `;
     }
@@ -566,25 +677,22 @@ async function loadAdmin() {
 }
 
 async function reset() {
-  if (confirm("Attention ! Voulez-vous vraiment purger TOUTES les heures de pointage ?")) {
+  if (confirm("Voulez-vous purger TOUTES les heures ?")) {
     try {
       for (let u in users) {
         await remove(ref(db, 'history/' + u));
         await remove(ref(db, 'starts/' + u));
+        await remove(ref(db, 'last_photo/' + u));
       }
       await loadAdmin();
-      alert("Toutes les heures ont été réinitialisées.");
     } catch (error) {
-      alert("Erreur lors du reset : " + error.message);
+      alert(error.message);
     }
   }
 }
 
-function exportPDF() {
-    window.print();
-}
+function exportPDF() { window.print(); }
 
-// Initialisation au lancement
 syncUsersList();
 
 document.getElementById("btnLogin").addEventListener("click", login);
