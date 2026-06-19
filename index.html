@@ -225,6 +225,33 @@ h2 {
     font-size: 14px;
 }
 
+.btn-file-label {
+    display: block;
+    text-align: center;
+    background: #222;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    color: #FFD700;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn-inline {
+    background: #222;
+    border: 1px solid #FFD700;
+    color: #FFD700;
+    padding: 5px 10px;
+    font-size: 11px;
+    border-radius: 6px;
+    width: auto;
+    display: inline-block;
+    margin-top: 5px;
+    box-shadow: none;
+}
+
 .btn-delete-worker {
     background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
     color: #fff;
@@ -280,7 +307,7 @@ li {
     color: #fff;
 }
 
-/* Éléments pour la gestion Photo & Statuts */
+/* Statuts et photos de profil */
 .status-badge {
     padding: 4px 10px;
     border-radius: 20px;
@@ -292,38 +319,50 @@ li {
 .status-online { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
 .status-offline { background: rgba(231, 76, 60, 0.2); color: #e74c3c; border: 1px solid #e74c3c; }
 
-.camera-preview-container {
+.employee-profile-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 15px 0;
+    background: rgba(255, 215, 0, 0.05);
+    padding: 12px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 215, 0, 0.1);
     width: 100%;
-    max-width: 200px;
-    height: 150px;
-    background: #222;
-    margin: 15px auto;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 2px solid #FFD700;
-    display: none;
-    position: relative;
-}
-#video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scaleX(-1); /* Effet miroir pour le selfie */
 }
 
 .employee-avatar {
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     border: 2px solid #FFD700;
     object-fit: cover;
     background: #222;
 }
 
+.alert-banner {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+}
+.alert-success { background: rgba(46, 204, 113, 0.15); color: #2ecc71; border: 1px solid #2ecc71; }
+.alert-danger { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid #e74c3c; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 @media print {
     body { background: #fff; color: #000; }
     .main { max-width: 100%; background: #fff; padding: 0; }
-    button, input, .logo-container, .subtitle, .signature, .add-box, .btn-delete-worker, .camera-preview-container { display: none !important; }
+    button, input, .logo-container, .subtitle, .signature, .add-box, .btn-delete-worker, .alert-banner, .btn-file-label, .btn-inline { display: none !important; }
     li { border: 1px solid #000; background: #fff; color: #000; }
     .hist-time { color: #000; background: none; }
     h2 { color: #000; border-left-color: #000; }
@@ -335,7 +374,6 @@ li {
 
 <div class="main">
 
-    <!-- Logo Moderne Intégré en Code -->
     <div class="logo-container">
         <div class="logo-ls">LS</div>
         <div class="logo-text">Life Style</div>
@@ -343,7 +381,6 @@ li {
     </div>
     
     <div class="signature">Created by Nazim</div>
-    
     <div class="subtitle" id="subHeader">Système de pointage</div>
 
     <!-- Écran Login -->
@@ -356,17 +393,17 @@ li {
 
     <!-- Écran Employé -->
     <div id="employee" style="display:none;">
-        <h2 id="welcome">Bienvenue</h2>
+        <div class="employee-profile-box">
+            <img src="" id="userAvatar" class="employee-avatar" alt="Profil">
+            <h2 id="welcome" style="margin:0; border:none; padding:0;">Bienvenue</h2>
+        </div>
         
         <div class="card">
             <div class="big">Heures Cumulées<span id="hours">0.00</span></div>
             <div class="big">Salaire Estimé<span id="salary">0</span> DA</div>
         </div>
 
-        <!-- Fenêtre invisible/visible de prévisualisation de la caméra -->
-        <div class="camera-preview-container" id="cameraBox">
-            <video id="video" autoplay playsinline></video>
-        </div>
+        <div id="actionAlert" class="alert-banner"></div>
 
         <div class="action-buttons">
             <button id="btnStart">📍 Entrée</button>
@@ -375,7 +412,6 @@ li {
 
         <h2>Mon Historique</h2>
         <ul id="history"></ul>
-        
         <button id="btnPDF">📄 Exporter Rapport RH</button>
     </div>
 
@@ -383,27 +419,33 @@ li {
     <div id="admin" style="display:none;">
         <h2>Panel Patron</h2>
         
-        <!-- Zone d'ajout d'un nouvel employé -->
         <div class="add-box">
             <h4 style="color:#FFD700; margin-bottom: 5px; text-align:left;">➕ Ajouter un Employé</h4>
             <input id="newWorkerName" placeholder="Nom de l'employé (ex: nazim)">
             <input id="newWorkerPass" placeholder="Mot de passe / Code">
+            
+            <label for="newWorkerPhoto" class="btn-file-label">📸 Sélectionner une photo de profil</label>
+            <input type="file" id="newWorkerPhoto" accept="image/*" style="display:none;">
+            <div id="photoCheckMark" style="color:#2ecc71; font-size:12px; margin-top:5px; text-align:center; display:none;">✓ Photo chargée</div>
+            
             <button id="btnAddUser">Enregistrer l'employé</button>
         </div>
 
         <h2>Tableau de Bord & Présence en Direct</h2>
+        <!-- Input caché pour la mise à jour des employés existants -->
+        <input type="file" id="updateWorkerPhoto" accept="image/*" style="display:none;">
         <div id="adminData"></div>
         <button id="btnReset" style="margin-top: 30px;">🗑 Réinitialiser toutes les heures</button>
     </div>
 
 </div>
 
-<!-- Canvas caché pour capturer les photos en arrière-plan -->
-<canvas id="canvas" style="display:none;" width="320" height="240"></canvas>
+<!-- Canvas caché utilisé pour compresser les photos afin d'économiser l'espace Firebase -->
+<canvas id="compressCanvas" style="display:none;" width="150" height="150"></canvas>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, set, get, child, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getDatabase, ref, set, get, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDtkWf9ns8COymh_kh8wJzwxODp-HQ3weI",
@@ -422,9 +464,9 @@ let users = {};
 const adminUser = "Airouche";
 const adminPass = "010167";
 let current = "";
-let streamFlux = null;
+let tempPhotoBase64 = "";
+let workerToUpdatePhoto = "";
 
-// Gestion des notifications de rappels
 if ("Notification" in window) {
     if (Notification.permission !== "granted" && Notification.permission !== "denied") {
         Notification.requestPermission();
@@ -449,43 +491,55 @@ function envoyerNotification(titre, message) {
     }
 }
 
-// Démarrer la caméra de l'employé au chargement de sa session
-async function startCamera() {
-    try {
-        document.getElementById("cameraBox").style.display = "block";
-        streamFlux = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
-        document.getElementById("video").srcObject = streamFlux;
-    } catch (err) {
-        console.error("Impossible d'accéder à la caméra : ", err);
-        alert("⚠️ Caméra requise pour le pointage. Veuillez autoriser l'accès.");
-    }
+function afficherAlerteEcran(message, type) {
+    const banner = document.getElementById("actionAlert");
+    banner.innerText = message;
+    banner.className = "alert-banner " + (type === "success" ? "alert-success" : "alert-danger");
+    banner.style.display = "block";
+    setTimeout(() => { banner.style.display = "none"; }, 6000);
 }
 
-// Éteindre la caméra pour économiser la batterie du téléphone
-function stopCamera() {
-    if (streamFlux) {
-        streamFlux.getTracks().forEach(track => track.stop());
-        document.getElementById("cameraBox").style.display = "none";
-    }
+// Compresse l'image pour éviter de saturer Firebase Database
+function compresserImage(file, callback) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function (event) {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = function () {
+            const canvas = document.getElementById("compressCanvas");
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, 150, 150);
+            callback(canvas.toDataURL("image/jpeg", 0.7)); // Qualité 70%
+        };
+    };
 }
 
-// Prendre la photo et la convertir en texte Base64
-function capturePhoto() {
-    const video = document.getElementById("video");
-    const canvas = document.getElementById("canvas");
-    const context = canvas.getContext("2d");
-    
-    // Inversion de l'image (effet miroir pour que le selfie soit dans le bon sens)
-    context.translate(canvas.width, 0);
-    context.scale(-1, 1);
-    
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    
-    // Remettre le canvas à l'endroit pour les prochaines captures
-    context.setTransform(1, 0, 0, 1, 0, 0);
-    
-    return canvas.toDataURL("image/jpeg", 0.6); // Compression à 60% pour alléger Firebase
-}
+// Écouteur pour la création d'un nouvel employé
+document.getElementById("newWorkerPhoto").addEventListener("change", function(e) {
+    if(e.target.files.length > 0) {
+        compresserImage(e.target.files[0], function(base64Data) {
+            tempPhotoBase64 = base64Data;
+            document.getElementById("photoCheckMark").style.display = "block";
+        });
+    }
+});
+
+// Écouteur pour la mise à jour d'un employé existant
+document.getElementById("updateWorkerPhoto").addEventListener("change", function(e) {
+    if(e.target.files.length > 0 && workerToUpdatePhoto !== "") {
+        compresserImage(e.target.files[0], async function(base64Data) {
+            try {
+                await set(ref(db, 'avatars/' + workerToUpdatePhoto), base64Data);
+                alert("Photo de profil mise à jour avec succès !");
+                workerToUpdatePhoto = "";
+                await loadAdmin();
+            } catch(err) {
+                alert("Erreur lors de la mise à jour : " + err.message);
+            }
+        });
+    }
+});
 
 async function syncUsersList() {
   try {
@@ -507,8 +561,14 @@ async function login() {
     document.getElementById("subHeader").style.display = "none";
     document.getElementById("employee").style.display = "block";
     document.getElementById("welcome").innerText = "Bonjour, " + u + " ✨";
+    
+    // Charger la photo de profil de l'employé
+    const snapshotAvatar = await get(ref(db, 'avatars/' + u));
+    document.getElementById("userAvatar").src = snapshotAvatar.exists() 
+        ? snapshotAvatar.val() 
+        : "https://api.dicebear.com/7.x/initials/svg?seed=" + u + "&backgroundColor=ffd700&color=000000";
+
     await load();
-    await startCamera(); // On active la caméra directement
   } else {
     alert("Identifiants incorrects");
   }
@@ -536,13 +596,27 @@ async function addNewEmployee() {
 
   try {
     await set(ref(db, 'app_users/' + newName), newPass);
+    
+    // Si une photo a été choisie, on l'enregistre
+    if(tempPhotoBase64 !== "") {
+        await set(ref(db, 'avatars/' + newName), tempPhotoBase64);
+    }
+
     document.getElementById("newWorkerName").value = "";
     document.getElementById("newWorkerPass").value = "";
-    alert("Employé ajouté !");
+    document.getElementById("photoCheckMark").style.display = "none";
+    tempPhotoBase64 = "";
+    
+    alert("Employé ajouté avec succès !");
     await loadAdmin();
   } catch(error) {
     alert("Erreur: " + error.message);
   }
+}
+
+window.triggerUpdatePhoto = function(workerName) {
+    workerToUpdatePhoto = workerName;
+    document.getElementById("updateWorkerPhoto").click();
 }
 
 window.deleteEmployee = async function(workerName) {
@@ -551,7 +625,7 @@ window.deleteEmployee = async function(workerName) {
       await remove(ref(db, 'app_users/' + workerName));
       await remove(ref(db, 'history/' + workerName));
       await remove(ref(db, 'starts/' + workerName));
-      await remove(ref(db, 'last_photo/' + workerName));
+      await remove(ref(db, 'avatars/' + workerName));
       await loadAdmin();
     } catch (error) {
       alert(error.message);
@@ -561,14 +635,11 @@ window.deleteEmployee = async function(workerName) {
 
 async function start() {
   try {
-    let photoData = capturePhoto(); // Capture photo d'entrée
-    
     await set(ref(db, 'starts/' + current), Date.now());
-    await set(ref(db, 'last_photo/' + current), photoData); // Stocke la photo d'entrée
-    
-    alert("⏱ Entrée validée avec photo !");
+    envoyerNotification("📍 Pointage Enregistré", "Votre entrée a bien été validée.");
+    afficherAlerteEcran("✅ Entrée validée avec succès ! Bon travail.", "success");
   } catch (error) {
-    alert("Erreur : " + error.message);
+    afficherAlerteEcran("❌ Erreur : " + error.message, "danger");
   }
 }
 
@@ -577,9 +648,11 @@ async function end() {
     const startSnapshot = await get(ref(db, 'starts/' + current));
     let s = startSnapshot.val();
 
-    if (!s) return alert("❌ Pas de badge d'entrée valide trouvé.");
+    if (!s) {
+        afficherAlerteEcran("❌ Erreur : Pas de badge d'entrée trouvé.", "danger");
+        return;
+    }
 
-    let photoData = capturePhoto(); // Capture photo de sortie
     let startTime = new Date(parseInt(s));
     let endTime = new Date();
     let h = (endTime - startTime) / 3600000;
@@ -594,13 +667,13 @@ async function end() {
     });
 
     await set(ref(db, 'history/' + current), data);
-    await set(ref(db, 'last_photo/' + current), photoData); // Met à jour avec la photo de sortie
     await remove(ref(db, 'starts/' + current));
 
-    alert("🚪 Sortie validée avec photo !");
+    envoyerNotification("🚪 Pointage Enregistré", "Votre sortie a bien été validée. Bonne soirée !");
+    afficherAlerteEcran("✅ Sortie validée ! Session enregistrée dans l'historique.", "success");
     await load();
   } catch (error) {
-    alert(error.message);
+    afficherAlerteEcran("❌ Erreur : " + error.message, "danger");
   }
 }
 
@@ -638,27 +711,29 @@ async function loadAdmin() {
     }
 
     for (let u in users) {
-      // 1. Calcul des heures
       const snapshotHist = await get(ref(db, 'history/' + u));
       let data = snapshotHist.val() || [];
       let total = 0;
       data.forEach(e => total += Number(e.hours));
 
-      // 2. Vérification du statut en direct (S'il a un timestamp 'start', il est en poste)
       const snapshotStart = await get(ref(db, 'starts/' + u));
       let isInOffice = snapshotStart.exists();
       let badgeHTML = isInOffice 
         ? `<span class="status-badge status-online">🟢 En poste</span>` 
         : `<span class="status-badge status-offline">🔴 Parti</span>`;
 
-      // 3. Récupération de sa dernière photo de pointage
-      const snapshotPhoto = await get(ref(db, 'last_photo/' + u));
-      let photoSrc = snapshotPhoto.exists() ? snapshotPhoto.val() : "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+      // Charge la photo réelle ou l'avatar par défaut avec les initiales
+      const snapshotAvatar = await get(ref(db, 'avatars/' + u));
+      let avatarSrc = snapshotAvatar.exists() 
+        ? snapshotAvatar.val() 
+        : "https://api.dicebear.com/7.x/initials/svg?seed=" + u + "&backgroundColor=ffd700&color=000000";
 
       div.innerHTML += `
         <div class="card" style="align-items: center; justify-content: space-between; gap: 15px; text-align: left;">
-          <!-- Photo de l'employé à son dernier clic -->
-          <img src="${photoSrc}" class="employee-avatar" alt="Selfie">
+          <div style="text-align: center;">
+             <img src="${avatarSrc}" class="employee-avatar" alt="Avatar"><br>
+             <button class="btn-inline" onclick="triggerUpdatePhoto('${u}')">📸 Changer</button>
+          </div>
           
           <div style="flex-grow: 1;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -682,7 +757,6 @@ async function reset() {
       for (let u in users) {
         await remove(ref(db, 'history/' + u));
         await remove(ref(db, 'starts/' + u));
-        await remove(ref(db, 'last_photo/' + u));
       }
       await loadAdmin();
     } catch (error) {
