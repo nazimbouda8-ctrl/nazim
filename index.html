@@ -39,8 +39,8 @@ body {
 
 /* Logo CSS Vectoriel */
 .logo-container {
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
     background: #FFD700;
     border-radius: 50%;
     border: 5px solid #252525;
@@ -54,10 +54,10 @@ body {
 }
 
 .logo-ls {
-    font-size: 58px;
+    font-size: 52px;
     font-weight: 900;
     color: #000;
-    line-height: 52px;
+    line-height: 46px;
     letter-spacing: -3px;
     font-family: 'Arial Black', Impact, sans-serif;
     border-bottom: 4px solid #000;
@@ -91,7 +91,6 @@ body {
     text-transform: uppercase;
     margin-bottom: 20px;
     font-weight: bold;
-    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
 }
 
 .subtitle {
@@ -107,10 +106,10 @@ body {
     width: 100%;
 }
 
-input {
+input, textarea, select {
     width: 100%;
     padding: 15px;
-    margin-top: 15px;
+    margin-top: 12px;
     border-radius: 12px;
     border: 1px solid rgba(255, 215, 0, 0.2);
     background: #1e1e1e;
@@ -119,7 +118,7 @@ input {
     transition: all 0.3s ease;
 }
 
-input:focus {
+input:focus, textarea:focus, select:focus {
     outline: none;
     border-color: #FFD700;
     box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
@@ -136,13 +135,11 @@ button {
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
 }
 
-button:active {
-    transform: scale(0.98);
-}
+button:active { transform: scale(0.96); }
 
 #btnAdmin {
     background: transparent;
@@ -157,9 +154,9 @@ button:active {
 }
 
 h2 {
-    font-size: 22px;
+    font-size: 20px;
     color: #fff;
-    margin: 25px 0 15px 0;
+    margin: 25px 0 12px 0;
     text-align: left;
     font-weight: 600;
     border-left: 4px solid #FFD700;
@@ -178,14 +175,14 @@ h2 {
 }
 
 .big {
-    font-size: 16px;
+    font-size: 15px;
     color: #aaa;
     text-align: center;
 }
 
 .big span {
     display: block;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 700;
     color: #FFD700;
     margin-top: 5px;
@@ -195,34 +192,18 @@ h2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
-#btnStart {
-    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
-    color: #fff;
-    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
-}
-
-#btnEnd {
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-    color: #fff;
-    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-}
+#btnStart { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: #fff; }
+#btnEnd { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: #fff; }
 
 .add-box {
     background: #111;
     border: 1px dashed #FFD700;
     border-radius: 15px;
     padding: 15px;
-    margin-top: 20px;
-}
-
-#btnAddUser {
-    background: #FFD700;
-    color: #000;
-    padding: 10px;
-    font-size: 14px;
+    margin-top: 15px;
 }
 
 .btn-file-label {
@@ -249,72 +230,42 @@ h2 {
     width: auto;
     display: inline-block;
     margin-top: 5px;
-    box-shadow: none;
 }
 
 .btn-delete-worker {
     background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
     color: #fff;
-    padding: 8px 12px;
-    font-size: 12px;
-    margin-top: 10px;
-    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 11px;
+    margin-top: 8px;
+    border-radius: 6px;
     width: auto;
-    display: inline-block;
-    box-shadow: 0 2px 5px rgba(231, 76, 60, 0.2);
 }
 
-ul {
-    list-style: none;
-    width: 100%;
-}
+ul { list-style: none; width: 100%; }
 
 li {
     background: #161616;
     border-radius: 12px;
-    padding: 15px;
-    margin-top: 10px;
-    font-size: 14px;
+    padding: 12px;
+    margin-top: 8px;
+    font-size: 13px;
     border-left: 4px solid #FFD700;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-.hist-info {
-    color: #ccc;
-    line-height: 1.4;
-}
+.hist-info { color: #ccc; line-height: 1.4; }
+.hist-time { font-size: 14px; font-weight: 700; color: #FFD700; background: rgba(255, 215, 0, 0.1); padding: 4px 8px; border-radius: 6px; }
 
-.hist-time {
-    font-size: 16px;
-    font-weight: 700;
-    color: #FFD700;
-    background: rgba(255, 215, 0, 0.1);
-    padding: 6px 12px;
-    border-radius: 8px;
-}
-
-#btnPDF {
-    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
-    color: #fff;
-    box-shadow: 0 4px 15px rgba(52, 73, 94, 0.3);
-}
-
-#btnReset {
-    background: #c0392b;
-    color: #fff;
-}
-
-/* Statuts et photos de profil */
+/* Statuts, Avatars et Notes Style Instagram */
 .status-badge {
-    padding: 4px 10px;
+    padding: 4px 8px;
     border-radius: 20px;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: bold;
     text-transform: uppercase;
-    display: inline-block;
 }
 .status-online { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
 .status-offline { background: rgba(231, 76, 60, 0.2); color: #e74c3c; border: 1px solid #e74c3c; }
@@ -324,20 +275,69 @@ li {
     align-items: center;
     gap: 15px;
     margin: 15px 0;
-    background: rgba(255, 215, 0, 0.05);
-    padding: 12px;
+    background: rgba(255, 215, 0, 0.03);
+    padding: 15px;
     border-radius: 15px;
     border: 1px solid rgba(255, 215, 0, 0.1);
     width: 100%;
 }
 
+.avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
 .employee-avatar {
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
     border: 2px solid #FFD700;
     object-fit: cover;
     background: #222;
+}
+
+/* Bulle de note Instagram */
+.instagram-bubble {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #000;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: bold;
+    white-space: nowrap;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.instagram-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 4px 4px 0;
+    border-style: solid;
+    border-color: #fff transparent;
+    display: block;
+    width: 0;
+}
+
+/* Note du Patron */
+.patron-note-banner {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: #fff;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    border-left: 5px solid #FFD700;
+    display: none;
+    text-align: left;
 }
 
 .alert-banner {
@@ -349,24 +349,44 @@ li {
     font-weight: 600;
     text-align: center;
     display: none;
-    animation: fadeIn 0.4s ease-in-out;
 }
 .alert-success { background: rgba(46, 204, 113, 0.15); color: #2ecc71; border: 1px solid #2ecc71; }
 .alert-danger { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid #e74c3c; }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Container Sélection d'employés Futuriste */
+.worker-chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    width: 100%;
 }
 
-@media print {
-    body { background: #fff; color: #000; }
-    .main { max-width: 100%; background: #fff; padding: 0; }
-    button, input, .logo-container, .subtitle, .signature, .add-box, .btn-delete-worker, .alert-banner, .btn-file-label, .btn-inline { display: none !important; }
-    li { border: 1px solid #000; background: #fff; color: #000; }
-    .hist-time { color: #000; background: none; }
-    h2 { color: #000; border-left-color: #000; }
-    .big span { color: #000; }
+.worker-chip {
+    background: #1e1e1e;
+    color: #aaa;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: capitalize;
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+}
+
+.worker-chip:hover {
+    border-color: rgba(255, 215, 0, 0.6);
+    color: #fff;
+}
+
+.worker-chip.selected {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: #fff;
+    border-color: #FFD700;
+    box-shadow: 0 0 12px rgba(42, 82, 152, 0.6);
+    transform: scale(1.04);
 }
 </style>
 </head>
@@ -393,13 +413,24 @@ li {
 
     <!-- Écran Employé -->
     <div id="employee" style="display:none;">
+        <div id="patronNoteZone" class="patron-note-banner"></div>
+
         <div class="employee-profile-box">
-            <img src="" id="userAvatar" class="employee-avatar" alt="Profil">
-            <h2 id="welcome" style="margin:0; border:none; padding:0;">Bienvenue</h2>
+            <div class="avatar-container">
+                <div id="myStatusBubble" class="instagram-bubble" style="display:none;"></div>
+                <img src="" id="userAvatar" class="employee-avatar" alt="Profil">
+            </div>
+            <div style="flex-grow:1;">
+                <h2 id="welcome" style="margin:0; border:none; padding:0;">Bienvenue</h2>
+                <div style="display:flex; gap:5px; margin-top:5px;">
+                    <input id="myStatusInput" placeholder="Votre statut style Insta..." style="padding:5px 10px; font-size:11px; margin:0; border-radius:6px; height:28px;">
+                    <button id="btnUpdateStatus" class="btn-inline" style="margin:0; height:28px; padding:0 8px;">Ok</button>
+                </div>
+            </div>
         </div>
         
         <div class="card">
-            <div class="big">Heures Cumulées<span id="hours">0.00</span></div>
+            <div class="big">Heures Cumulées<span id="hours">0h 00min</span></div>
             <div class="big">Salaire Estimé<span id="salary">0</span> DA</div>
         </div>
 
@@ -410,9 +441,16 @@ li {
             <button id="btnEnd">🚪 Sortie</button>
         </div>
 
+        <div class="add-box" style="border-color:#e74c3c;">
+            <h4 style="color:#e74c3c; margin-bottom:5px; font-size:14px; text-align:left;">📝 Signaler un oubli de pointage</h4>
+            <input type="datetime-local" id="forgetTime" style="font-size:13px; padding:8px;">
+            <textarea id="forgetReason" placeholder="Expliquez brièvement l'oubli au patron..." rows="2" style="font-size:13px; padding:8px; margin-top:8px;"></textarea>
+            <button id="btnSendForget" style="background:linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color:white; padding:8px; font-size:12px; margin-top:8px;">Envoyer le signalement</button>
+        </div>
+
         <h2>Mon Historique</h2>
         <ul id="history"></ul>
-        <button id="btnPDF">📄 Exporter Rapport RH</button>
+        <button id="btnPDF" style="background:#34495e; color:white;">📄 Exporter Rapport RH</button>
     </div>
 
     <!-- Écran Admin -->
@@ -421,20 +459,31 @@ li {
         
         <div class="add-box">
             <h4 style="color:#FFD700; margin-bottom: 5px; text-align:left;">➕ Ajouter un Employé</h4>
-            <input id="newWorkerName" placeholder="Nom de l'employé (ex: nazim)">
+            <input id="newWorkerName" placeholder="Nom de l'employé (ex: ilyes)">
             <input id="newWorkerPass" placeholder="Mot de passe / Code">
-            
-            <label for="newWorkerPhoto" class="btn-file-label">📸 Sélectionner une photo de profil</label>
+            <label for="newWorkerPhoto" class="btn-file-label">📸 Photo de profil</label>
             <input type="file" id="newWorkerPhoto" accept="image/*" style="display:none;">
             <div id="photoCheckMark" style="color:#2ecc71; font-size:12px; margin-top:5px; text-align:center; display:none;">✓ Photo chargée</div>
-            
             <button id="btnAddUser">Enregistrer l'employé</button>
         </div>
 
-        <h2>Tableau de Bord & Présence en Direct</h2>
+        <div class="add-box" style="border-color:#2a5298;">
+            <h4 style="color:#FFD700; margin-bottom: 2px; text-align:left;">💬 Envoyer une note ciblée</h4>
+            <p style="font-size:12px; color:#aaa; text-align:left; margin-bottom:8px;">Cliquez sur l'employé de votre choix :</p>
+            
+            <div id="workerChipsList" class="worker-chips-container"></div>
+            
+            <input id="noteText" placeholder="Ex: Attention au stock !">
+            <button id="btnSendPatronNote" style="background:linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color:white; padding:10px; font-size:13px;">Envoyer la note privée</button>
+        </div>
+
+        <h2>📝 Demandes de Corrections (Oublis)</h2>
+        <div id="adminOublisZone"></div>
+
+        <h2>Tableau de Bord & Présence</h2>
         <input type="file" id="updateWorkerPhoto" accept="image/*" style="display:none;">
         <div id="adminData"></div>
-        <button id="btnReset" style="margin-top: 30px;">🗑 Réinitialiser toutes les heures</button>
+        <button id="btnReset" style="background:#c0392b; color:white; margin-top:30px;">🗑 Réinitialiser toutes les heures</button>
     </div>
 
 </div>
@@ -459,18 +508,38 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 let users = {};
-const adminUser = "Airouche";
+const adminUser = "airouche";
 const adminPass = "010167";
 let current = "";
 let tempPhotoBase64 = "";
 let workerToUpdatePhoto = "";
+let selectedWorkerForNote = "";
+
+// Convertit un nombre décimal d'heures (ex: 11.68) en format textuel propre (ex: "11h 41min")
+function formaterHeuresEtMinutes(heuresDecimales) {
+    let h = Math.floor(heuresDecimales);
+    let m = Math.round((heuresDecimales - h) * 60);
+    if (m === 60) { h += 1; m = 0; } // Sécurité arrondi
+    return `${h}h ${String(m).padStart(2, '0')}min`;
+}
+
+// Formater une date avec précision absolue
+function genererDatePrecise(dateObj) {
+    const j = String(dateObj.getDate()).padStart(2, '0');
+    const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const a = dateObj.getFullYear();
+    const hh = String(dateObj.getHours()).padStart(2, '0');
+    const mm = String(dateObj.getMinutes()).padStart(2, '0');
+    const ss = String(dateObj.getSeconds()).padStart(2, '0');
+    return `${j}/${m}/${a} à ${hh}:${mm}:${ss}`;
+}
 
 function afficherAlerteEcran(message, type) {
     const banner = document.getElementById("actionAlert");
     banner.innerText = message;
     banner.className = "alert-banner " + (type === "success" ? "alert-success" : "alert-danger");
     banner.style.display = "block";
-    setTimeout(() => { banner.style.display = "none"; }, 6000);
+    setTimeout(() => { banner.style.display = "none"; }, 5000);
 }
 
 function compresserImage(file, callback) {
@@ -502,12 +571,10 @@ document.getElementById("updateWorkerPhoto").addEventListener("change", function
         compresserImage(e.target.files[0], async function(base64Data) {
             try {
                 await set(ref(db, 'avatars/' + workerToUpdatePhoto), base64Data);
-                alert("Photo de profil mise à jour !");
+                alert("Photo mise à jour !");
                 workerToUpdatePhoto = "";
                 await loadAdmin();
-            } catch(err) {
-                alert("Erreur : " + err.message);
-            }
+            } catch(err) { alert("Erreur : " + err.message); }
         });
     }
 });
@@ -516,9 +583,7 @@ async function syncUsersList() {
   try {
     const snapshot = await get(ref(db, 'app_users/'));
     users = snapshot.exists() ? snapshot.val() : {};
-  } catch (e) {
-    console.error(e);
-  }
+  } catch (e) { console.error(e); }
 }
 
 async function login() {
@@ -538,10 +603,24 @@ async function login() {
         ? snapshotAvatar.val() 
         : "https://api.dicebear.com/7.x/initials/svg?seed=" + u + "&backgroundColor=ffd700&color=000000";
 
+    const snapshotNote = await get(ref(db, 'patron_notes/' + u));
+    const noteZone = document.getElementById("patronNoteZone");
+    if (snapshotNote.exists() && snapshotNote.val() !== "") {
+        noteZone.innerText = "✉️ Note du patron : " + snapshotNote.val();
+        noteZone.style.display = "block";
+    } else {
+        noteZone.style.display = "none";
+    }
+
+    const snapshotStatus = await get(ref(db, 'user_statuses/' + u));
+    const myBubble = document.getElementById("myStatusBubble");
+    if(snapshotStatus.exists() && snapshotStatus.val() !== "") {
+        myBubble.innerText = snapshotStatus.val();
+        myBubble.style.display = "block";
+    }
+
     await load();
-  } else {
-    alert("Identifiants incorrects");
-  }
+  } else { alert("Identifiants incorrects"); }
 }
 
 async function admin() {
@@ -553,31 +632,83 @@ async function admin() {
     document.getElementById("subHeader").style.display = "none";
     document.getElementById("admin").style.display = "block";
     await loadAdmin();
-  } else {
-    alert("Accès Admin refusé");
-  }
+  } else { alert("Accès Admin refusé"); }
 }
+
+document.getElementById("btnUpdateStatus").addEventListener("click", async () => {
+    let text = document.getElementById("myStatusInput").value.trim();
+    if(text.length > 30) return alert("Maximum 30 caractères");
+    await set(ref(db, 'user_statuses/' + current), text);
+    const myBubble = document.getElementById("myStatusBubble");
+    if(text !== "") {
+        myBubble.innerText = text;
+        myBubble.style.display = "block";
+    } else {
+        myBubble.style.display = "none";
+    }
+    document.getElementById("myStatusInput").value = "";
+    alert("Statut Instagram mis à jour !");
+});
+
+document.getElementById("btnSendForget").addEventListener("click", async () => {
+    let time = document.getElementById("forgetTime").value;
+    let reason = document.getElementById("forgetReason").value.trim();
+    if(!time || !reason) return alert("Veuillez remplir l'heure et la raison.");
+
+    try {
+        const snapshot = await get(ref(db, 'oublis/'));
+        let oublis = snapshot.exists() ? snapshot.val() : [];
+        
+        let dateObj = new Date(time);
+        oublis.push({
+            user: current,
+            time: genererDatePrecise(dateObj),
+            reason: reason,
+            timestamp: Date.now()
+        });
+        await set(ref(db, 'oublis/'), oublis);
+        document.getElementById("forgetReason").value = "";
+        alert("Signalement envoyé avec succès au patron !");
+    } catch(err) { alert(err.message); }
+});
+
+window.selectWorkerForNoteAction = function(element, workerName) {
+    const chips = document.querySelectorAll('.worker-chip');
+    chips.forEach(c => c.classList.remove('selected'));
+    element.classList.add('selected');
+    selectedWorkerForNote = workerName;
+}
+
+document.getElementById("btnSendPatronNote").addEventListener("click", async () => {
+    if(!selectedWorkerForNote) return alert("Veuillez d'abord sélectionner un employé en cliquant sur son badge !");
+    let text = document.getElementById("noteText").value.trim();
+    if(!text) return alert("Veuillez écrire un message.");
+
+    await set(ref(db, 'patron_notes/' + selectedWorkerForNote), text);
+    document.getElementById("noteText").value = "";
+    
+    const chips = document.querySelectorAll('.worker-chip');
+    chips.forEach(c => c.classList.remove('selected'));
+    selectedWorkerForNote = "";
+
+    alert("Note envoyée avec succès !");
+});
 
 async function addNewEmployee() {
   let newName = document.getElementById("newWorkerName").value.trim().toLowerCase();
   let newPass = document.getElementById("newWorkerPass").value.trim();
-
   if(!newName || !newPass) return alert("Remplissez tous les champs");
 
   try {
     await set(ref(db, 'app_users/' + newName), newPass);
-    if(tempPhotoBase64 !== "") {
-        await set(ref(db, 'avatars/' + newName), tempPhotoBase64);
-    }
+    if(tempPhotoBase64 !== "") { await set(ref(db, 'avatars/' + newName), tempPhotoBase64); }
     document.getElementById("newWorkerName").value = "";
     document.getElementById("newWorkerPass").value = "";
     document.getElementById("photoCheckMark").style.display = "none";
     tempPhotoBase64 = "";
     alert("Employé ajouté !");
     await loadAdmin();
-  } catch(error) {
-    alert("Erreur: " + error.message);
-  }
+  } catch(error) { alert("Erreur: " + error.message); }
 }
 
 window.triggerUpdatePhoto = function(workerName) {
@@ -592,52 +723,57 @@ window.deleteEmployee = async function(workerName) {
       await remove(ref(db, 'history/' + workerName));
       await remove(ref(db, 'starts/' + workerName));
       await remove(ref(db, 'avatars/' + workerName));
+      await remove(ref(db, 'patron_notes/' + workerName));
+      await remove(ref(db, 'user_statuses/' + workerName));
       await loadAdmin();
-    } catch (error) {
-      alert(error.message);
-    }
+    } catch (error) { alert(error.message); }
   }
+}
+
+window.supprimerOubli = async function(index) {
+    if(confirm("Supprimer ce signalement ?")) {
+        const snapshot = await get(ref(db, 'oublis/'));
+        if(snapshot.exists()) {
+            let oublis = snapshot.val();
+            oublis.splice(index, 1);
+            await set(ref(db, 'oublis/'), oublis);
+            await loadAdmin();
+        }
+    }
 }
 
 async function start() {
-  try {
-    await set(ref(db, 'starts/' + current), Date.now());
-    afficherAlerteEcran("✅ Entrée validée avec succès ! Bon travail.", "success");
-  } catch (error) {
-    afficherAlerteEcran("❌ Erreur : " + error.message, "danger");
-  }
+  afficherAlerteEcran("✅ Entrée validée instantanément ! Bon travail.", "success");
+  set(ref(db, 'starts/' + current), Date.now()).catch(e => console.error("Erreur sync: ", e));
 }
 
 async function end() {
+  const instantEndTime = new Date();
+  
   try {
     const startSnapshot = await get(ref(db, 'starts/' + current));
     let s = startSnapshot.val();
-
-    if (!s) {
-        afficherAlerteEcran("❌ Erreur : Pas de badge d'entrée trouvé.", "danger");
-        return;
-    }
+    if (!s) { afficherAlerteEcran("❌ Erreur : Pas de badge d'entrée trouvé.", "danger"); return; }
 
     let startTime = new Date(parseInt(s));
-    let endTime = new Date();
-    let h = (endTime - startTime) / 3600000;
+    let h = (instantEndTime - startTime) / 3600000;
+
+    afficherAlerteEcran("✅ Sortie validée instantanément !", "success");
 
     const dataSnapshot = await get(ref(db, 'history/' + current));
     let data = dataSnapshot.val() || [];
-
-    data.push({
-      start: startTime.toLocaleString(),
-      end: endTime.toLocaleString(),
-      hours: h.toFixed(2)
+    
+    data.push({ 
+        start: genererDatePrecise(startTime), 
+        end: genererDatePrecise(instantEndTime), 
+        hours: h.toFixed(2) 
     });
 
-    await set(ref(db, 'history/' + current), data);
-    await remove(ref(db, 'starts/' + current));
-
-    afficherAlerteEcran("✅ Sortie validée avec succès !", "success");
-    await load();
-  } catch (error) {
-    afficherAlerteEcran("❌ Erreur : " + error.message, "danger");
+    set(ref(db, 'history/' + current), data).then(() => load());
+    remove(ref(db, 'starts/' + current));
+    
+  } catch (error) { 
+    afficherAlerteEcran("❌ Erreur de réseau, tentative en cours...", "danger"); 
   }
 }
 
@@ -652,32 +788,53 @@ async function load() {
     data.forEach(e => {
       total += Number(e.hours);
       let li = document.createElement("li");
-      li.innerHTML = `<div class="hist-info"><b>Du:</b> ${e.start}<br><b>Au:</b> ${e.end}</div><div class="hist-time">${e.hours} h</div>`;
+      li.innerHTML = `<div class="hist-info"><b>Du:</b> ${e.start}<br><b>Au:</b> ${e.end}</div><div class="hist-time">${formaterHeuresEtMinutes(Number(e.hours))}</div>`;
       list.appendChild(li);
     });
 
-    document.getElementById("hours").innerText = total.toFixed(2);
+    document.getElementById("hours").innerText = formaterHeuresEtMinutes(total);
     document.getElementById("salary").innerText = (total * 100).toFixed(0);
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) { console.error(error); }
 }
 
 async function loadAdmin() {
   try {
     await syncUsersList(); 
+    
+    let chipsContainer = document.getElementById("workerChipsList");
+    chipsContainer.innerHTML = "";
+    
+    let oubliZone = document.getElementById("adminOublisZone");
+     oubliZone.innerHTML = "";
+    const snapshotOublis = await get(ref(db, 'oublis/'));
+    if(snapshotOublis.exists() && snapshotOublis.val().length > 0) {
+        snapshotOublis.val().forEach((o, index) => {
+            oubliZone.innerHTML += `
+                <div class="card" style="border-color:#e74c3c; flex-direction:column; text-align:left; gap:5px; padding:12px;">
+                    <p style="color:#e74c3c; font-weight:bold;">⚠️ Signalement de : ${o.user}</p>
+                    <p><b>Heure oubliée :</b> ${o.time}</p>
+                    <p><b>Raison :</b> "${o.reason}"</p>
+                    <button class="btn-delete-worker" onclick="supprimerOubli(${index})" style="margin:5px 0 0 0;">Supprimer la demande</button>
+                </div>
+            `;
+        });
+    } else {
+        oubliZone.innerHTML = "<p style='color:#aaa; font-style:italic; font-size:13px;'>Aucun signalement d'oubli en attente.</p>";
+    }
+
     let div = document.getElementById("adminData");
     div.innerHTML = "";
 
     for (let u in users) {
+      chipsContainer.innerHTML += `<div class="worker-chip" onclick="selectWorkerForNoteAction(this, '${u}')">${u}</div>`;
+
       const snapshotHist = await get(ref(db, 'history/' + u));
       let data = snapshotHist.val() || [];
       let total = 0;
       data.forEach(e => total += Number(e.hours));
 
       const snapshotStart = await get(ref(db, 'starts/' + u));
-      let isInOffice = snapshotStart.exists();
-      let badgeHTML = isInOffice 
+      let badgeHTML = snapshotStart.exists() 
         ? `<span class="status-badge status-online">🟢 En poste</span>` 
         : `<span class="status-badge status-offline">🔴 Parti</span>`;
 
@@ -686,10 +843,19 @@ async function loadAdmin() {
         ? snapshotAvatar.val() 
         : "https://api.dicebear.com/7.x/initials/svg?seed=" + u + "&backgroundColor=ffd700&color=000000";
 
+      const snapshotStatus = await get(ref(db, 'user_statuses/' + u));
+      let statusBubbleHTML = (snapshotStatus.exists() && snapshotStatus.val() !== "")
+        ? `<div class="instagram-bubble">${snapshotStatus.val()}</div>`
+        : "";
+
+      // ICI : Utilisation de la nouvelle fonction formaterHeuresEtMinutes(total)
       div.innerHTML += `
         <div class="card" style="align-items: center; justify-content: space-between; gap: 15px; text-align: left;">
           <div style="text-align: center;">
-             <img src="${avatarSrc}" class="employee-avatar" alt="Avatar"><br>
+             <div class="avatar-container">
+                 ${statusBubbleHTML}
+                 <img src="${avatarSrc}" class="employee-avatar" alt="Avatar">
+             </div><br>
              <button class="btn-inline" onclick="triggerUpdatePhoto('${u}')">📸 Changer</button>
           </div>
           
@@ -698,15 +864,13 @@ async function loadAdmin() {
                 <h3 style="color:#FFD700; text-transform:capitalize; display:inline-block;">👤 ${u}</h3>
                 ${badgeHTML}
             </div>
-            <p style="margin-top:5px; font-size:13px;"><b>Total :</b> ${total.toFixed(2)} h | <b>Salaire :</b> ${(total * 100).toFixed(0)} DA</p>
+            <p style="margin-top:5px; font-size:12px;"><b>Total :</b> ${formaterHeuresEtMinutes(total)} | <b>Salaire :</b> ${(total * 100).toFixed(0)} DA</p>
             <button class="btn-delete-worker" onclick="deleteEmployee('${u}')">❌ Supprimer</button>
           </div>
         </div>
       `;
     }
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) { console.error(error); }
 }
 
 async function reset() {
@@ -717,9 +881,7 @@ async function reset() {
         await remove(ref(db, 'starts/' + u));
       }
       await loadAdmin();
-    } catch (error) {
-      alert(error.message);
-    }
+    } catch (error) { alert(error.message); }
   }
 }
 
