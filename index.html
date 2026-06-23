@@ -615,7 +615,7 @@ let current = "";
 let tempPhotoBase64 = "";
 let workerToUpdatePhoto = "";
 let selectedWorkerForNote = "";
-let selectedShop = "AMRIW UG"; // Boutique par défaut
+let selectedShop = "AMRIW UG"; 
 let currentProposalValue = 0;
 
 function formaterHeuresEtMinutes(heuresDecimales) {
@@ -643,7 +643,6 @@ function afficherAlerteEcran(message, type) {
     setTimeout(() => { banner.style.display = "none"; }, 6000);
 }
 
-// Sélection de la boutique par l'employé
 window.selectShopAction = function(element, shopName) {
     const chips = document.querySelectorAll('.shop-led-chip');
     chips.forEach(c => c.classList.remove('selected'));
@@ -688,15 +687,15 @@ document.getElementById("updateWorkerPhoto").addEventListener("change", function
     }
 });
 
-async function syncUsersList() {
+// Pré-chargement des comptes au démarrage unique (Optimise la vitesse de connexion)
+async function initAppUsers() {
   try {
     const snapshot = await get(ref(db, 'app_users/'));
     users = snapshot.exists() ? snapshot.val() : {};
-  } catch (e) { console.error(e); }
+  } catch (e) { console.error("Erreur d'initialisation", e); }
 }
 
 async function login() {
-  await syncUsersList();
   let u = document.getElementById("user").value.trim().toLowerCase();
   let p = document.getElementById("pass").value.trim();
 
@@ -707,12 +706,18 @@ async function login() {
     document.getElementById("employee").style.display = "block";
     document.getElementById("welcome").innerText = "Bonjour, " + u + " ✨";
     
-    const snapshotAvatar = await get(ref(db, 'avatars/' + u));
+    // Une seule requête groupée pour le profil de l'employé connecté
+    const [snapshotAvatar, snapshotNote, snapshotProp, snapshotStatus] = await Promise.all([
+        get(ref(db, 'avatars/' + u)),
+        get(ref(db, 'patron_notes/' + u)),
+        get(ref(db, 'proposals/' + u)),
+        get(ref(db, 'user_statuses/' + u))
+    ]);
+
     document.getElementById("userAvatar").src = snapshotAvatar.exists() 
         ? snapshotAvatar.val() 
         : "https://api.dicebear.com/7.x/initials/svg?seed=" + u + "&backgroundColor=ffd700&color=000000";
 
-    const snapshotNote = await get(ref(db, 'patron_notes/' + u));
     const noteZone = document.getElementById("patronNoteZone");
     if (snapshotNote.exists() && snapshotNote.val() !== "") {
         document.getElementById("noteTextContent").innerHTML = `✉️ <b>MESSAGE PATRON :</b> ${snapshotNote.val()}`;
@@ -721,8 +726,6 @@ async function login() {
         noteZone.style.display = "none";
     }
 
-    // VÉRIFICATION DES PROPOSITIONS DE MODIFICATION DU PATRON
-    const snapshotProp = await get(ref(db, 'proposals/' + u));
     const propZone = document.getElementById("propHeuresZone");
     if (snapshotProp.exists()) {
         currentProposalValue = Number(snapshotProp.val());
@@ -732,7 +735,6 @@ async function login() {
         propZone.style.display = "none";
     }
 
-    const snapshotStatus = await get(ref(db, 'user_statuses/' + u));
     const myBubble = document.getElementById("myStatusBubble");
     if(snapshotStatus.exists() && snapshotStatus.val() !== "") {
         myBubble.innerText = snapshotStatus.val();
@@ -748,7 +750,6 @@ document.getElementById("btnCloseNote").addEventListener("click", async () => {
     await remove(ref(db, 'patron_notes/' + current));
 });
 
-// ACTION SI L'EMPLOYE ACCEPTE LA MODIFICATION DU PATRON
 document.getElementById("btnAcceptProp").addEventListener("click", async () => {
     try {
         let fakeHistory = [{
@@ -765,11 +766,10 @@ document.getElementById("btnAcceptProp").addEventListener("click", async () => {
     } catch(err) { alert(err.message); }
 });
 
-// ACTION SI L'EMPLOYE REFUSE
 document.getElementById("btnRefuseProp").addEventListener("click", async () => {
     await remove(ref(db, 'proposals/' + current));
     document.getElementById("propHeuresZone").style.display = "none";
-    alert("❌ Vous avez refusé l'ajustement. Le patron en sera informé.");
+    alert("❌ Vous avez refusé l'ajustement.");
 });
 
 async function admin() {
@@ -892,17 +892,15 @@ window.supprimerOubli = async function(index) {
     }
 }
 
-// ENVOYER UNE PROPOSITION DE MODIFICATION DEPUIS LE PANEL PATRON
 window.modifierHeuresManuellement = async function(workerName, totalActuel) {
-    let nvTotal = prompt(`Soumettre un ajustement d'heures à ${workerName}.\nEntrez la nouvelle valeur totale (ex: 11.68 pour 11h41) :`, totalActuel);
+    let nvTotal = prompt(`Soumettre un ajustement d'heures à ${workerName}.\nValeur totale (ex: 11.68 pour 11h41) :`, totalActuel);
     if (nvTotal === null) return;
     nvTotal = Number(nvTotal);
     if (isNaN(nvTotal) || nvTotal < 0) return alert("Valeur incorrecte.");
 
     try {
-        // Au lieu de forcer l'écriture, on stocke la demande dans "proposals"
         await set(ref(db, 'proposals/' + workerName), nvTotal);
-        alert(`⚡ Proposition transmise à ${workerName} ! Il devra accepter ou refuser depuis son écran.`);
+        alert(`⚡ Proposition transmise à ${workerName} !`);
         await loadAdmin();
     } catch(err) { alert(err.message); }
 }
@@ -922,7 +920,6 @@ async function start() {
 
 async function end() {
   const instantEndTime = new Date();
-  
   try {
     const startSnapshot = await get(ref(db, 'starts/' + current));
     let s = startSnapshot.val();
@@ -939,7 +936,6 @@ async function end() {
     const dataSnapshot = await get(ref(db, 'history/' + current));
     let data = dataSnapshot.val() || [];
     
-    // On injecte la boutique sélectionnée dans la ligne d'historique
     data.push({ 
         start: genererDatePrecise(startTime), 
         end: genererDatePrecise(instantEndTime), 
@@ -950,7 +946,6 @@ async function end() {
     await set(ref(db, 'history/' + current), data);
     await remove(ref(db, 'starts/' + current));
     await load();
-    
   } catch (error) { afficherAlerteEcran("❌ Erreur réseau.", "danger"); }
 }
 
@@ -980,65 +975,70 @@ async function load() {
   } catch (error) { console.error(error); }
 }
 
+// OPTIMISATION CRITIQUE : Téléchargement groupé unique du panel admin
 async function loadAdmin() {
   try {
-    await syncUsersList(); 
+    // 1 seule grosse requête réseau pour TOUTE la base de données
+    const mainSnapshot = await get(ref(db));
+    if (!mainSnapshot.exists()) return;
     
-    let chipsContainer = document.getElementById("workerChipsList");
-    chipsContainer.innerHTML = "";
-    
+    const allData = mainSnapshot.val();
+    users = allData.app_users || {};
+    const histories = allData.history || {};
+    const starts = allData.starts || {};
+    const avatars = allData.avatars || {};
+    const statuses = allData.user_statuses || {};
+    const proposals = allData.proposals || {};
+    const oublis = allData.oublis || [];
+
+    // Affichage des oublis
     let oubliZone = document.getElementById("adminOublisZone");
     oubliZone.innerHTML = "";
-    const snapshotOublis = await get(ref(db, 'oublis/'));
-    if(snapshotOublis.exists() && snapshotOublis.val().length > 0) {
-        snapshotOublis.val().forEach((o, index) => {
+    if(oublis.length > 0) {
+        oublis.forEach((o, index) => {
             oubliZone.innerHTML += `
                 <div class="card" style="border-color:#e74c3c; flex-direction:column; text-align:left; gap:5px; padding:12px;">
                     <p style="color:#e74c3c; font-weight:bold;">⚠️ Signalement de : ${o.user}</p>
                     <p><b>Heure oubliée :</b> ${o.time}</p>
                     <p><b>Raison :</b> "${o.reason}"</p>
                     <button class="btn-delete-worker" onclick="supprimerOubli(${index})" style="margin:5px 0 0 0;">Supprimer la demande</button>
-                </div>
-            `;
+                </div>`;
         });
     } else {
         oubliZone.innerHTML = "<p style='color:#aaa; font-style:italic; font-size:13px;'>Aucun signalement d'oubli en attente.</p>";
     }
 
+    let chipsContainer = document.getElementById("workerChipsList");
+    chipsContainer.innerHTML = "";
     let div = document.getElementById("adminData");
     div.innerHTML = "";
 
+    // Lecture instantanée en mémoire locale (aucune latence)
     for (let u in users) {
       chipsContainer.innerHTML += `<div class="worker-chip" onclick="selectWorkerForNoteAction(this, '${u}')">${u}</div>`;
 
-      const snapshotHist = await get(ref(db, 'history/' + u));
-      let data = snapshotHist.val() || [];
+      let userHistory = histories[u] || [];
       let total = 0;
       let derniereBoutique = "Aucune";
       
-      data.forEach(e => {
+      userHistory.forEach(e => {
           total += Number(e.hours);
           if(e.shop) derniereBoutique = e.shop;
       });
 
-      const snapshotStart = await get(ref(db, 'starts/' + u));
-      let badgeHTML = snapshotStart.exists() 
+      let badgeHTML = starts[u]
         ? `<span class="status-badge status-online">🟢 En poste</span>` 
         : `<span class="status-badge status-offline">🔴 Parti</span>`;
 
-      const snapshotAvatar = await get(ref(db, 'avatars/' + u));
-      let avatarSrc = snapshotAvatar.exists() 
-        ? snapshotAvatar.val() 
+      let avatarSrc = avatars[u] 
+        ? avatars[u] 
         : "https://api.dicebear.com/7.x/initials/svg?seed=" + u + "&backgroundColor=ffd700&color=000000";
 
-      const snapshotStatus = await get(ref(db, 'user_statuses/' + u));
-      let statusBubbleHTML = (snapshotStatus.exists() && snapshotStatus.val() !== "")
-        ? `<div class="instagram-bubble">${snapshotStatus.val()}</div>`
+      let statusBubbleHTML = (statuses[u] && statuses[u] !== "")
+        ? `<div class="instagram-bubble">${statuses[u]}</div>`
         : "";
 
-      // VÉRIFIER SI UNE PROPOSITION EST EN ATTENTE
-      const snapshotCheckProp = await get(ref(db, 'proposals/' + u));
-      let statutModifHTML = snapshotCheckProp.exists() 
+      let statutModifHTML = proposals[u] 
         ? `<p style="color:#ff9900; font-size:11px; margin-top:2px; font-weight:bold;">⏳ Ajustement en attente de validation...</p>` 
         : "";
 
@@ -1065,8 +1065,7 @@ async function loadAdmin() {
                 <button class="btn-delete-worker" style="margin:0;" onclick="deleteEmployee('${u}')">❌ Supprimer</button>
             </div>
           </div>
-        </div>
-      `;
+        </div>`;
     }
   } catch (error) { console.error(error); }
 }
@@ -1086,7 +1085,8 @@ async function reset() {
 
 function exportPDF() { window.print(); }
 
-syncUsersList();
+// Lancement direct de la synchronisation au démarrage
+initAppUsers();
 
 document.getElementById("btnLogin").addEventListener("click", login);
 document.getElementById("btnAdmin").addEventListener("click", admin);
