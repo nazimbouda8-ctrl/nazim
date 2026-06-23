@@ -192,7 +192,7 @@ h2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 #btnStart { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: #fff; }
@@ -204,6 +204,120 @@ h2 {
     border-radius: 15px;
     padding: 15px;
     margin-top: 15px;
+}
+
+/* Zone Message Privé Style Futuriste */
+.futuristic-box {
+    background: #0d1117;
+    border: 2px solid #00d2ff;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+}
+.futuristic-box h4 {
+    color: #00d2ff;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 13px;
+    margin-bottom: 5px;
+    text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+}
+.futuristic-input {
+    border: 1px solid rgba(0, 210, 255, 0.3) !important;
+    background: #070a0f !important;
+    color: #00d2ff !important;
+}
+.futuristic-btn {
+    background: linear-gradient(135deg, #00d2ff 0%, #0072ff 100%) !important;
+    color: #fff !important;
+    font-weight: 800;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
+}
+
+/* Bandeau Message Privé Affichage Employé Écran Haut */
+.patron-note-banner {
+    background: linear-gradient(135deg, #0072ff 0%, #00d2ff 100%);
+    color: #000;
+    padding: 16px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: 800;
+    border: 2px solid #fff;
+    box-shadow: 0 8px 25px rgba(0, 210, 255, 0.4);
+    display: none;
+    text-align: left;
+    position: relative;
+}
+.close-note-btn {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    width: auto;
+    margin: 0;
+}
+
+/* CHIPS LED LUMINEUX POUR LE CHOIX DES BOUTIQUES */
+.shop-led-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+    width: 100%;
+    justify-content: center;
+}
+.shop-led-chip {
+    background: #111;
+    color: rgba(255, 215, 0, 0.4);
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: none;
+}
+.shop-led-chip:hover {
+    color: #FFD700;
+    border-color: #FFD700;
+}
+.shop-led-chip.selected {
+    background: #1a1a00;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 15px #FFD700, inset 0 0 5px #FFD700;
+    text-shadow: 0 0 8px #FFD700;
+    transform: scale(1.03);
+}
+
+/* Badge Boutique Jaune LED sur les fiches */
+.shop-badge-led {
+    background: #1e1b00;
+    color: #FFD700;
+    border: 1px solid #FFD700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    display: inline-block;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    text-shadow: 0 0 3px #FFD700;
+    text-transform: uppercase;
 }
 
 .btn-file-label {
@@ -259,7 +373,7 @@ li {
 .hist-info { color: #ccc; line-height: 1.4; }
 .hist-time { font-size: 14px; font-weight: 700; color: #FFD700; background: rgba(255, 215, 0, 0.1); padding: 4px 8px; border-radius: 6px; }
 
-/* Statuts, Avatars et Notes Style Instagram */
+/* Statuts et Avatars */
 .status-badge {
     padding: 4px 8px;
     border-radius: 20px;
@@ -296,7 +410,6 @@ li {
     background: #222;
 }
 
-/* Bulle de note Instagram */
 .instagram-bubble {
     position: absolute;
     top: -12px;
@@ -314,31 +427,6 @@ li {
     text-overflow: ellipsis;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
-.instagram-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 4px 4px 0;
-    border-style: solid;
-    border-color: #fff transparent;
-    display: block;
-    width: 0;
-}
-
-/* Note du Patron */
-.patron-note-banner {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-    color: #fff;
-    padding: 12px;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    font-size: 13px;
-    border-left: 5px solid #FFD700;
-    display: none;
-    text-align: left;
-}
 
 .alert-banner {
     width: 100%;
@@ -353,7 +441,6 @@ li {
 .alert-success { background: rgba(46, 204, 113, 0.15); color: #2ecc71; border: 1px solid #2ecc71; }
 .alert-danger { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid #e74c3c; }
 
-/* Container Sélection d'employés Futuriste */
 .worker-chips-container {
     display: flex;
     flex-wrap: wrap;
@@ -370,23 +457,15 @@ li {
     font-size: 13px;
     font-weight: 600;
     text-transform: capitalize;
-    border: 1px solid rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(0, 210, 255, 0.15);
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    user-select: none;
 }
-
-.worker-chip:hover {
-    border-color: rgba(255, 215, 0, 0.6);
-    color: #fff;
-}
-
 .worker-chip.selected {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    background: linear-gradient(135deg, #0072ff 0%, #00d2ff 100%);
     color: #fff;
-    border-color: #FFD700;
-    box-shadow: 0 0 12px rgba(42, 82, 152, 0.6);
-    transform: scale(1.04);
+    border-color: #fff;
+    box-shadow: 0 0 12px rgba(0, 210, 255, 0.6);
 }
 </style>
 </head>
@@ -413,7 +492,21 @@ li {
 
     <!-- Écran Employé -->
     <div id="employee" style="display:none;">
-        <div id="patronNoteZone" class="patron-note-banner"></div>
+        
+        <!-- MESSAGE PRIVÉ DU PATRON -->
+        <div id="patronNoteZone" class="patron-note-banner">
+            <span id="noteTextContent"></span>
+            <button class="close-note-btn" id="btnCloseNote">❌ Fermer</button>
+        </div>
+
+        <!-- ZONE DE VALIDATION DES HEURES PROPOSÉES PAR LE PATRON -->
+        <div id="propHeuresZone" class="patron-note-banner" style="background: linear-gradient(135deg, #ff9900 0%, #ff5500 100%); border-color: #fff; display:none;">
+            <p style="margin-bottom: 10px;">⚠️ <b>PROPOSITION DU PATRON :</b> Le patron propose de modifier votre total d'heures à <span id="propHeuresValeur" style="text-decoration: underline;">0h 00min</span>. Êtes-vous d'accord ?</p>
+            <div style="display:flex; gap: 10px;">
+                <button id="btnAcceptProp" style="background:#2ecc71; color:white; padding:8px; margin:0; font-size:12px;">✅ Accepter</button>
+                <button id="btnRefuseProp" style="background:#e74c3c; color:white; padding:8px; margin:0; font-size:12px;">❌ Refuser</button>
+            </div>
+        </div>
 
         <div class="employee-profile-box">
             <div class="avatar-container">
@@ -435,6 +528,17 @@ li {
         </div>
 
         <div id="actionAlert" class="alert-banner"></div>
+
+        <!-- SÉLECTEUR DE BOUTIQUE LED FLASHY LUMINEUX -->
+        <h4 style="margin-top:20px; font-size:13px; color:#FFD700; text-align:left; letter-spacing:1px; width:100%;">🚨 CHOIX DE LA BOUTIQUE ACTUELLE :</h4>
+        <div class="shop-led-container">
+            <div class="shop-led-chip selected" onclick="selectShopAction(this, 'AMRIW UG')">AMRIW UG</div>
+            <div class="shop-led-chip" onclick="selectShopAction(this, 'LS')">LS</div>
+            <div class="shop-led-chip" onclick="selectShopAction(this, 'AKBOU UG')">AKBOU UG</div>
+            <div class="shop-led-chip" onclick="selectShopAction(this, 'TOP MAN')">TOP MAN</div>
+            <div class="shop-led-chip" onclick="selectShopAction(this, 'EDIMCO LS')">EDIMCO LS</div>
+            <div class="shop-led-chip" onclick="selectShopAction(this, 'PEAK LS')">PEAK LS</div>
+        </div>
 
         <div class="action-buttons">
             <button id="btnStart">📍 Entrée</button>
@@ -467,14 +571,11 @@ li {
             <button id="btnAddUser">Enregistrer l'employé</button>
         </div>
 
-        <div class="add-box" style="border-color:#2a5298;">
-            <h4 style="color:#FFD700; margin-bottom: 2px; text-align:left;">💬 Envoyer une note ciblée</h4>
-            <p style="font-size:12px; color:#aaa; text-align:left; margin-bottom:8px;">Cliquez sur l'employé de votre choix :</p>
-            
+        <div class="futuristic-box">
+            <h4>⚡ TRANSMISSION MESSAGE PRIVÉ</h4>
             <div id="workerChipsList" class="worker-chips-container"></div>
-            
-            <input id="noteText" placeholder="Ex: Attention au stock !">
-            <button id="btnSendPatronNote" style="background:linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color:white; padding:10px; font-size:13px;">Envoyer la note privée</button>
+            <input id="noteText" class="futuristic-input" placeholder="Saisir le message sécurisé...">
+            <button id="btnSendPatronNote" class="futuristic-btn">LAUNCH TRANSMISSION</button>
         </div>
 
         <h2>📝 Demandes de Corrections (Oublis)</h2>
@@ -514,16 +615,16 @@ let current = "";
 let tempPhotoBase64 = "";
 let workerToUpdatePhoto = "";
 let selectedWorkerForNote = "";
+let selectedShop = "AMRIW UG"; // Boutique par défaut
+let currentProposalValue = 0;
 
-// Convertit un nombre décimal d'heures (ex: 11.68) en format textuel propre (ex: "11h 41min")
 function formaterHeuresEtMinutes(heuresDecimales) {
     let h = Math.floor(heuresDecimales);
     let m = Math.round((heuresDecimales - h) * 60);
-    if (m === 60) { h += 1; m = 0; } // Sécurité arrondi
+    if (m === 60) { h += 1; m = 0; }
     return `${h}h ${String(m).padStart(2, '0')}min`;
 }
 
-// Formater une date avec précision absolue
 function genererDatePrecise(dateObj) {
     const j = String(dateObj.getDate()).padStart(2, '0');
     const m = String(dateObj.getMonth() + 1).padStart(2, '0');
@@ -539,8 +640,16 @@ function afficherAlerteEcran(message, type) {
     banner.innerText = message;
     banner.className = "alert-banner " + (type === "success" ? "alert-success" : "alert-danger");
     banner.style.display = "block";
-    setTimeout(() => { banner.style.display = "none"; }, 5000);
+    setTimeout(() => { banner.style.display = "none"; }, 6000);
 }
+
+// Sélection de la boutique par l'employé
+window.selectShopAction = function(element, shopName) {
+    const chips = document.querySelectorAll('.shop-led-chip');
+    chips.forEach(c => c.classList.remove('selected'));
+    element.classList.add('selected');
+    selectedShop = shopName;
+};
 
 function compresserImage(file, callback) {
     const reader = new FileReader();
@@ -606,10 +715,21 @@ async function login() {
     const snapshotNote = await get(ref(db, 'patron_notes/' + u));
     const noteZone = document.getElementById("patronNoteZone");
     if (snapshotNote.exists() && snapshotNote.val() !== "") {
-        noteZone.innerText = "✉️ Note du patron : " + snapshotNote.val();
+        document.getElementById("noteTextContent").innerHTML = `✉️ <b>MESSAGE PATRON :</b> ${snapshotNote.val()}`;
         noteZone.style.display = "block";
     } else {
         noteZone.style.display = "none";
+    }
+
+    // VÉRIFICATION DES PROPOSITIONS DE MODIFICATION DU PATRON
+    const snapshotProp = await get(ref(db, 'proposals/' + u));
+    const propZone = document.getElementById("propHeuresZone");
+    if (snapshotProp.exists()) {
+        currentProposalValue = Number(snapshotProp.val());
+        document.getElementById("propHeuresValeur").innerText = formaterHeuresEtMinutes(currentProposalValue);
+        propZone.style.display = "block";
+    } else {
+        propZone.style.display = "none";
     }
 
     const snapshotStatus = await get(ref(db, 'user_statuses/' + u));
@@ -622,6 +742,35 @@ async function login() {
     await load();
   } else { alert("Identifiants incorrects"); }
 }
+
+document.getElementById("btnCloseNote").addEventListener("click", async () => {
+    document.getElementById("patronNoteZone").style.display = "none";
+    await remove(ref(db, 'patron_notes/' + current));
+});
+
+// ACTION SI L'EMPLOYE ACCEPTE LA MODIFICATION DU PATRON
+document.getElementById("btnAcceptProp").addEventListener("click", async () => {
+    try {
+        let fakeHistory = [{
+            start: "Ajustement validé par l'employé",
+            end: genererDatePrecise(new Date()),
+            hours: currentProposalValue.toFixed(2),
+            shop: "RH SYSTEM"
+        }];
+        await set(ref(db, 'history/' + current), fakeHistory);
+        await remove(ref(db, 'proposals/' + current));
+        document.getElementById("propHeuresZone").style.display = "none";
+        alert("✅ Heures synchronisées avec succès !");
+        await load();
+    } catch(err) { alert(err.message); }
+});
+
+// ACTION SI L'EMPLOYE REFUSE
+document.getElementById("btnRefuseProp").addEventListener("click", async () => {
+    await remove(ref(db, 'proposals/' + current));
+    document.getElementById("propHeuresZone").style.display = "none";
+    alert("❌ Vous avez refusé l'ajustement. Le patron en sera informé.");
+});
 
 async function admin() {
   let u = document.getElementById("user").value.trim();
@@ -680,7 +829,7 @@ window.selectWorkerForNoteAction = function(element, workerName) {
 }
 
 document.getElementById("btnSendPatronNote").addEventListener("click", async () => {
-    if(!selectedWorkerForNote) return alert("Veuillez d'abord sélectionner un employé en cliquant sur son badge !");
+    if(!selectedWorkerForNote) return alert("Sélectionnez d'abord un employé !");
     let text = document.getElementById("noteText").value.trim();
     if(!text) return alert("Veuillez écrire un message.");
 
@@ -691,7 +840,7 @@ document.getElementById("btnSendPatronNote").addEventListener("click", async () 
     chips.forEach(c => c.classList.remove('selected'));
     selectedWorkerForNote = "";
 
-    alert("Note envoyée avec succès !");
+    alert("⚡ Transmission envoyée !");
 });
 
 async function addNewEmployee() {
@@ -717,7 +866,7 @@ window.triggerUpdatePhoto = function(workerName) {
 }
 
 window.deleteEmployee = async function(workerName) {
-  if (confirm("Supprimer '" + workerName + "' définitivement ?")) {
+  if (confirm("Supprimer définitivement ?")) {
     try {
       await remove(ref(db, 'app_users/' + workerName));
       await remove(ref(db, 'history/' + workerName));
@@ -725,6 +874,7 @@ window.deleteEmployee = async function(workerName) {
       await remove(ref(db, 'avatars/' + workerName));
       await remove(ref(db, 'patron_notes/' + workerName));
       await remove(ref(db, 'user_statuses/' + workerName));
+      await remove(ref(db, 'proposals/' + workerName));
       await loadAdmin();
     } catch (error) { alert(error.message); }
   }
@@ -742,9 +892,32 @@ window.supprimerOubli = async function(index) {
     }
 }
 
+// ENVOYER UNE PROPOSITION DE MODIFICATION DEPUIS LE PANEL PATRON
+window.modifierHeuresManuellement = async function(workerName, totalActuel) {
+    let nvTotal = prompt(`Soumettre un ajustement d'heures à ${workerName}.\nEntrez la nouvelle valeur totale (ex: 11.68 pour 11h41) :`, totalActuel);
+    if (nvTotal === null) return;
+    nvTotal = Number(nvTotal);
+    if (isNaN(nvTotal) || nvTotal < 0) return alert("Valeur incorrecte.");
+
+    try {
+        // Au lieu de forcer l'écriture, on stocke la demande dans "proposals"
+        await set(ref(db, 'proposals/' + workerName), nvTotal);
+        alert(`⚡ Proposition transmise à ${workerName} ! Il devra accepter ou refuser depuis son écran.`);
+        await loadAdmin();
+    } catch(err) { alert(err.message); }
+}
+
 async function start() {
-  afficherAlerteEcran("✅ Entrée validée instantanément ! Bon travail.", "success");
-  set(ref(db, 'starts/' + current), Date.now()).catch(e => console.error("Erreur sync: ", e));
+  try {
+    const startSnapshot = await get(ref(db, 'starts/' + current));
+    if (startSnapshot.exists() && startSnapshot.val() !== "") {
+        afficherAlerteEcran("⚠️ Tu as déjà pointé à l'entrée !", "danger");
+        return;
+    }
+    
+    afficherAlerteEcran(`✅ Entrée enregistrée à la boutique [ ${selectedShop} ] !`, "success");
+    await set(ref(db, 'starts/' + current), Date.now());
+  } catch(e) { console.error(e); }
 }
 
 async function end() {
@@ -753,28 +926,32 @@ async function end() {
   try {
     const startSnapshot = await get(ref(db, 'starts/' + current));
     let s = startSnapshot.val();
-    if (!s) { afficherAlerteEcran("❌ Erreur : Pas de badge d'entrée trouvé.", "danger"); return; }
+    if (!s) { 
+        afficherAlerteEcran("❌ Erreur : Tu n'as pas pointé d'entrée.", "danger"); 
+        return; 
+    }
 
     let startTime = new Date(parseInt(s));
     let h = (instantEndTime - startTime) / 3600000;
 
-    afficherAlerteEcran("✅ Sortie validée instantanément !", "success");
+    afficherAlerteEcran("✅ Sortie validée !", "success");
 
     const dataSnapshot = await get(ref(db, 'history/' + current));
     let data = dataSnapshot.val() || [];
     
+    // On injecte la boutique sélectionnée dans la ligne d'historique
     data.push({ 
         start: genererDatePrecise(startTime), 
         end: genererDatePrecise(instantEndTime), 
-        hours: h.toFixed(2) 
+        hours: h.toFixed(2),
+        shop: selectedShop
     });
 
-    set(ref(db, 'history/' + current), data).then(() => load());
-    remove(ref(db, 'starts/' + current));
+    await set(ref(db, 'history/' + current), data);
+    await remove(ref(db, 'starts/' + current));
+    await load();
     
-  } catch (error) { 
-    afficherAlerteEcran("❌ Erreur de réseau, tentative en cours...", "danger"); 
-  }
+  } catch (error) { afficherAlerteEcran("❌ Erreur réseau.", "danger"); }
 }
 
 async function load() {
@@ -787,8 +964,14 @@ async function load() {
 
     data.forEach(e => {
       total += Number(e.hours);
+      let nomBoutique = e.shop ? e.shop : "Non spécifiée";
       let li = document.createElement("li");
-      li.innerHTML = `<div class="hist-info"><b>Du:</b> ${e.start}<br><b>Au:</b> ${e.end}</div><div class="hist-time">${formaterHeuresEtMinutes(Number(e.hours))}</div>`;
+      li.innerHTML = `
+        <div class="hist-info">
+            <b>Du:</b> ${e.start}<br><b>Au:</b> ${e.end}<br>
+            <span class="shop-badge-led">${nomBoutique}</span>
+        </div>
+        <div class="hist-time">${formaterHeuresEtMinutes(Number(e.hours))}</div>`;
       list.appendChild(li);
     });
 
@@ -805,7 +988,7 @@ async function loadAdmin() {
     chipsContainer.innerHTML = "";
     
     let oubliZone = document.getElementById("adminOublisZone");
-     oubliZone.innerHTML = "";
+    oubliZone.innerHTML = "";
     const snapshotOublis = await get(ref(db, 'oublis/'));
     if(snapshotOublis.exists() && snapshotOublis.val().length > 0) {
         snapshotOublis.val().forEach((o, index) => {
@@ -831,7 +1014,12 @@ async function loadAdmin() {
       const snapshotHist = await get(ref(db, 'history/' + u));
       let data = snapshotHist.val() || [];
       let total = 0;
-      data.forEach(e => total += Number(e.hours));
+      let derniereBoutique = "Aucune";
+      
+      data.forEach(e => {
+          total += Number(e.hours);
+          if(e.shop) derniereBoutique = e.shop;
+      });
 
       const snapshotStart = await get(ref(db, 'starts/' + u));
       let badgeHTML = snapshotStart.exists() 
@@ -848,7 +1036,12 @@ async function loadAdmin() {
         ? `<div class="instagram-bubble">${snapshotStatus.val()}</div>`
         : "";
 
-      // ICI : Utilisation de la nouvelle fonction formaterHeuresEtMinutes(total)
+      // VÉRIFIER SI UNE PROPOSITION EST EN ATTENTE
+      const snapshotCheckProp = await get(ref(db, 'proposals/' + u));
+      let statutModifHTML = snapshotCheckProp.exists() 
+        ? `<p style="color:#ff9900; font-size:11px; margin-top:2px; font-weight:bold;">⏳ Ajustement en attente de validation...</p>` 
+        : "";
+
       div.innerHTML += `
         <div class="card" style="align-items: center; justify-content: space-between; gap: 15px; text-align: left;">
           <div style="text-align: center;">
@@ -864,8 +1057,13 @@ async function loadAdmin() {
                 <h3 style="color:#FFD700; text-transform:capitalize; display:inline-block;">👤 ${u}</h3>
                 ${badgeHTML}
             </div>
+            <p style="margin-top:2px; font-size:11px;">Boutique : <span class="shop-badge-led">${derniereBoutique}</span></p>
             <p style="margin-top:5px; font-size:12px;"><b>Total :</b> ${formaterHeuresEtMinutes(total)} | <b>Salaire :</b> ${(total * 100).toFixed(0)} DA</p>
-            <button class="btn-delete-worker" onclick="deleteEmployee('${u}')">❌ Supprimer</button>
+            ${statutModifHTML}
+            <div style="display:flex; gap:10px; margin-top:5px;">
+                <button class="btn-inline" style="border-color:#ff9900; color:#ff9900;" onclick="modifierHeuresManuellement('${u}', ${total})">✏️ Ajuster</button>
+                <button class="btn-delete-worker" style="margin:0;" onclick="deleteEmployee('${u}')">❌ Supprimer</button>
+            </div>
           </div>
         </div>
       `;
@@ -879,6 +1077,7 @@ async function reset() {
       for (let u in users) {
         await remove(ref(db, 'history/' + u));
         await remove(ref(db, 'starts/' + u));
+        await remove(ref(db, 'proposals/' + u));
       }
       await loadAdmin();
     } catch (error) { alert(error.message); }
