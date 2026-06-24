@@ -148,7 +148,7 @@ button:active { transform: scale(0.96); }
     box-shadow: none;
 }
 
-#employee, #admin {
+#employee, #admin, #shopSelectionSection {
     width: 100%;
     margin-top: 10px;
 }
@@ -192,7 +192,7 @@ h2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 #btnStart { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: #fff; }
@@ -275,7 +275,7 @@ h2 {
 .shop-led-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
     margin-top: 15px;
     width: 100%;
     justify-content: center;
@@ -283,9 +283,9 @@ h2 {
 .shop-led-chip {
     background: #111;
     color: rgba(255, 215, 0, 0.4);
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 12px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 13px;
     font-weight: 800;
     border: 1px solid rgba(255, 215, 0, 0.2);
     cursor: pointer;
@@ -373,7 +373,6 @@ li {
 .hist-info { color: #ccc; line-height: 1.4; }
 .hist-time { font-size: 14px; font-weight: 700; color: #FFD700; background: rgba(255, 215, 0, 0.1); padding: 4px 8px; border-radius: 6px; }
 
-/* Statuts et Avatars */
 .status-badge {
     padding: 4px 8px;
     border-radius: 20px;
@@ -482,7 +481,6 @@ li {
     <div class="signature">Created by Nazim</div>
     <div class="subtitle" id="subHeader">Système de pointage</div>
 
-    <!-- Écran Login -->
     <div id="loginSection" class="login-box">
         <input id="user" placeholder="Nom d'utilisateur">
         <input id="pass" type="password" placeholder="Mot de passe">
@@ -490,16 +488,29 @@ li {
         <button id="btnAdmin">Connexion Patron</button>
     </div>
 
-    <!-- Écran Employé -->
+    <div id="shopSelectionSection" style="display:none; text-align:center;">
+        <h2 style="border-left-color: #FFD700; margin-bottom:5px;">Où travaillez-vous aujourd'hui ?</h2>
+        <p style="color:#aaa; font-size:13px; margin-bottom:15px; text-align:left;">Sélectionnez votre boutique pour aujourd'hui :</p>
+        
+        <div class="shop-led-container" id="loginShopContainer">
+            <div class="shop-led-chip" data-shop="AMRIW UG" onclick="selectLoginShop(this)">AMRIW UG</div>
+            <div class="shop-led-chip" data-shop="LS" onclick="selectLoginShop(this)">LS</div>
+            <div class="shop-led-chip" data-shop="AKBOU UG" onclick="selectLoginShop(this)">AKBOU UG</div>
+            <div class="shop-led-chip" data-shop="TOP MAN" onclick="selectLoginShop(this)">TOP MAN</div>
+            <div class="shop-led-chip" data-shop="EDIMCO LS" onclick="selectLoginShop(this)">EDIMCO LS</div>
+            <div class="shop-led-chip" data-shop="PEAK LS" onclick="selectLoginShop(this)">PEAK LS</div>
+        </div>
+
+        <button id="btnConfirmShop" style="margin-top:25px; background: linear-gradient(135deg, #FFD700 0%, #cca300 100%);">Valider et Entrer au Panel ✅</button>
+    </div>
+
     <div id="employee" style="display:none;">
         
-        <!-- MESSAGE PRIVÉ DU PATRON -->
         <div id="patronNoteZone" class="patron-note-banner">
             <span id="noteTextContent"></span>
             <button class="close-note-btn" id="btnCloseNote">❌ Fermer</button>
         </div>
 
-        <!-- ZONE DE VALIDATION DES HEURES PROPOSÉES PAR LE PATRON -->
         <div id="propHeuresZone" class="patron-note-banner" style="background: linear-gradient(135deg, #ff9900 0%, #ff5500 100%); border-color: #fff; display:none;">
             <p style="margin-bottom: 10px;">⚠️ <b>PROPOSITION DU PATRON :</b> Le patron propose de modifier votre total d'heures à <span id="propHeuresValeur" style="text-decoration: underline;">0h 00min</span>. Êtes-vous d'accord ?</p>
             <div style="display:flex; gap: 10px;">
@@ -515,6 +526,7 @@ li {
             </div>
             <div style="flex-grow:1;">
                 <h2 id="welcome" style="margin:0; border:none; padding:0;">Bienvenue</h2>
+                <p style="font-size:12px; color:#aaa; margin-top:2px;">Boutique sélectionnée : <span id="currentActiveShopBadge" class="shop-badge-led">---</span></p>
                 <div style="display:flex; gap:5px; margin-top:5px;">
                     <input id="myStatusInput" placeholder="Votre statut style Insta..." style="padding:5px 10px; font-size:11px; margin:0; border-radius:6px; height:28px;">
                     <button id="btnUpdateStatus" class="btn-inline" style="margin:0; height:28px; padding:0 8px;">Ok</button>
@@ -528,17 +540,6 @@ li {
         </div>
 
         <div id="actionAlert" class="alert-banner"></div>
-
-        <!-- SÉLECTEUR DE BOUTIQUE LED FLASHY LUMINEUX -->
-        <h4 style="margin-top:20px; font-size:13px; color:#FFD700; text-align:left; letter-spacing:1px; width:100%;">🚨 CHOIX DE LA BOUTIQUE ACTUELLE :</h4>
-        <div class="shop-led-container">
-            <div class="shop-led-chip selected" onclick="selectShopAction(this, 'AMRIW UG')">AMRIW UG</div>
-            <div class="shop-led-chip" onclick="selectShopAction(this, 'LS')">LS</div>
-            <div class="shop-led-chip" onclick="selectShopAction(this, 'AKBOU UG')">AKBOU UG</div>
-            <div class="shop-led-chip" onclick="selectShopAction(this, 'TOP MAN')">TOP MAN</div>
-            <div class="shop-led-chip" onclick="selectShopAction(this, 'EDIMCO LS')">EDIMCO LS</div>
-            <div class="shop-led-chip" onclick="selectShopAction(this, 'PEAK LS')">PEAK LS</div>
-        </div>
 
         <div class="action-buttons">
             <button id="btnStart">📍 Entrée</button>
@@ -557,7 +558,6 @@ li {
         <button id="btnPDF" style="background:#34495e; color:white;">📄 Exporter Rapport RH</button>
     </div>
 
-    <!-- Écran Admin -->
     <div id="admin" style="display:none;">
         <h2>Panel Patron</h2>
         
@@ -615,8 +615,11 @@ let current = "";
 let tempPhotoBase64 = "";
 let workerToUpdatePhoto = "";
 let selectedWorkerForNote = "";
-let selectedShop = "AMRIW UG"; 
+let selectedShop = "AMRIW UG"; // Sera écrasé par la mémoire ou le choix de l'utilisateur
 let currentProposalValue = 0;
+
+// Objets Firebase chargés en cache pour l'employé connecté
+let snapAvatarData, snapNoteData, snapPropData, snapStatusData;
 
 function formaterHeuresEtMinutes(heuresDecimales) {
     let h = Math.floor(heuresDecimales);
@@ -643,11 +646,12 @@ function afficherAlerteEcran(message, type) {
     setTimeout(() => { banner.style.display = "none"; }, 6000);
 }
 
-window.selectShopAction = function(element, shopName) {
-    const chips = document.querySelectorAll('.shop-led-chip');
+// Fonction de sélection visuelle sur l'écran intermédiaire
+window.selectLoginShop = function(element) {
+    const chips = document.querySelectorAll('#loginShopContainer .shop-led-chip');
     chips.forEach(c => c.classList.remove('selected'));
     element.classList.add('selected');
-    selectedShop = shopName;
+    selectedShop = element.getAttribute('data-shop');
 };
 
 function compresserImage(file, callback) {
@@ -687,7 +691,6 @@ document.getElementById("updateWorkerPhoto").addEventListener("change", function
     }
 });
 
-// Pré-chargement des comptes au démarrage unique (Optimise la vitesse de connexion)
 async function initAppUsers() {
   try {
     const snapshot = await get(ref(db, 'app_users/'));
@@ -695,40 +698,83 @@ async function initAppUsers() {
   } catch (e) { console.error("Erreur d'initialisation", e); }
 }
 
+// ETAPE 1 : Clic sur Connexion Employé (Vérification et affichage du choix de boutique)
 async function login() {
   let u = document.getElementById("user").value.trim().toLowerCase();
   let p = document.getElementById("pass").value.trim();
 
   if (users[u] && users[u] == p) {
     current = u;
+    
+    // On cache l'écran de login
     document.getElementById("loginSection").style.display = "none";
     document.getElementById("subHeader").style.display = "none";
-    document.getElementById("employee").style.display = "block";
-    document.getElementById("welcome").innerText = "Bonjour, " + u + " ✨";
     
-    // Une seule requête groupée pour le profil de l'employé connecté
+    // ÉCRAN INTERMÉDIAIRE : On affiche le choix de boutique
+    document.getElementById("shopSelectionSection").style.display = "block";
+    
+    // GESTION DE LA SAUVEGARDE AUTOMATIQUE (Mémoire du téléphone)
+    let savedShop = localStorage.getItem("saved_shop_" + current);
+    if (!savedShop) {
+        savedShop = "AMRIW UG"; // Par défaut s'il n'y a pas d'historique
+    }
+    
+    selectedShop = savedShop;
+    
+    // Sélectionner visuellement la puce LED correspondante
+    const chips = document.querySelectorAll('#loginShopContainer .shop-led-chip');
+    chips.forEach(c => {
+        if(c.getAttribute('data-shop') === savedShop) {
+            c.classList.add('selected');
+        } else {
+            c.classList.remove('selected');
+        }
+    });
+
+    // On pré-charge les données Firebase en arrière plan pendant qu'il choisit sa boutique
     const [snapshotAvatar, snapshotNote, snapshotProp, snapshotStatus] = await Promise.all([
         get(ref(db, 'avatars/' + u)),
         get(ref(db, 'patron_notes/' + u)),
         get(ref(db, 'proposals/' + u)),
         get(ref(db, 'user_statuses/' + u))
     ]);
+    
+    snapAvatarData = snapshotAvatar;
+    snapNoteData = snapshotNote;
+    snapPropData = snapshotProp;
+    snapStatusData = snapshotStatus;
 
-    document.getElementById("userAvatar").src = snapshotAvatar.exists() 
-        ? snapshotAvatar.val() 
-        : "https://api.dicebear.com/7.x/initials/svg?seed=" + u + "&backgroundColor=ffd700&color=000000";
+  } else { alert("Identifiants incorrects"); }
+}
+
+// ETAPE 2 : Validation finale de la boutique choisie et entrée dans le Panel
+document.getElementById("btnConfirmShop").addEventListener("click", async () => {
+    // On sauvegarde la boutique choisie dans le téléphone pour la prochaine fois
+    localStorage.setItem("saved_shop_" + current, selectedShop);
+    
+    // On bascule sur le panel employé
+    document.getElementById("shopSelectionSection").style.display = "none";
+    document.getElementById("employee").style.display = "block";
+    
+    document.getElementById("welcome").innerText = "Bonjour, " + current + " ✨";
+    document.getElementById("currentActiveShopBadge").innerText = selectedShop;
+
+    // Remplissage des données avec le pré-chargement effectué
+    document.getElementById("userAvatar").src = (snapAvatarData && snapAvatarData.exists()) 
+        ? snapAvatarData.val() 
+        : "https://api.dicebear.com/7.x/initials/svg?seed=" + current + "&backgroundColor=ffd700&color=000000";
 
     const noteZone = document.getElementById("patronNoteZone");
-    if (snapshotNote.exists() && snapshotNote.val() !== "") {
-        document.getElementById("noteTextContent").innerHTML = `✉️ <b>MESSAGE PATRON :</b> ${snapshotNote.val()}`;
+    if (snapNoteData && snapNoteData.exists() && snapNoteData.val() !== "") {
+        document.getElementById("noteTextContent").innerHTML = `✉️ <b>MESSAGE PATRON :</b> ${snapNoteData.val()}`;
         noteZone.style.display = "block";
     } else {
         noteZone.style.display = "none";
     }
 
     const propZone = document.getElementById("propHeuresZone");
-    if (snapshotProp.exists()) {
-        currentProposalValue = Number(snapshotProp.val());
+    if (snapPropData && snapPropData.exists()) {
+        currentProposalValue = Number(snapPropData.val());
         document.getElementById("propHeuresValeur").innerText = formaterHeuresEtMinutes(currentProposalValue);
         propZone.style.display = "block";
     } else {
@@ -736,14 +782,13 @@ async function login() {
     }
 
     const myBubble = document.getElementById("myStatusBubble");
-    if(snapshotStatus.exists() && snapshotStatus.val() !== "") {
-        myBubble.innerText = snapshotStatus.val();
+    if(snapStatusData && snapStatusData.exists() && snapStatusData.val() !== "") {
+        myBubble.innerText = snapStatusData.val();
         myBubble.style.display = "block";
     }
 
     await load();
-  } else { alert("Identifiants incorrects"); }
-}
+});
 
 document.getElementById("btnCloseNote").addEventListener("click", async () => {
     document.getElementById("patronNoteZone").style.display = "none";
@@ -975,10 +1020,8 @@ async function load() {
   } catch (error) { console.error(error); }
 }
 
-// OPTIMISATION CRITIQUE : Téléchargement groupé unique du panel admin
 async function loadAdmin() {
   try {
-    // 1 seule grosse requête réseau pour TOUTE la base de données
     const mainSnapshot = await get(ref(db));
     if (!mainSnapshot.exists()) return;
     
@@ -991,7 +1034,6 @@ async function loadAdmin() {
     const proposals = allData.proposals || {};
     const oublis = allData.oublis || [];
 
-    // Affichage des oublis
     let oubliZone = document.getElementById("adminOublisZone");
     oubliZone.innerHTML = "";
     if(oublis.length > 0) {
@@ -1013,7 +1055,6 @@ async function loadAdmin() {
     let div = document.getElementById("adminData");
     div.innerHTML = "";
 
-    // Lecture instantanée en mémoire locale (aucune latence)
     for (let u in users) {
       chipsContainer.innerHTML += `<div class="worker-chip" onclick="selectWorkerForNoteAction(this, '${u}')">${u}</div>`;
 
@@ -1085,7 +1126,6 @@ async function reset() {
 
 function exportPDF() { window.print(); }
 
-// Lancement direct de la synchronisation au démarrage
 initAppUsers();
 
 document.getElementById("btnLogin").addEventListener("click", login);
