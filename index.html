@@ -154,18 +154,19 @@ button:active { transform: scale(0.96); }
 }
 
 h2 {
-    font-size: 20px;
+    font-size: 19px;
     color: #fff;
     margin: 25px 0 12px 0;
     text-align: left;
     font-weight: 600;
     border-left: 4px solid #FFD700;
     padding-left: 10px;
+    letter-spacing: 0.5px;
 }
 
 .card {
-    background: linear-gradient(145deg, #161616, #0f0f0f);
-    border: 1px solid rgba(255, 215, 0, 0.1);
+    background: linear-gradient(145deg, #181818, #0f0f0f);
+    border: 1px solid rgba(255, 215, 0, 0.08);
     border-radius: 20px;
     padding: 20px;
     margin-top: 15px;
@@ -175,7 +176,7 @@ h2 {
 }
 
 .big {
-    font-size: 15px;
+    font-size: 14px;
     color: #aaa;
     text-align: center;
 }
@@ -198,7 +199,6 @@ h2 {
 #btnStart { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: #fff; }
 #btnEnd { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: #fff; }
 
-/* Bouton Spécial Style LED pour le Gérant */
 .btn-manager-toggle {
     background: linear-gradient(135deg, #00d2ff 0%, #0072ff 100%) !important;
     color: #fff !important;
@@ -210,7 +210,7 @@ h2 {
 
 .add-box {
     background: #111;
-    border: 1px dashed #FFD700;
+    border: 1px dashed rgba(255, 215, 0, 0.3);
     border-radius: 15px;
     padding: 15px;
     margin-top: 15px;
@@ -223,8 +223,6 @@ h2 {
     border-radius: 16px;
     padding: 20px;
     margin-top: 20px;
-    position: relative;
-    overflow: hidden;
 }
 .futuristic-box h4 {
     color: #00d2ff;
@@ -314,18 +312,17 @@ h2 {
 .shop-badge-led {
     background: #1e1b00;
     color: #FFD700;
-    border: 1px solid #FFD700;
+    border: 1px solid rgba(255, 215, 0, 0.5);
     padding: 3px 8px;
     border-radius: 6px;
     font-size: 11px;
     font-weight: bold;
     display: inline-block;
-    box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
     text-shadow: 0 0 3px #FFD700;
     text-transform: uppercase;
 }
 
-/* Badge Rôle Cliquable Interactif */
 .role-badge {
     padding: 4px 10px;
     border-radius: 8px;
@@ -364,29 +361,145 @@ h2 {
 }
 
 .btn-inline {
-    background: #222;
-    border: 1px solid #FFD700;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 215, 0, 0.3);
     color: #FFD700;
-    padding: 5px 10px;
+    padding: 5px 12px;
     font-size: 11px;
     border-radius: 6px;
     width: auto;
     display: inline-block;
     margin-top: 5px;
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-inline:hover {
+    background: #FFD700;
+    color: #000;
 }
 
 .btn-delete-worker {
     background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
     color: #fff;
-    padding: 6px 10px;
+    padding: 6px 12px;
     font-size: 11px;
     margin-top: 8px;
     border-radius: 6px;
     width: auto;
 }
 
-/* Style de la Table Historique Clean */
+/* Timeline CSS Épurée */
+.timeline-container {
+    position: relative;
+    padding-left: 20px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(0, 210, 255, 0.4), rgba(0, 114, 255, 0.1));
+}
+
+.timeline-row {
+    position: relative;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-row:hover {
+    background: rgba(0, 210, 255, 0.03);
+    border-color: rgba(0, 210, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 210, 255, 0.05);
+}
+
+.timeline-row::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: #00d2ff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00d2ff;
+    transition: all 0.2s ease;
+}
+
+.timeline-date-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.timeline-date-main {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.timeline-hours-flex {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.timeline-time-capsule {
+    background: rgba(0, 210, 255, 0.06);
+    border: 1px solid rgba(0, 210, 255, 0.15);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #00d2ff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timeline-time-capsule:hover {
+    background: rgba(0, 210, 255, 0.18);
+    border-color: #00d2ff;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+    color: #fff;
+}
+
+.timeline-time-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    letter-spacing: 0.5px;
+    margin-bottom: 1px;
+}
+
+.timeline-duration-pill {
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    color: #FFD700;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: right;
+    min-width: 75px;
+}
+
 .history-table-container {
     width: 100%;
     overflow-x: auto;
@@ -414,9 +527,6 @@ h2 {
     color: #ccc;
     border-bottom: 1px solid #222;
 }
-.clean-history-table tr:last-child td {
-    border-bottom: none;
-}
 .table-duration-badge {
     color: #FFD700;
     font-weight: bold;
@@ -433,18 +543,18 @@ h2 {
     font-weight: bold;
     text-transform: uppercase;
 }
-.status-online { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
-.status-offline { background: rgba(231, 76, 60, 0.2); color: #e74c3c; border: 1px solid #e74c3c; }
+.status-online { background: rgba(46, 204, 113, 0.15); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.4); }
+.status-offline { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.4); }
 
 .employee-profile-box {
     display: flex;
     align-items: center;
     gap: 15px;
     margin: 15px 0;
-    background: rgba(255, 215, 0, 0.03);
+    background: rgba(255, 215, 0, 0.02);
     padding: 15px;
     border-radius: 15px;
-    border: 1px solid rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.08);
     width: 100%;
 }
 
@@ -520,22 +630,9 @@ h2 {
     box-shadow: 0 0 12px rgba(0, 210, 255, 0.6);
 }
 
-.nested-history-item {
-    background: #161616;
-    border-left: 3px solid #FFD700;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 4px;
-    font-size: 11px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Bouton Spécial Accordéon Patron */
 .btn-toggle-history-admin {
     background: #1a1a1a !important;
-    border: 1px solid rgba(255, 215, 0, 0.3) !important;
+    border: 1px solid rgba(255, 215, 0, 0.2) !important;
     color: #FFD700 !important;
     padding: 10px 15px !important;
     font-size: 12px !important;
@@ -546,52 +643,11 @@ h2 {
     box-shadow: none !important;
 }
 
-/* CSS STRICT POUR L'IMPRESSION EXPORT RH */
 @media print {
-    body {
-        background: #fff !important;
-        color: #000 !important;
-    }
-    .main * {
-        visibility: hidden;
-    }
-    #rhPrintArea, #rhPrintArea * {
-        visibility: visible;
-    }
-    #rhPrintArea {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        background: #fff !important;
-        color: #000 !important;
-        padding: 0;
-        margin: 0;
-    }
-    .clean-history-table {
-        background: #fff !important;
-        width: 100% !important;
-        border: 1px solid #000 !important;
-    }
-    .clean-history-table th {
-        background: #f0f0f0 !important;
-        color: #000 !important;
-        border-bottom: 2px solid #000 !important;
-    }
-    .clean-history-table td {
-        color: #000 !important;
-        border-bottom: 1px solid #ddd !important;
-    }
-    .table-duration-badge {
-        color: #000 !important;
-        background: transparent !important;
-        font-weight: bold !important;
-    }
-    html, body {
-        height: 99%;
-        page-break-inside: avoid;
-        break-inside: avoid;
-    }
+    body { background: #fff !important; color: #000 !important; }
+    .main * { visibility: hidden; }
+    #rhPrintArea, #rhPrintArea * { visibility: visible; }
+    #rhPrintArea { position: absolute; left: 0; top: 0; width: 100%; background: #fff !important; color: #000 !important; padding: 0; margin: 0; }
 }
 </style>
 </head>
@@ -617,8 +673,6 @@ h2 {
 
     <div id="shopSelectionSection" style="display:none; text-align:center;">
         <h2 style="border-left-color: #FFD700; margin-bottom:5px;">Où travaillez-vous aujourd'hui ?</h2>
-        <p style="color:#aaa; font-size:13px; margin-bottom:15px; text-align:left;">Sélectionnez votre boutique pour aujourd'hui :</p>
-        
         <div class="shop-led-container" id="loginShopContainer">
             <div class="shop-led-chip" data-shop="AMRIW UG" onclick="selectLoginShop(this)">AMRIW UG</div>
             <div class="shop-led-chip" data-shop="LS" onclick="selectLoginShop(this)">LS</div>
@@ -627,31 +681,34 @@ h2 {
             <div class="shop-led-chip" data-shop="EDIMCO LS" onclick="selectLoginShop(this)">EDIMCO LS</div>
             <div class="shop-led-chip" data-shop="PEAK LS" onclick="selectLoginShop(this)">PEAK LS</div>
         </div>
-
-        <button id="btnConfirmShop" style="margin-top:25px; background: linear-gradient(135deg, #FFD700 0%, #cca300 100%);">Valider et Entrer au Panel ✅</button>
+        <button id="btnConfirmShop" style="margin-top:25px;">Valider et Entrer au Panel ✅</button>
     </div>
 
     <div id="employee" style="display:none;">
         
         <div id="managerTopMenu" style="display:none; width:100%; margin-bottom:15px; text-align:center;">
-            <button id="btnToggleManagerView" class="btn-manager-toggle">💼 Gérer mes employés</button>
+            <button id="btnToggleManagerView" class="btn-manager-toggle">💼 Panneau Gérant Terrain</button>
         </div>
 
-        <div id="managerPanelSection" style="display:none; width:100%; margin-bottom:20px; border-bottom: 2px dashed rgba(0, 210, 255, 0.3); padding-bottom:20px;">
-            <h2 style="border-left-color: #00d2ff; margin-top: 10px;">🛠️ Gestion Boutique (<span id="managerShopTitle">---</span>)</h2>
-            <p style="font-size:12px; color:#aaa; margin-bottom:10px;">Cliquez sur l'entrée ou la sortie d'un employé pour ajuster son heure :</p>
+        <div id="managerPanelSection" style="display:none; width:100%; margin-bottom:20px; border-bottom: 2px dashed rgba(0, 210, 255, 0.2); padding-bottom:20px;">
+            <h2 style="border-left-color: #00d2ff; margin-top: 10px;">🛠️ Gestion : <span id="managerShopTitle">---</span></h2>
+            
+            <p style="font-size:12px; color:#aaa; margin-top:10px; font-weight:bold;">📝 Signalements d'oublis de cette boutique :</p>
+            <div id="managerOublisZone" style="margin-top:8px;"></div>
+
+            <p style="font-size:12px; color:#aaa; margin-top:20px; font-weight:bold;">👥 Présences & Historique Équipe :</p>
             <div id="managerWorkersData"></div>
         </div>
 
         <div id="patronNoteZone" class="patron-note-banner">
             <span id="noteTextContent"></span>
-            <button class="close-note-btn" id="btnCloseNote">❌ Fermer</button>
+            <button class="close-note-btn" id="btnCloseNote">❌</button>
         </div>
 
-        <div id="propHeuresZone" class="patron-note-banner" style="background: linear-gradient(135deg, #ff9900 0%, #ff5500 100%); border-color: #fff; display:none;">
-            <p style="margin-bottom: 10px;">⚠️ <b>PROPOSITION DE CORRECTION :</b> Une correction est suggérée pour votre historique. Êtes-vous d'accord avec les modifications apportées ?</p>
-            <div style="display:flex; gap: 10px;">
-                <button id="btnAcceptProp" style="background:#2ecc71; color:white; padding:8px; margin:0; font-size:12px;">✅ Accepter la correction</button>
+        <div id="propHeuresZone" class="patron-note-banner" style="background: linear-gradient(135deg, #ff9900 0%, #ff5500 100%); display:none;">
+            <p>⚠️ <b>AJUSTEMENT PROPOSÉ :</b> Le gérant/patron a suggéré une correction. Accepter ?</p>
+            <div style="display:flex; gap: 10px; margin-top:10px;">
+                <button id="btnAcceptProp" style="background:#2ecc71; color:white; padding:8px; margin:0; font-size:12px;">✅ Accepter</button>
                 <button id="btnRefuseProp" style="background:#e74c3c; color:white; padding:8px; margin:0; font-size:12px;">❌ Refuser</button>
             </div>
         </div>
@@ -663,10 +720,10 @@ h2 {
             </div>
             <div style="flex-grow:1;">
                 <h2 id="welcome" style="margin:0; border:none; padding:0;">Bienvenue</h2>
-                <p style="font-size:12px; color:#aaa; margin-top:2px;">Boutique : <span id="currentActiveShopBadge" class="shop-badge-led">---</span></p>
+                <p style="font-size:12px; color:#aaa;">Boutique active : <span id="currentActiveShopBadge" class="shop-badge-led">---</span></p>
                 <div style="display:flex; gap:5px; margin-top:5px;">
-                    <input id="myStatusInput" placeholder="Votre statut style Insta..." style="padding:5px 10px; font-size:11px; margin:0; border-radius:6px; height:28px;">
-                    <button id="btnUpdateStatus" class="btn-inline" style="margin:0; height:28px; padding:0 8px;">Ok</button>
+                    <input id="myStatusInput" placeholder="Votre humeur/statut..." style="padding:5px; font-size:11px; margin:0; border-radius:6px; height:28px;">
+                    <button id="btnUpdateStatus" class="btn-inline" style="margin:0; height:28px;">Ok</button>
                 </div>
             </div>
         </div>
@@ -684,14 +741,13 @@ h2 {
         </div>
 
         <div class="add-box" style="border-color:#e74c3c;">
-            <h4 style="color:#e74c3c; margin-bottom:5px; font-size:14px; text-align:left;">📝 Signaler un oubli de pointage</h4>
+            <h4 style="color:#e74c3c; margin-bottom:5px; font-size:13px;">📝 Signaler un oubli de pointage</h4>
             <input type="datetime-local" id="forgetTime" style="font-size:13px; padding:8px;">
-            <textarea id="forgetReason" placeholder="Expliquez brièvement l'oubli au patron..." rows="2" style="font-size:13px; padding:8px; margin-top:8px;"></textarea>
-            <button id="btnSendForget" style="background:linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color:white; padding:8px; font-size:12px; margin-top:8px;">Envoyer le signalement</button>
+            <textarea id="forgetReason" placeholder="Expliquez l'oubli (ex: Oublié de pointer à l'entrée ce matin à 9h)..." rows="2" style="font-size:13px; padding:8px; margin-top:8px;"></textarea>
+            <button id="btnSendForget" style="background:linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color:white; padding:8px; font-size:12px; margin-top:8px;">Envoyer au Gérant Désigné ✉️</button>
         </div>
 
-        <h2>Mon Historique</h2>
-        
+        <h2>Mon Historique Personnel</h2>
         <div id="rhPrintArea">
             <div class="history-table-container">
                 <table class="clean-history-table">
@@ -704,42 +760,40 @@ h2 {
                             <th>Durée</th>
                         </tr>
                     </thead>
-                    <tbody id="historyTableBody">
-                    </tbody>
+                    <tbody id="historyTableBody"></tbody>
                 </table>
             </div>
         </div>
-
-        <button id="btnPDF" style="background:#34495e; color:white; margin-top:15px;">📄 Exporter Rapport RH (1 Page)</button>
+        <button id="btnPDF" style="background:#34495e; color:white; margin-top:15px;">📄 Exporter Rapport RH</button>
     </div>
 
     <div id="admin" style="display:none;">
-        <h2>Panel Patron</h2>
+        <h2>Panel Global Patron (Airouche)</h2>
         
         <div class="add-box">
-            <h4 style="color:#FFD700; margin-bottom: 5px; text-align:left;">➕ Ajouter un Employé</h4>
-            <input id="newWorkerName" placeholder="Nom de l'employé (ex: ilyes)">
-            <input id="newWorkerPass" placeholder="Mot de passe / Code">
+            <h4>➕ Ajouter un Nouvel Employé</h4>
+            <input id="newWorkerName" placeholder="Nom d'utilisateur (ex: anas)">
+            <input id="newWorkerPass" placeholder="Code d'accès secret">
             <label for="newWorkerPhoto" class="btn-file-label">📸 Photo de profil</label>
             <input type="file" id="newWorkerPhoto" accept="image/*" style="display:none;">
-            <div id="photoCheckMark" style="color:#2ecc71; font-size:12px; margin-top:5px; text-align:center; display:none;">✓ Photo chargée</div>
-            <button id="btnAddUser">Enregistrer l'employé</button>
+            <div id="photoCheckMark" style="color:#2ecc71; font-size:12px; margin-top:5px; text-align:center; display:none;">✓ Image chargée</div>
+            <button id="btnAddUser">Créer le compte</button>
         </div>
 
         <div class="futuristic-box">
-            <h4>⚡ TRANSMISSION MESSAGE PRIVÉ</h4>
+            <h4>⚡ TRANSMISSION MESSAGE SÉCURISÉ</h4>
             <div id="workerChipsList" class="worker-chips-container"></div>
-            <input id="noteText" class="futuristic-input" placeholder="Saisir le message sécurisé...">
-            <button id="btnSendPatronNote" class="futuristic-btn">LAUNCH TRANSMISSION</button>
+            <input id="noteText" class="futuristic-input" placeholder="Écrire un message...">
+            <button id="btnSendPatronNote" class="futuristic-btn">LANCER L'ENVOI</button>
         </div>
 
-        <h2>📝 Demandes de Corrections (Oublis)</h2>
+        <h2>📌 Toutes les Demandes de Corrections (Toutes Boutiques)</h2>
         <div id="adminOublisZone"></div>
 
-        <h2>Tableau de Bord & Présence</h2>
+        <h2>Tableau de Bord Général</h2>
         <input type="file" id="updateWorkerPhoto" accept="image/*" style="display:none;">
         <div id="adminData"></div>
-        <button id="btnReset" style="background:#c0392b; color:white; margin-top:30px;">🗑 Réinitialiser toutes les heures</button>
+        <button id="btnReset" style="background:#c0392b; color:white; margin-top:30px;">🗑 Réinitialiser toutes les données</button>
     </div>
 
 </div>
@@ -783,7 +837,7 @@ function formaterHeuresEtMinutes(heuresDecimales) {
 
 function extraireHeureEtMinutes(chaineDate) {
     if(!chaineDate || !chaineDate.includes("à")) return "--:--";
-    return chaineDate.split("à")[1].trim();
+    return chaineDate.split("à")[1].trim().substring(0, 5);
 }
 
 function extraireUniquementDate(chaineDate) {
@@ -806,20 +860,12 @@ function convertirChaineVersDate(chaineDate) {
     const parties = chaineDate.split(" à ");
     const dateParties = parties[0].split("/");
     const heureParties = parties[1].split(":");
-    return new Date(
-        parseInt(dateParties[2]), 
-        parseInt(dateParties[1]) - 1, 
-        parseInt(dateParties[0]), 
-        parseInt(heureParties[0]), 
-        parseInt(heureParties[1]), 
-        parseInt(heureParties[2] || "0")
-    );
+    return new Date(parseInt(dateParties[2]), parseInt(dateParties[1]) - 1, parseInt(dateParties[0]), parseInt(heureParties[0]), parseInt(heureParties[1]), parseInt(heureParties[2] || "0"));
 }
 
 function recompilerChaineDateAvecNouvelleHeure(chaineOriginale, nouvelleHeureString) {
     if(!chaineOriginale || !chaineOriginale.includes("à")) return chaineOriginale;
-    const dateUniquement = chaineOriginale.split(" à ")[0].trim();
-    return `${dateUniquement} à ${nouvelleHeureString}:00`;
+    return `${chaineOriginale.split(" à ")[0].trim()} à ${nouvelleHeureString}:00`;
 }
 
 function afficherAlerteEcran(message, type) {
@@ -831,8 +877,7 @@ function afficherAlerteEcran(message, type) {
 }
 
 window.selectLoginShop = function(element) {
-    const chips = document.querySelectorAll('#loginShopContainer .shop-led-chip');
-    chips.forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('#loginShopContainer .shop-led-chip').forEach(c => c.classList.remove('selected'));
     element.classList.add('selected');
     selectedShop = element.getAttribute('data-shop');
 };
@@ -864,12 +909,10 @@ document.getElementById("newWorkerPhoto").addEventListener("change", function(e)
 document.getElementById("updateWorkerPhoto").addEventListener("change", function(e) {
     if(e.target.files.length > 0 && workerToUpdatePhoto !== "") {
         compresserImage(e.target.files[0], async function(base64Data) {
-            try {
-                await set(ref(db, 'avatars/' + workerToUpdatePhoto), base64Data);
-                alert("Photo mise à jour !");
-                workerToUpdatePhoto = "";
-                await loadAdmin();
-            } catch(err) { alert("Erreur : " + err.message); }
+            await set(ref(db, 'avatars/' + workerToUpdatePhoto), base64Data);
+            alert("Photo mise à jour !");
+            workerToUpdatePhoto = "";
+            await loadAdmin();
         });
     }
 });
@@ -878,7 +921,7 @@ async function initAppUsers() {
   try {
     const snapshot = await get(ref(db, 'app_users/'));
     users = snapshot.exists() ? snapshot.val() : {};
-  } catch (e) { console.error("Erreur d'initialisation", e); }
+  } catch (e) { console.error(e); }
 }
 
 async function login() {
@@ -887,78 +930,53 @@ async function login() {
 
   if (users[u] && users[u] == p) {
     current = u;
-    
     document.getElementById("loginSection").style.display = "none";
     document.getElementById("subHeader").style.display = "none";
     document.getElementById("shopSelectionSection").style.display = "block";
     
-    let savedShop = localStorage.getItem("saved_shop_" + current);
-    if (!savedShop) { savedShop = "AMRIW UG"; }
-    
+    let savedShop = localStorage.getItem("saved_shop_" + current) || "AMRIW UG";
     selectedShop = savedShop;
     
-    const chips = document.querySelectorAll('#loginShopContainer .shop-led-chip');
-    chips.forEach(c => {
-        if(c.getAttribute('data-shop') === savedShop) { c.classList.add('selected'); } 
-        else { c.classList.remove('selected'); }
+    document.querySelectorAll('#loginShopContainer .shop-led-chip').forEach(c => {
+        if(c.getAttribute('data-shop') === savedShop) c.classList.add('selected');
+        else c.classList.remove('selected');
     });
 
     const [snapshotAvatar, snapshotNote, snapshotProp, snapshotStatus, snapshotRole] = await Promise.all([
-        get(ref(db, 'avatars/' + u)),
-        get(ref(db, 'patron_notes/' + u)),
-        get(ref(db, 'proposals/' + u)),
-        get(ref(db, 'user_statuses/' + u)),
-        get(ref(db, 'user_roles/' + u))
+        get(ref(db, 'avatars/' + u)), get(ref(db, 'patron_notes/' + u)), get(ref(db, 'proposals/' + u)), get(ref(db, 'user_statuses/' + u)), get(ref(db, 'user_roles/' + u))
     ]);
     
-    snapAvatarData = snapshotAvatar;
-    snapNoteData = snapshotNote;
-    snapPropData = snapshotProp;
-    snapStatusData = snapshotStatus;
-    snapRoleData = snapshotRole;
-
+    snapAvatarData = snapshotAvatar; snapNoteData = snapshotNote; snapPropData = snapshotProp; snapStatusData = snapshotStatus; snapRoleData = snapshotRole;
   } else { alert("Identifiants incorrects"); }
 }
 
 document.getElementById("btnConfirmShop").addEventListener("click", async () => {
     localStorage.setItem("saved_shop_" + current, selectedShop);
-    
     document.getElementById("shopSelectionSection").style.display = "none";
     document.getElementById("employee").style.display = "block";
     
     document.getElementById("welcome").innerText = "Bonjour, " + current + " ✨";
     document.getElementById("currentActiveShopBadge").innerText = selectedShop;
 
-    document.getElementById("userAvatar").src = (snapAvatarData && snapAvatarData.exists()) 
-        ? snapAvatarData.val() 
-        : "https://api.dicebear.com/7.x/initials/svg?seed=" + current + "&backgroundColor=ffd700&color=000000";
+    document.getElementById("userAvatar").src = (snapAvatarData && snapAvatarData.exists()) ? snapAvatarData.val() : "https://api.dicebear.com/7.x/initials/svg?seed=" + current + "&backgroundColor=ffd700&color=000000";
 
-    const noteZone = document.getElementById("patronNoteZone");
     if (snapNoteData && snapNoteData.exists() && snapNoteData.val() !== "") {
         document.getElementById("noteTextContent").innerHTML = `✉️ <b>MESSAGE :</b> ${snapNoteData.val()}`;
-        noteZone.style.display = "block";
-    } else { noteZone.style.display = "none"; }
+        document.getElementById("patronNoteZone").style.display = "block";
+    }
 
-    const propZone = document.getElementById("propHeuresZone");
-    if (snapPropData && snapPropData.exists()) {
-        propZone.style.display = "block";
-    } else { propZone.style.display = "none"; }
+    if (snapPropData && snapPropData.exists()) document.getElementById("propHeuresZone").style.display = "block";
 
-    const myBubble = document.getElementById("myStatusBubble");
     if(snapStatusData && snapStatusData.exists() && snapStatusData.val() !== "") {
-        myBubble.innerText = snapStatusData.val();
-        myBubble.style.display = "block";
+        document.getElementById("myStatusBubble").innerText = snapStatusData.val();
+        document.getElementById("myStatusBubble").style.display = "block";
     }
 
     if (snapRoleData && snapRoleData.exists() && snapRoleData.val() === "gerant") {
         document.getElementById("managerTopMenu").style.display = "block";
         document.getElementById("managerShopTitle").innerText = selectedShop;
         await loadManagerPanel();
-    } else {
-        document.getElementById("managerTopMenu").style.display = "none";
-        document.getElementById("managerPanelSection").style.display = "none";
     }
-
     await load();
 });
 
@@ -973,28 +991,24 @@ document.getElementById("btnCloseNote").addEventListener("click", async () => {
 });
 
 document.getElementById("btnAcceptProp").addEventListener("click", async () => {
-    try {
-        const snapProp = await get(ref(db, 'proposals/' + current));
-        if(snapProp.exists()) {
-            await set(ref(db, 'history/' + current), snapProp.val());
-            await remove(ref(db, 'proposals/' + current));
-            document.getElementById("propHeuresZone").style.display = "none";
-            alert("✅ L'ajustement horaire a été appliqué à votre historique !");
-            await load();
-        }
-    } catch(err) { alert(err.message); }
+    const snapProp = await get(ref(db, 'proposals/' + current));
+    if(snapProp.exists()) {
+        await set(ref(db, 'history/' + current), snapProp.val());
+        await remove(ref(db, 'proposals/' + current));
+        document.getElementById("propHeuresZone").style.display = "none";
+        alert("✅ Ajustement horaire appliqué !");
+        await load();
+    }
 });
 
 document.getElementById("btnRefuseProp").addEventListener("click", async () => {
     await remove(ref(db, 'proposals/' + current));
     document.getElementById("propHeuresZone").style.display = "none";
-    alert("❌ Vous avez refusé la proposition d'ajustement.");
 });
 
 async function admin() {
   let u = document.getElementById("user").value.trim();
   let p = document.getElementById("pass").value.trim();
-
   if (u == adminUser && p == adminPass) {
     document.getElementById("loginSection").style.display = "none";
     document.getElementById("subHeader").style.display = "none";
@@ -1007,15 +1021,14 @@ document.getElementById("btnUpdateStatus").addEventListener("click", async () =>
     let text = document.getElementById("myStatusInput").value.trim();
     if(text.length > 30) return alert("Maximum 30 caractères");
     await set(ref(db, 'user_statuses/' + current), text);
-    const myBubble = document.getElementById("myStatusBubble");
     if(text !== "") {
-        myBubble.innerText = text;
-        myBubble.style.display = "block";
-    } else { myBubble.style.display = "none"; }
+        document.getElementById("myStatusBubble").innerText = text;
+        document.getElementById("myStatusBubble").style.display = "block";
+    } else { document.getElementById("myStatusBubble").style.display = "none"; }
     document.getElementById("myStatusInput").value = "";
-    alert("Statut Instagram mis à jour !");
 });
 
+// SIGNALEMENT D'OUBLI ENVOYÉ AVEC L'INFORMATION DE LA BOUTIQUE
 document.getElementById("btnSendForget").addEventListener("click", async () => {
     let time = document.getElementById("forgetTime").value;
     let reason = document.getElementById("forgetReason").value.trim();
@@ -1024,22 +1037,24 @@ document.getElementById("btnSendForget").addEventListener("click", async () => {
     try {
         const snapshot = await get(ref(db, 'oublis/'));
         let oublis = snapshot.exists() ? snapshot.val() : [];
-        let dateObj = new Date(time);
         oublis.push({
             user: current,
-            time: genererDatePrecise(dateObj),
+            shop: selectedShop, // Liaison cruciale à la boutique active
+            time: genererDatePrecise(new Date(time)),
             reason: reason,
             timestamp: Date.now()
         });
         await set(ref(db, 'oublis/'), oublis);
         document.getElementById("forgetReason").value = "";
-        alert("Signalement envoyé avec succès !");
+        alert("✉️ Signalement envoyé au Gérant désigné de la boutique !");
+        if(document.getElementById("managerPanelSection").style.display !== "none") {
+            await loadManagerPanel();
+        }
     } catch(err) { alert(err.message); }
 });
 
 window.selectWorkerForNoteAction = function(element, workerName) {
-    const chips = document.querySelectorAll('.worker-chip');
-    chips.forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.worker-chip').forEach(c => c.classList.remove('selected'));
     element.classList.add('selected');
     selectedWorkerForNote = workerName;
 }
@@ -1048,31 +1063,24 @@ document.getElementById("btnSendPatronNote").addEventListener("click", async () 
     if(!selectedWorkerForNote) return alert("Sélectionnez d'abord un employé !");
     let text = document.getElementById("noteText").value.trim();
     if(!text) return alert("Veuillez écrire un message.");
-
     await set(ref(db, 'patron_notes/' + selectedWorkerForNote), text);
     document.getElementById("noteText").value = "";
-    const chips = document.querySelectorAll('.worker-chip');
-    chips.forEach(c => c.classList.remove('selected'));
-    selectedWorkerForNote = "";
-    alert("⚡ Transmission envoyée !");
+    alert("⚡ Message transmis !");
 });
 
 async function addNewEmployee() {
   let newName = document.getElementById("newWorkerName").value.trim().toLowerCase();
   let newPass = document.getElementById("newWorkerPass").value.trim();
   if(!newName || !newPass) return alert("Remplissez tous les champs");
-
-  try {
-    await set(ref(db, 'app_users/' + newName), newPass);
-    await set(ref(db, 'user_roles/' + newName), "employe"); 
-    if(tempPhotoBase64 !== "") { await set(ref(db, 'avatars/' + newName), tempPhotoBase64); }
-    document.getElementById("newWorkerName").value = "";
-    document.getElementById("newWorkerPass").value = "";
-    document.getElementById("photoCheckMark").style.display = "none";
-    tempPhotoBase64 = "";
-    alert("Employé ajouté !");
-    await loadAdmin();
-  } catch(error) { alert("Erreur: " + error.message); }
+  await set(ref(db, 'app_users/' + newName), newPass);
+  await set(ref(db, 'user_roles/' + newName), "employe"); 
+  if(tempPhotoBase64 !== "") await set(ref(db, 'avatars/' + newName), tempPhotoBase64);
+  document.getElementById("newWorkerName").value = "";
+  document.getElementById("newWorkerPass").value = "";
+  document.getElementById("photoCheckMark").style.display = "none";
+  tempPhotoBase64 = "";
+  alert("Employé créé !");
+  await loadAdmin();
 }
 
 window.triggerUpdatePhoto = function(workerName) {
@@ -1082,25 +1090,17 @@ window.triggerUpdatePhoto = function(workerName) {
 
 window.toggleUserRole = async function(workerName, currentRole) {
     let nextRole = (currentRole === "gerant") ? "employe" : "gerant";
-    try {
-        await set(ref(db, 'user_roles/' + workerName), nextRole);
-        await loadAdmin();
-    } catch(err) { alert(err.message); }
+    await set(ref(db, 'user_roles/' + workerName), nextRole);
+    await loadAdmin();
 }
 
 window.deleteEmployee = async function(workerName) {
-  if (confirm("Supprimer définitivement ?")) {
-    try {
+  if (confirm("Supprimer définitivement ce compte ?")) {
       await remove(ref(db, 'app_users/' + workerName));
       await remove(ref(db, 'history/' + workerName));
       await remove(ref(db, 'starts/' + workerName));
       await remove(ref(db, 'avatars/' + workerName));
-      await remove(ref(db, 'patron_notes/' + workerName));
-      await remove(ref(db, 'user_statuses/' + workerName));
-      await remove(ref(db, 'proposals/' + workerName));
-      await remove(ref(db, 'user_roles/' + workerName));
       await loadAdmin();
-    } catch (error) { alert(error.message); }
   }
 }
 
@@ -1111,239 +1111,176 @@ window.supprimerOubli = async function(index) {
             let oublis = snapshot.val();
             oublis.splice(index, 1);
             await set(ref(db, 'oublis/'), oublis);
-            await loadAdmin();
+            if(current === adminUser) await loadAdmin();
+            else await loadManagerPanel();
         }
     }
 }
 
-/* MÉTHODE D'AJUSTEMENT DISPONIBLE UNIQUEMENT POUR LE GÉRANT */
 window.modifierHeurePointageExacte = async function(workerName, indexLigne, typeAction, valeurActuelle) {
-    let messageType = (typeAction === "start") ? "d'ENTRÉE" : "de SORTIE";
-    let nvHeure = prompt(`Modifier l'heure ${messageType} pour ${workerName}.\nFormat HH:MM (ex: 09:00 ou 18:15) :`, valeurActuelle);
-    
+    let nvHeure = prompt(`Modifier l'heure pour ${workerName} (Format HH:MM) :`, valeurActuelle);
     if (nvHeure === null || nvHeure.trim() === "") return;
     
-    const regexHeure = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
-    if(!regexHeure.test(nvHeure.trim())) {
-        return alert("❌ Format invalide ! Entrez l'heure sous la forme HH:MM.");
-    }
+    if(!/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(nvHeure.trim())) return alert("Format HH:MM incorrect !");
 
-    try {
-        const snapshot = await get(ref(db, 'history/' + workerName));
-        if(!snapshot.exists()) return alert("Aucun historique trouvé.");
-        
-        let historiqueUnidimensionnel = snapshot.val();
-        let ligneAModifier = historiqueUnidimensionnel[indexLigne];
+    const snapshot = await get(ref(db, 'history/' + workerName));
+    if(!snapshot.exists()) return;
+    
+    let historique = snapshot.val();
+    let ligne = historique[indexLigne];
 
-        if(typeAction === "start") {
-            ligneAModifier.start = recompilerChaineDateAvecNouvelleHeure(ligneAModifier.start, nvHeure.trim());
-        } else {
-            ligneAModifier.end = recompilerChaineDateAvecNouvelleHeure(ligneAModifier.end, nvHeure.trim());
-        }
+    if(typeAction === "start") ligne.start = recompilerChaineDateAvecNouvelleHeure(ligne.start, nvHeure.trim());
+    else ligne.end = recompilerChaineDateAvecNouvelleHeure(ligne.end, nvHeure.trim());
 
-        let objetDateEntree = convertirChaineVersDate(ligneAModifier.start);
-        let objetDateSortie = convertirChaineVersDate(ligneAModifier.end);
-        
-        let differenceEnHeures = (objetDateSortie - objetDateEntree) / 3600000;
-        if(differenceEnHeures < 0) {
-            return alert("❌ L'heure d'entrée ne peut pas être après l'heure de sortie !");
-        }
-        
-        ligneAModifier.hours = differenceEnHeures.toFixed(2);
-        historiqueUnidimensionnel[indexLigne] = ligneAModifier;
+    let diff = (convertirChaineVersDate(ligne.end) - convertirChaineVersDate(ligne.start)) / 3600000;
+    if(diff < 0) return alert("Erreur: L'entrée dépasse la sortie !");
+    
+    ligne.hours = diff.toFixed(2);
+    historique[indexLigne] = ligne;
 
-        await set(ref(db, 'proposals/' + workerName), historiqueUnidimensionnel);
-        alert(`⚡ Ajustement (${nvHeure}) proposé avec succès à ${workerName}.`);
-        await loadManagerPanel();
-    } catch(err) { alert("Erreur Firebase : " + err.message); }
+    await set(ref(db, 'proposals/' + workerName), historique);
+    alert(`Ajustement envoyé à l'employé ${workerName}.`);
 }
 
-/* FONCTION POUR DESIGN INTERACTIF ACCORDÉON (PATRON) */
 window.toggleAdminHistoryCollapse = function(workerName) {
-    const targetDiv = document.getElementById("history-box-" + workerName);
-    const targetBtn = document.getElementById("btn-toggle-" + workerName);
-    if(targetDiv.style.display === "none") {
-        targetDiv.style.display = "block";
-        targetBtn.innerText = "🔼 Masquer les relevés de présence";
-    } else {
-        targetDiv.style.display = "none";
-        targetBtn.innerText = "📋 Afficher les relevés de présence";
-    }
+    const box = document.getElementById("history-box-" + workerName);
+    box.style.display = (box.style.display === "none") ? "block" : "none";
 }
 
 async function start() {
-  try {
     const startSnapshot = await get(ref(db, 'starts/' + current));
-    if (startSnapshot.exists() && startSnapshot.val() !== "") {
-        afficherAlerteEcran("⚠️ Tu as déjà pointé à l'entrée !", "danger");
-        return;
-    }
-    await set(ref(db, 'starts/' + current), {
-        timestamp: Date.now(),
-        shop: selectedShop
-    });
-    afficherAlerteEcran(`✅ Entrée enregistrée à la boutique [ ${selectedShop} ] !`, "success");
-  } catch(e) { console.error(e); }
+    if (startSnapshot.exists() && startSnapshot.val() !== "") return alert("Déjà pointé à l'entrée !");
+    await set(ref(db, 'starts/' + current), { timestamp: Date.now(), shop: selectedShop });
+    afficherAlerteEcran(`📍 Entrée Validée : ${selectedShop}`, "success");
 }
 
 async function end() {
-  const instantEndTime = new Date();
-  try {
     const startSnapshot = await get(ref(db, 'starts/' + current));
     let startData = startSnapshot.val();
-    if (!startData) { 
-        afficherAlerteEcran("❌ Erreur : Tu n'as pas pointé d'entrée.", "danger"); 
-        return; 
-    }
+    if (!startData) return alert("Pas d'entrée enregistrée.");
 
     let s = startData.timestamp ? startData.timestamp : startData; 
-    let startTime = new Date(parseInt(s));
-    let h = (instantEndTime - startTime) / 3600000;
-
-    afficherAlerteEcran("✅ Sortie validée !", "success");
+    let h = (new Date() - new Date(parseInt(s))) / 3600000;
 
     const dataSnapshot = await get(ref(db, 'history/' + current));
     let data = dataSnapshot.val() || [];
-    
-    data.push({ 
-        start: genererDatePrecise(startTime), 
-        end: genererDatePrecise(instantEndTime), 
-        hours: h.toFixed(2),
-        shop: selectedShop
-    });
+    data.push({ start: genererDatePrecise(new Date(parseInt(s))), end: genererDatePrecise(new Date()), hours: h.toFixed(2), shop: selectedShop });
 
     await set(ref(db, 'history/' + current), data);
     await remove(ref(db, 'starts/' + current));
+    afficherAlerteEcran("🚪 Sortie Validée !", "success");
     await load();
-  } catch (error) { afficherAlerteEcran("❌ Erreur réseau.", "danger"); }
 }
 
 async function load() {
-  try {
     const snapshot = await get(ref(db, 'history/' + current));
     let data = snapshot.val() || [];
     let total = 0;
-    
     let tbody = document.getElementById("historyTableBody");
     tbody.innerHTML = "";
 
     data.forEach(e => {
       total += Number(e.hours);
-      let nomBoutique = e.shop ? e.shop : "Non spécifiée";
-      
-      let tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td><span class="shop-badge-led">${nomBoutique}</span></td>
-        <td><b>${extraireUniquementDate(e.start)}</b></td>
-        <td>${extraireHeureEtMinutes(e.start)}</td>
-        <td>${extraireHeureEtMinutes(e.end)}</td>
-        <td><span class="table-duration-badge">${formaterHeuresEtMinutes(Number(e.hours))}</span></td>
-      `;
-      tbody.appendChild(tr);
+      tbody.innerHTML += `
+        <tr>
+          <td><span class="shop-badge-led">${e.shop || 'Générale'}</span></td>
+          <td><b>${extraireUniquementDate(e.start)}</b></td>
+          <td>${extraireHeureEtMinutes(e.start)}</td>
+          <td>${extraireHeureEtMinutes(e.end)}</td>
+          <td><span class="table-duration-badge">${formaterHeuresEtMinutes(Number(e.hours))}</span></td>
+        </tr>`;
     });
-
     document.getElementById("hours").innerText = formaterHeuresEtMinutes(total);
     document.getElementById("salary").innerText = (total * 100).toFixed(0);
-  } catch (error) { console.error(error); }
 }
 
-/* PANEL GÉRANT : RESTE DISPONIBLE POUR LE TERRAIN SANS TOUCHER AU PANEL PATRON */
+/* PANNEAU DU GÉRANT ASSIGNÉ : FILTRAGE COMPLET PAR BOUTIQUE */
 async function loadManagerPanel() {
-    try {
-        const snapshot = await get(ref(db));
-        if (!snapshot.exists()) return;
+    const snapshot = await get(ref(db));
+    if (!snapshot.exists()) return;
 
-        const allData = snapshot.val();
-        const allUsers = allData.app_users || {};
-        const starts = allData.starts || {};
-        const histories = allData.history || {};
-        const avatars = allData.avatars || {};
-        const proposals = allData.proposals || {};
+    const allData = snapshot.val();
+    const allUsers = allData.app_users || {};
+    const starts = allData.starts || {};
+    const histories = allData.history || {};
+    const avatars = allData.avatars || {};
+    const proposals = allData.proposals || {};
+    const oublis = allData.oublis || [];
 
-        let container = document.getElementById("managerWorkersData");
-        container.innerHTML = "";
-        let count = 0;
+    // 1. Filtrer et afficher uniquement les oublis de CETTE BOUTIQUE
+    let oubliZone = document.getElementById("managerOublisZone");
+    oubliZone.innerHTML = "";
+    let aDesOublis = false;
+    
+    oublis.forEach((o, idx) => {
+        if(o.shop === selectedShop) {
+            aDesOublis = true;
+            oubliZone.innerHTML += `
+                <div class="card" style="border-color:#e74c3c; flex-direction:column; text-align:left; padding:12px; gap:4px; font-size:13px; background:#161010;">
+                    <p style="color:#e74c3c; font-weight:bold;">👤 Employé : ${o.user}</p>
+                    <p style="color:#eee;"><b>Heure signalée :</b> ${o.time}</p>
+                    <p style="color:#aaa; font-style:italic;">"${o.reason}"</p>
+                    <button class="btn-inline" style="background:#e74c3c; color:#fff; border:none; margin-top:5px;" onclick="supprimerOubli(${idx})">🗑 Effacer la demande</button>
+                </div>`;
+        }
+    });
+    if(!aDesOublis) oubliZone.innerHTML = "<p style='color:#666; font-style:italic; font-size:12px;'>Aucun signalement d'oubli pour votre boutique.</p>";
 
-        for (let u in allUsers) {
-            if(u === current) continue; 
+    // 2. Affichage Timeline de l'équipe travaillant dans cette boutique
+    let container = document.getElementById("managerWorkersData");
+    container.innerHTML = "";
 
-            let sessionStart = starts[u];
-            let enPosteDansMaBoutique = false;
-            let derniereBoutiqueConnue = "Aucune";
+    for (let u in allUsers) {
+        if(u === current) continue;
+        let sessionStart = starts[u];
+        let enPosteIci = (sessionStart && sessionStart.shop === selectedShop);
+        let derniereBoutique = "Aucune";
+        let userHistory = histories[u] || [];
+        let total = 0;
+        
+        userHistory.forEach(h => { total += Number(h.hours); if(h.shop) derniereBoutique = h.shop; });
+        if (sessionStart) derniereBoutique = sessionStart.shop;
 
-            let userHistory = histories[u] || [];
-            let total = 0;
-            userHistory.forEach(h => {
-                total += Number(h.hours);
-                if(h.shop) derniereBoutiqueConnue = h.shop;
-            });
+        if (derniereBoutique === selectedShop || enPosteIci) {
+            let badge = enPosteIci ? `<span class="status-badge status-online">🟢 En poste</span>` : `<span class="status-badge status-offline">🔴 Parti</span>`;
+            let avatar = avatars[u] ? avatars[u] : "https://api.dicebear.com/7.x/initials/svg?seed=" + u + "&backgroundColor=ffd700&color=000000";
 
-            if (sessionStart && sessionStart.shop === selectedShop) {
-                enPosteDansMaBoutique = true;
-                derniereBoutiqueConnue = sessionStart.shop;
-            }
-
-            if (derniereBoutiqueConnue === selectedShop || enPosteDansMaBoutique) {
-                count++;
-                let badgeHTML = enPosteDansMaBoutique 
-                    ? `<span class="status-badge status-online">🟢 En poste</span>` 
-                    : `<span class="status-badge status-offline">🔴 Parti</span>`;
-
-                let avatarSrc = avatars[u] 
-                    ? avatars[u] 
-                    : "https://api.dicebear.com/7.x/initials/svg?seed=" + u + "&backgroundColor=ffd700&color=000000";
-
-                let statutModifHTML = proposals[u] 
-                    ? `<p style="color:#ff9900; font-size:11px; margin-top:4px; font-weight:bold;">⏳ Ajustement proposé en attente...</p>` 
-                    : "";
-
-                let lignesHistoriqueHTML = "";
-                userHistory.forEach((ligne, idx) => {
-                    let hEntree = extraireHeureEtMinutes(ligne.start);
-                    let hSortie = extraireHeureEtMinutes(ligne.end);
-                    lignesHistoriqueHTML += `
-                        <div class="nested-history-item">
-                            <span>📅 ${extraireUniquementDate(ligne.start)}</span>
-                            <span class="btn-inline" style="border-color:#00d2ff; color:#00d2ff; margin:0;" onclick="modifierHeurePointageExacte('${u}', ${idx}, 'start', '${hEntree}')">🛫 Entrée: ${hEntree}</span>
-                            <span class="btn-inline" style="border-color:#00d2ff; color:#00d2ff; margin:0;" onclick="modifierHeurePointageExacte('${u}', ${idx}, 'end', '${hSortie}')">🛬 Sortie: ${hSortie}</span>
-                            <span style="color:#FFD700; font-weight:bold;">${formaterHeuresEtMinutes(Number(ligne.hours))}</span>
-                        </div>`;
-                });
-
-                if(lignesHistoriqueHTML === "") {
-                    lignesHistoriqueHTML = `<p style="font-size:11px; color:#666; font-style:italic; margin-top:5px;">Aucun historique enregistré.</p>`;
-                }
-
-                container.innerHTML += `
-                    <div class="card" style="flex-direction: column; align-items: stretch; text-align: left; background:#111; padding: 15px; gap: 8px;">
-                      <div style="display:flex; align-items:center; gap:12px;">
-                          <img src="${avatarSrc}" class="employee-avatar" style="width:45px; height:45px;" alt="Avatar">
-                          <div style="flex-grow: 1;">
-                            <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <h3 style="color:#FFD700; text-transform:capitalize; font-size:15px;">👤 ${u}</h3>
-                                ${badgeHTML}
-                            </div>
-                            <p style="font-size:12px; color:#aaa;"><b>Total cumulé :</b> ${formaterHeuresEtMinutes(total)}</p>
-                            ${statutModifHTML}
-                          </div>
-                      </div>
-                      <div style="margin-top:5px; border-top:1px solid #222; padding-top:5px;">
-                          <p style="font-size:11px; color:#888; font-weight:bold; margin-bottom:4px;">📋 AJUSTEMENT SESSIONS :</p>
-                          ${lignesHistoriqueHTML}
-                      </div>
+            let timelineHTML = `<div class="timeline-container">`;
+            userHistory.forEach((l, idx) => {
+                let hE = extraireHeureEtMinutes(l.start);
+                let hS = extraireHeureEtMinutes(l.end);
+                timelineHTML += `
+                    <div class="timeline-row">
+                        <div class="timeline-date-info"><span class="timeline-date-main">${extraireUniquementDate(l.start)}</span></div>
+                        <div class="timeline-hours-flex">
+                            <div class="timeline-time-capsule" onclick="modifierHeurePointageExacte('${u}', ${idx}, 'start', '${hE}')"><span class="timeline-time-label">Entrée</span><span>${hE}</span></div>
+                            <div class="timeline-time-capsule" onclick="modifierHeurePointageExacte('${u}', ${idx}, 'end', '${hS}')"><span class="timeline-time-label">Sortie</span><span>${hS}</span></div>
+                        </div>
+                        <div class="timeline-duration-pill">${formaterHeuresEtMinutes(Number(l.hours))}</div>
                     </div>`;
-            }
-        }
+            });
+            timelineHTML += `</div>`;
 
-        if(count === 0) {
-            container.innerHTML = `<p style="color:#aaa; font-style:italic; font-size:13px; text-align:center; padding:10px;">Aucun employé rattaché à ${selectedShop} aujourd'hui.</p>`;
+            container.innerHTML += `
+                <div class="card" style="flex-direction: column; align-items: stretch; text-align: left; background:#121212; padding: 15px; margin-top:12px;">
+                  <div style="display:flex; align-items:center; gap:12px; padding-bottom:8px; border-bottom:1px solid #1f1f1f;">
+                      <img src="${avatar}" class="employee-avatar" style="width:45px; height:45px;">
+                      <div style="flex-grow: 1;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <h3 style="color:#FFD700; text-transform:capitalize; font-size:14px;">👤 ${u}</h3>
+                            ${badge}
+                        </div>
+                        <p style="font-size:11px; color:#aaa;"><b>Cumulé :</b> ${formaterHeuresEtMinutes(total)}</p>
+                      </div>
+                  </div>
+                  ${timelineHTML}
+                </div>`;
         }
-    } catch(err) { console.error(err); }
+    }
 }
 
-/* PANEL PATRON CACHÉ PAR DÉFAUT DERRIÈRE UN BOUTON CLIQUE UNIQUE (ACCORDÉON) */
+/* PANEL PATRON GLOBAL (AIROUCHE) - REÇOIT TOUTES LES BOUTIQUES */
 async function loadAdmin() {
-  try {
     const mainSnapshot = await get(ref(db));
     if (!mainSnapshot.exists()) return;
     
@@ -1359,19 +1296,14 @@ async function loadAdmin() {
 
     let oubliZone = document.getElementById("adminOublisZone");
     oubliZone.innerHTML = "";
-    if(oublis.length > 0) {
-        oublis.forEach((o, index) => {
-            oubliZone.innerHTML += `
-                <div class="card" style="border-color:#e74c3c; flex-direction:column; text-align:left; gap:5px; padding:12px;">
-                    <p style="color:#e74c3c; font-weight:bold;">⚠️ Signalement de : ${o.user}</p>
-                    <p><b>Heure oubliée :</b> ${o.time}</p>
-                    <p><b>Raison :</b> "${o.reason}"</p>
-                    <button class="btn-delete-worker" onclick="supprimerOubli(${index})" style="margin:5px 0 0 0;">Supprimer la demande</button>
-                </div>`;
-        });
-    } else {
-        oubliZone.innerHTML = "<p style='color:#aaa; font-style:italic; font-size:13px;'>Aucun signalement d'oubli en attente.</p>";
-    }
+    oublis.forEach((o, index) => {
+        oubliZone.innerHTML += `
+            <div class="card" style="border-color:#e74c3c; flex-direction:column; text-align:left; padding:12px;">
+                <p style="color:#e74c3c; font-weight:bold;">⚠️ [${o.shop}] Oubli de : ${o.user}</p>
+                <p style="font-size:13px;"><b>Heure :</b> ${o.time} | <b>Raison :</b> "${o.reason}"</p>
+                <button class="btn-delete-worker" onclick="supprimerOubli(${index})">Supprimer le signalement</button>
+            </div>`;
+    });
 
     let chipsContainer = document.getElementById("workerChipsList");
     chipsContainer.innerHTML = "";
@@ -1380,119 +1312,47 @@ async function loadAdmin() {
 
     for (let u in users) {
       chipsContainer.innerHTML += `<div class="worker-chip" onclick="selectWorkerForNoteAction(this, '${u}')">${u}</div>`;
-
       let userHistory = histories[u] || [];
-      let total = 0;
-      let derniereBoutique = "Aucune";
-      
-      userHistory.forEach(e => {
-          total += Number(e.hours);
-          if(e.shop) { derniereBoutique = e.shop; }
-      });
+      let total = 0; let derniereBoutique = "Aucune";
+      userHistory.forEach(e => { total += Number(e.hours); if(e.shop) derniereBoutique = e.shop; });
+      if(starts[u]) derniereBoutique = starts[u].shop;
 
-      let currentStartSession = starts[u];
-      let badgeHTML = currentStartSession
-        ? `<span class="status-badge status-online">🟢 En poste</span>` 
-        : `<span class="status-badge status-offline">🔴 Parti</span>`;
-
-      if(currentStartSession && currentStartSession.shop) {
-          derniereBoutique = currentStartSession.shop;
-      }
-
-      let userRole = roles[u] || "employe";
-      let roleBadgeHTML = (userRole === "gerant")
-        ? `<span class="role-badge role-gerant" onclick="toggleUserRole('${u}', 'gerant')">👑 Gérant</span>`
-        : `<span class="role-badge role-employe" onclick="toggleUserRole('${u}', 'employe')">👤 Employé</span>`;
-
-      let avatarSrc = avatars[u] 
-        ? avatars[u] 
-        : "https://api.dicebear.com/7.x/initials/svg?seed=" + u + "&backgroundColor=ffd700&color=000000";
-
-      let statusBubbleHTML = (statuses[u] && statuses[u] !== "")
-        ? `<div class="instagram-bubble">${statuses[u]}</div>`
-        : "";
-
-      let statutModifHTML = proposals[u] 
-        ? `<p style="color:#ff9900; font-size:11px; margin-top:2px; font-weight:bold;">⏳ Ajustement en attente de validation...</p>` 
-        : "";
-
-      let lignesHistoriqueAdminHTML = "";
-      userHistory.forEach((ligne) => {
-          let hEntree = extraireHeureEtMinutes(ligne.start);
-          let hSortie = extraireHeureEtMinutes(ligne.end);
-          lignesHistoriqueAdminHTML += `
-              <div class="nested-history-item" style="border-left-color: #888;">
-                  <span>📅 ${extraireUniquementDate(ligne.start)}</span>
-                  <span>🛫 Entrée: ${hEntree}</span>
-                  <span>🛬 Sortie: ${hSortie}</span>
-                  <span style="color:#aaa;">${formaterHeuresEtMinutes(Number(ligne.hours))}</span>
-              </div>`;
-      });
-
-      if(lignesHistoriqueAdminHTML === "") {
-          lignesHistoriqueAdminHTML = `<p style="font-size:11px; color:#555; font-style:italic;">Aucune session enregistrée.</p>`;
-      }
+      let badgeHTML = starts[u] ? `<span class="status-badge status-online">🟢 En poste</span>` : `<span class="status-badge status-offline">🔴 Parti</span>`;
+      let roleBadgeHTML = (roles[u] === "gerant") ? `<span class="role-badge role-gerant" onclick="toggleUserRole('${u}', 'gerant')">👑 Gérant</span>` : `<span class="role-badge role-employe" onclick="toggleUserRole('${u}', 'employe')">👤 Employé</span>`;
 
       div.innerHTML += `
-        <div class="card" style="flex-direction: column; align-items: stretch; text-align: left; padding: 15px; gap: 10px;">
-          <div style="display:flex; align-items:center; justify-content: space-between; gap: 15px;">
-              <div style="text-align: center;">
-                 <div class="avatar-container">
-                     ${statusBubbleHTML}
-                     <img src="${avatarSrc}" class="employee-avatar" alt="Avatar">
-                 </div><br>
-                 <button class="btn-inline" onclick="triggerUpdatePhoto('${u}')">📸 Changer</button>
-              </div>
-              
-              <div style="flex-grow: 1;">
-                <div style="display:flex; justify-content:space-between; align-items:center; gap: 5px;">
-                    <h3 style="color:#FFD700; text-transform:capitalize; display:inline-block;">👤 ${u}</h3>
-                    <div style="display:flex; gap:5px; align-items:center;">
-                        ${roleBadgeHTML}
-                        ${badgeHTML}
-                    </div>
+        <div class="card" style="flex-direction: column; align-items: stretch; text-align: left; padding: 15px;">
+          <div style="display:flex; align-items:center; justify-content: space-between;">
+              <img src="${avatars[u] || 'https://api.dicebear.com/7.x/initials/svg?seed=' + u}" class="employee-avatar" style="width:45px; height:45px;">
+              <div style="flex-grow: 1; padding-left:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h3 style="color:#FFD700; text-transform:capitalize; font-size:15px;">👤 ${u}</h3>
+                    <div style="display:flex; gap:4px;">${roleBadgeHTML}${badgeHTML}</div>
                 </div>
-                <p style="margin-top:2px; font-size:11px;">Boutique : <span class="shop-badge-led">${derniereBoutique}</span></p>
-                <p style="margin-top:5px; font-size:12px;"><b>Total :</b> ${formaterHeuresEtMinutes(total)} | <b>Salaire :</b> ${(total * 100).toFixed(0)} DA</p>
-                ${statutModifHTML}
-                <button class="btn-delete-worker" style="margin-top:5px; width:100%;" onclick="deleteEmployee('${u}')">❌ Supprimer Compte</button>
+                <p style="font-size:12px; color:#aaa;">Boutique : <span class="shop-badge-led">${derniereBoutique}</span></p>
+                <p style="font-size:12px;"><b>Total :</b> ${formaterHeuresEtMinutes(total)} | <b>Salaire :</b> ${(total * 100).toFixed(0)} DA</p>
               </div>
           </div>
-          
-          <button id="btn-toggle-${u}" class="btn-toggle-history-admin" onclick="toggleAdminHistoryCollapse('${u}')">📋 Afficher les relevés de présence</button>
-          
-          <div id="history-box-${u}" style="margin-top:5px; border-top:1px solid #222; padding-top:8px; display:none;">
-              <p style="font-size:11px; color:#FFD700; font-weight:bold; margin-bottom:5px;">📋 HISTORIQUE DES RELEVÉS :</p>
-              ${lignesHistoriqueAdminHTML}
-          </div>
+          <button class="btn-toggle-history-admin" onclick="toggleAdminHistoryCollapse('${u}')">📋 Voir Sessions</button>
+          <div id="history-box-${u}" style="display:none; margin-top:8px; border-top:1px solid #222; padding-top:8px;"></div>
         </div>`;
     }
-  } catch (error) { console.error(error); }
 }
 
 async function reset() {
   if (confirm("Voulez-vous purger TOUTES les heures ?")) {
-    try {
-      for (let u in users) {
-        await remove(ref(db, 'history/' + u));
-        await remove(ref(db, 'starts/' + u));
-        await remove(ref(db, 'proposals/' + u));
-      }
-      await loadAdmin();
-    } catch (error) { alert(error.message); }
+    for (let u in users) { await remove(ref(db, 'history/' + u)); await remove(ref(db, 'starts/' + u)); await remove(ref(db, 'oublis/')); }
+    await loadAdmin();
   }
 }
 
-function exportPDF() { window.print(); }
-
 initAppUsers();
-
 document.getElementById("btnLogin").addEventListener("click", login);
 document.getElementById("btnAdmin").addEventListener("click", admin);
 document.getElementById("btnStart").addEventListener("click", start);
 document.getElementById("btnEnd").addEventListener("click", end);
 document.getElementById("btnReset").addEventListener("click", reset);
-document.getElementById("btnPDF").addEventListener("click", exportPDF);
+document.getElementById("btnPDF").addEventListener("click", () => window.print());
 document.getElementById("btnAddUser").addEventListener("click", addNewEmployee);
 </script>
 </body>
