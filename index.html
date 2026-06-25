@@ -570,6 +570,45 @@ h2 {
     border: 2px solid #FFD700;
     object-fit: cover;
     background: #222;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+.employee-avatar:hover {
+    transform: scale(1.05);
+}
+
+/* Modale Photo Plein Écran */
+.photo-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.9);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+.photo-modal-content {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 20px;
+    border: 3px solid #FFD700;
+    box-shadow: 0 0 30px #FFD700;
+}
+.photo-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #FFD700;
+    color: #000;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 .instagram-bubble {
@@ -634,10 +673,11 @@ h2 {
     background: #1a1a1a !important;
     border: 1px solid rgba(255, 215, 0, 0.2) !important;
     color: #FFD700 !important;
-    padding: 10px 15px !important;
-    font-size: 12px !important;
-    border-radius: 8px !important;
-    margin-top: 8px !important;
+    padding: 12px 15px !important;
+    font-size: 13px !important;
+    font-weight: bold;
+    border-radius: 12px !important;
+    margin-top: 10px !important;
     width: 100% !important;
     text-align: center;
     box-shadow: none !important;
@@ -661,9 +701,10 @@ h2 {
         <div class="logo-sub">— Casual & Sport —</div>
     </div>
     
-    <div class="signature">Created by Nazim</div>
+    <div class="signature">Created by Nazim Bouda</div>
     <div class="subtitle" id="subHeader">Système de pointage</div>
 
+    <!-- Login -->
     <div id="loginSection" class="login-box">
         <input id="user" placeholder="Nom d'utilisateur">
         <input id="pass" type="password" placeholder="Mot de passe">
@@ -671,6 +712,7 @@ h2 {
         <button id="btnAdmin">Connexion Patron</button>
     </div>
 
+    <!-- Sélection Boutique -->
     <div id="shopSelectionSection" style="display:none; text-align:center;">
         <h2 style="border-left-color: #FFD700; margin-bottom:5px;">Où travaillez-vous aujourd'hui ?</h2>
         <div class="shop-led-container" id="loginShopContainer">
@@ -684,12 +726,14 @@ h2 {
         <button id="btnConfirmShop" style="margin-top:25px;">Valider et Entrer au Panel ✅</button>
     </div>
 
+    <!-- Écran Principal Utilisateur / Gérant -->
     <div id="employee" style="display:none;">
         
         <div id="managerTopMenu" style="display:none; width:100%; margin-bottom:15px; text-align:center;">
             <button id="btnToggleManagerView" class="btn-manager-toggle">💼 Panneau Gérant Terrain</button>
         </div>
 
+        <!-- PANEL DU GÉRANT -->
         <div id="managerPanelSection" style="display:none; width:100%; margin-bottom:20px; border-bottom: 2px dashed rgba(0, 210, 255, 0.2); padding-bottom:20px;">
             <h2 style="border-left-color: #00d2ff; margin-top: 10px;">🛠️ Gestion : <span id="managerShopTitle">---</span></h2>
             
@@ -700,6 +744,7 @@ h2 {
             <div id="managerWorkersData"></div>
         </div>
 
+        <!-- Bannières Notes & Propositions -->
         <div id="patronNoteZone" class="patron-note-banner">
             <span id="noteTextContent"></span>
             <button class="close-note-btn" id="btnCloseNote">❌</button>
@@ -716,7 +761,7 @@ h2 {
         <div class="employee-profile-box">
             <div class="avatar-container">
                 <div id="myStatusBubble" class="instagram-bubble" style="display:none;"></div>
-                <img src="" id="userAvatar" class="employee-avatar" alt="Profil">
+                <img src="" id="userAvatar" class="employee-avatar" alt="Profil" onclick="zoomImagePleinEcran(this.src)">
             </div>
             <div style="flex-grow:1;">
                 <h2 id="welcome" style="margin:0; border:none; padding:0;">Bienvenue</h2>
@@ -740,10 +785,11 @@ h2 {
             <button id="btnEnd">🚪 Sortie</button>
         </div>
 
+        <!-- Formulaire d'Oubli -->
         <div class="add-box" style="border-color:#e74c3c;">
             <h4 style="color:#e74c3c; margin-bottom:5px; font-size:13px;">📝 Signaler un oubli de pointage</h4>
             <input type="datetime-local" id="forgetTime" style="font-size:13px; padding:8px;">
-            <textarea id="forgetReason" placeholder="Expliquez l'oubli (ex: Oublié de pointer à l'entrée ce matin à 9h)..." rows="2" style="font-size:13px; padding:8px; margin-top:8px;"></textarea>
+            <textarea id="forgetReason" placeholder="Expliquez l'oubli (ex: Oublié de pointer)..." rows="2" style="font-size:13px; padding:8px; margin-top:8px;"></textarea>
             <button id="btnSendForget" style="background:linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color:white; padding:8px; font-size:12px; margin-top:8px;">Envoyer au Gérant Désigné ✉️</button>
         </div>
 
@@ -767,6 +813,7 @@ h2 {
         <button id="btnPDF" style="background:#34495e; color:white; margin-top:15px;">📄 Exporter Rapport RH</button>
     </div>
 
+    <!-- Écran Patron -->
     <div id="admin" style="display:none;">
         <h2>Panel Global Patron (Airouche)</h2>
         
@@ -787,7 +834,7 @@ h2 {
             <button id="btnSendPatronNote" class="futuristic-btn">LANCER L'ENVOI</button>
         </div>
 
-        <h2>📌 Toutes les Demandes de Corrections (Toutes Boutiques)</h2>
+        <h2>📌 Toutes les Demandes de Corrections</h2>
         <div id="adminOublisZone"></div>
 
         <h2>Tableau de Bord Général</h2>
@@ -796,6 +843,12 @@ h2 {
         <button id="btnReset" style="background:#c0392b; color:white; margin-top:30px;">🗑 Réinitialiser toutes les données</button>
     </div>
 
+</div>
+
+<!-- Modale d'agrandissement d'image -->
+<div id="photoGlobalModal" class="photo-modal" onclick="this.style.display='none'">
+    <button class="photo-modal-close">✕</button>
+    <img id="photoGlobalModalImg" class="photo-modal-content" src="">
 </div>
 
 <canvas id="compressCanvas" style="display:none;" width="150" height="150"></canvas>
@@ -818,7 +871,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 let users = {};
-const adminUser = "airouche";
+const adminUser = "Airouche";
 const adminPass = "010167";
 let current = "";
 let tempPhotoBase64 = "";
@@ -895,6 +948,13 @@ function compresserImage(file, callback) {
             callback(canvas.toDataURL("image/jpeg", 0.7));
         };
     };
+}
+
+// Fonction globale d'agrandissement de la photo
+window.zoomImagePleinEcran = function(srcUrl) {
+    if(!srcUrl) return;
+    document.getElementById("photoGlobalModalImg").src = srcUrl;
+    document.getElementById("photoGlobalModal").style.display = "flex";
 }
 
 document.getElementById("newWorkerPhoto").addEventListener("change", function(e) {
@@ -1028,7 +1088,6 @@ document.getElementById("btnUpdateStatus").addEventListener("click", async () =>
     document.getElementById("myStatusInput").value = "";
 });
 
-// SIGNALEMENT D'OUBLI ENVOYÉ AVEC L'INFORMATION DE LA BOUTIQUE
 document.getElementById("btnSendForget").addEventListener("click", async () => {
     let time = document.getElementById("forgetTime").value;
     let reason = document.getElementById("forgetReason").value.trim();
@@ -1039,14 +1098,14 @@ document.getElementById("btnSendForget").addEventListener("click", async () => {
         let oublis = snapshot.exists() ? snapshot.val() : [];
         oublis.push({
             user: current,
-            shop: selectedShop, // Liaison cruciale à la boutique active
+            shop: selectedShop,
             time: genererDatePrecise(new Date(time)),
             reason: reason,
             timestamp: Date.now()
         });
         await set(ref(db, 'oublis/'), oublis);
         document.getElementById("forgetReason").value = "";
-        alert("✉️ Signalement envoyé au Gérant désigné de la boutique !");
+        alert("✉️ Signalement envoyé au Gérant Désigné de la boutique !");
         if(document.getElementById("managerPanelSection").style.display !== "none") {
             await loadManagerPanel();
         }
@@ -1084,8 +1143,10 @@ async function addNewEmployee() {
 }
 
 window.triggerUpdatePhoto = function(workerName) {
-    workerToUpdatePhoto = workerName;
-    document.getElementById("updateWorkerPhoto").click();
+    if (confirm(`Modifier la photo de profil de ${workerName} ?`)) {
+        workerToUpdatePhoto = workerName;
+        document.getElementById("updateWorkerPhoto").click();
+    }
 }
 
 window.toggleUserRole = async function(workerName, currentRole) {
@@ -1142,9 +1203,42 @@ window.modifierHeurePointageExacte = async function(workerName, indexLigne, type
     alert(`Ajustement envoyé à l'employé ${workerName}.`);
 }
 
-window.toggleAdminHistoryCollapse = function(workerName) {
+// ACTION CLIC SUR LES SESSIONS DU PATRON (REMISE EN PLACE FIXÉE)
+window.toggleAdminHistoryCollapse = async function(workerName) {
     const box = document.getElementById("history-box-" + workerName);
-    box.style.display = (box.style.display === "none") ? "block" : "none";
+    if(box.style.display === "block") {
+        box.style.display = "none";
+        return;
+    }
+    
+    // Charger dynamiquement l'historique de l'employé depuis Firebase
+    const snapshot = await get(ref(db, 'history/' + workerName));
+    let userHistory = snapshot.val() || [];
+    
+    if(userHistory.length === 0) {
+        box.innerHTML = "<p style='color:#666; font-size:12px; font-style:italic; padding:10px;'>Aucune session enregistrée.</p>";
+    } else {
+        let timelineHTML = `<div class="timeline-container">`;
+        userHistory.forEach((l, idx) => {
+            let hE = extraireHeureEtMinutes(l.start);
+            let hS = extraireHeureEtMinutes(l.end);
+            timelineHTML += `
+                <div class="timeline-row">
+                    <div class="timeline-date-info">
+                        <span class="timeline-date-main">${extraireUniquementDate(l.start)}</span>
+                        <span style="font-size:10px; color:#aaa; display:block; text-transform:uppercase;">📍 ${l.shop || 'Générale'}</span>
+                    </div>
+                    <div class="timeline-hours-flex">
+                        <div class="timeline-time-capsule" onclick="modifierHeurePointageExacte('${workerName}', ${idx}, 'start', '${hE}')"><span class="timeline-time-label">Entrée</span><span>${hE}</span></div>
+                        <div class="timeline-time-capsule" onclick="modifierHeurePointageExacte('${workerName}', ${idx}, 'end', '${hS}')"><span class="timeline-time-label">Sortie</span><span>${hS}</span></div>
+                    </div>
+                    <div class="timeline-duration-pill">${formaterHeuresEtMinutes(Number(l.hours))}</div>
+                </div>`;
+        });
+        timelineHTML += `</div>`;
+        box.innerHTML = timelineHTML;
+    }
+    box.style.display = "block";
 }
 
 async function start() {
@@ -1194,7 +1288,6 @@ async function load() {
     document.getElementById("salary").innerText = (total * 100).toFixed(0);
 }
 
-/* PANNEAU DU GÉRANT ASSIGNÉ : FILTRAGE COMPLET PAR BOUTIQUE */
 async function loadManagerPanel() {
     const snapshot = await get(ref(db));
     if (!snapshot.exists()) return;
@@ -1204,10 +1297,8 @@ async function loadManagerPanel() {
     const starts = allData.starts || {};
     const histories = allData.history || {};
     const avatars = allData.avatars || {};
-    const proposals = allData.proposals || {};
     const oublis = allData.oublis || [];
 
-    // 1. Filtrer et afficher uniquement les oublis de CETTE BOUTIQUE
     let oubliZone = document.getElementById("managerOublisZone");
     oubliZone.innerHTML = "";
     let aDesOublis = false;
@@ -1226,7 +1317,6 @@ async function loadManagerPanel() {
     });
     if(!aDesOublis) oubliZone.innerHTML = "<p style='color:#666; font-style:italic; font-size:12px;'>Aucun signalement d'oubli pour votre boutique.</p>";
 
-    // 2. Affichage Timeline de l'équipe travaillant dans cette boutique
     let container = document.getElementById("managerWorkersData");
     container.innerHTML = "";
 
@@ -1264,7 +1354,7 @@ async function loadManagerPanel() {
             container.innerHTML += `
                 <div class="card" style="flex-direction: column; align-items: stretch; text-align: left; background:#121212; padding: 15px; margin-top:12px;">
                   <div style="display:flex; align-items:center; gap:12px; padding-bottom:8px; border-bottom:1px solid #1f1f1f;">
-                      <img src="${avatar}" class="employee-avatar" style="width:45px; height:45px;">
+                      <img src="${avatar}" class="employee-avatar" style="width:45px; height:45px;" ondblclick="zoomImagePleinEcran(this.src)">
                       <div style="flex-grow: 1;">
                         <div style="display:flex; justify-content:space-between; align-items:center;">
                             <h3 style="color:#FFD700; text-transform:capitalize; font-size:14px;">👤 ${u}</h3>
@@ -1279,7 +1369,6 @@ async function loadManagerPanel() {
     }
 }
 
-/* PANEL PATRON GLOBAL (AIROUCHE) - REÇOIT TOUTES LES BOUTIQUES */
 async function loadAdmin() {
     const mainSnapshot = await get(ref(db));
     if (!mainSnapshot.exists()) return;
@@ -1290,8 +1379,6 @@ async function loadAdmin() {
     const histories = allData.history || {};
     const starts = allData.starts || {};
     const avatars = allData.avatars || {};
-    const statuses = allData.user_statuses || {};
-    const proposals = allData.proposals || {};
     const oublis = allData.oublis || [];
 
     let oubliZone = document.getElementById("adminOublisZone");
@@ -1319,22 +1406,27 @@ async function loadAdmin() {
 
       let badgeHTML = starts[u] ? `<span class="status-badge status-online">🟢 En poste</span>` : `<span class="status-badge status-offline">🔴 Parti</span>`;
       let roleBadgeHTML = (roles[u] === "gerant") ? `<span class="role-badge role-gerant" onclick="toggleUserRole('${u}', 'gerant')">👑 Gérant</span>` : `<span class="role-badge role-employe" onclick="toggleUserRole('${u}', 'employe')">👤 Employé</span>`;
+      let photoSrc = avatars[u] || 'https://api.dicebear.com/7.x/initials/svg?seed=' + u + '&backgroundColor=ffd700&color=000000';
 
       div.innerHTML += `
         <div class="card" style="flex-direction: column; align-items: stretch; text-align: left; padding: 15px;">
           <div style="display:flex; align-items:center; justify-content: space-between;">
-              <img src="${avatars[u] || 'https://api.dicebear.com/7.x/initials/svg?seed=' + u}" class="employee-avatar" style="width:45px; height:45px;">
-              <div style="flex-grow: 1; padding-left:12px;">
+              <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                  <img src="${photoSrc}" class="employee-avatar" style="width:55px; height:55px;" ondblclick="zoomImagePleinEcran(this.src)">
+                  <button class="btn-inline" style="font-size:9px; padding:3px 6px; margin:0;" onclick="triggerUpdatePhoto('${u}')">📸 Changer</button>
+              </div>
+              <div style="flex-grow: 1; padding-left:14px;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <h3 style="color:#FFD700; text-transform:capitalize; font-size:15px;">👤 ${u}</h3>
                     <div style="display:flex; gap:4px;">${roleBadgeHTML}${badgeHTML}</div>
                 </div>
-                <p style="font-size:12px; color:#aaa;">Boutique : <span class="shop-badge-led">${derniereBoutique}</span></p>
-                <p style="font-size:12px;"><b>Total :</b> ${formaterHeuresEtMinutes(total)} | <b>Salaire :</b> ${(total * 100).toFixed(0)} DA</p>
+                <p style="font-size:12px; color:#aaa; margin-top:2px;">Boutique : <span class="shop-badge-led">${derniereBoutique}</span></p>
+                <p style="font-size:12px; margin-top:2px;"><b>Total :</b> ${formaterHeuresEtMinutes(total)} | <b>Salaire :</b> ${(total * 100).toFixed(0)} DA</p>
               </div>
           </div>
           <button class="btn-toggle-history-admin" onclick="toggleAdminHistoryCollapse('${u}')">📋 Voir Sessions</button>
-          <div id="history-box-${u}" style="display:none; margin-top:8px; border-top:1px solid #222; padding-top:8px;"></div>
+          <div id="history-box-${u}" style="display:none; margin-top:10px; border-top:1px solid #222; padding-top:10px;"></div>
+          <button class="btn-delete-worker" style="width:100%; margin-top:10px;" onclick="deleteEmployee('${u}')">🗑️ Supprimer l'employé</button>
         </div>`;
     }
 }
