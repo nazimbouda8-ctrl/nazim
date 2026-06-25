@@ -198,6 +198,16 @@ h2 {
 #btnStart { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: #fff; }
 #btnEnd { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: #fff; }
 
+/* Bouton Spécial Style LED pour le Gérant */
+.btn-manager-toggle {
+    background: linear-gradient(135deg, #00d2ff 0%, #0072ff 100%) !important;
+    color: #fff !important;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
+    margin-top: 10px;
+}
+
 .add-box {
     background: #111;
     border: 1px dashed #FFD700;
@@ -206,7 +216,6 @@ h2 {
     margin-top: 15px;
 }
 
-/* Zone Message Privé Style Futuriste */
 .futuristic-box {
     background: #0d1117;
     border: 2px solid #00d2ff;
@@ -239,7 +248,6 @@ h2 {
     box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
 }
 
-/* Bandeau Message Privé Affichage Employé Écran Haut */
 .patron-note-banner {
     background: linear-gradient(135deg, #0072ff 0%, #00d2ff 100%);
     color: #000;
@@ -271,7 +279,6 @@ h2 {
     margin: 0;
 }
 
-/* CHIPS LED LUMINEUX POUR LE CHOIX DES BOUTIQUES */
 .shop-led-container {
     display: flex;
     flex-wrap: wrap;
@@ -290,7 +297,6 @@ h2 {
     border: 1px solid rgba(255, 215, 0, 0.2);
     cursor: pointer;
     transition: all 0.3s ease;
-    text-shadow: none;
 }
 .shop-led-chip:hover {
     color: #FFD700;
@@ -305,7 +311,6 @@ h2 {
     transform: scale(1.03);
 }
 
-/* Badge Boutique Jaune LED sur les fiches */
 .shop-badge-led {
     background: #1e1b00;
     color: #FFD700;
@@ -318,6 +323,30 @@ h2 {
     box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
     text-shadow: 0 0 3px #FFD700;
     text-transform: uppercase;
+}
+
+/* Badge Rôle Cliquable Interactif */
+.role-badge {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-transform: uppercase;
+}
+.role-employe {
+    background: #222;
+    color: #aaa;
+    border: 1px solid #444;
+}
+.role-gerant {
+    background: #1b1100;
+    color: #FFD700;
+    border: 1px solid #FFD700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    text-shadow: 0 0 4px #FFD700;
 }
 
 .btn-file-label {
@@ -356,22 +385,45 @@ h2 {
     width: auto;
 }
 
-ul { list-style: none; width: 100%; }
-
-li {
-    background: #161616;
+/* Style de la Table Historique Clean */
+.history-table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 15px;
     border-radius: 12px;
-    padding: 12px;
-    margin-top: 8px;
-    font-size: 13px;
-    border-left: 4px solid #FFD700;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    border: 1px solid rgba(255, 215, 0, 0.15);
 }
-
-.hist-info { color: #ccc; line-height: 1.4; }
-.hist-time { font-size: 14px; font-weight: 700; color: #FFD700; background: rgba(255, 215, 0, 0.1); padding: 4px 8px; border-radius: 6px; }
+.clean-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #111;
+    font-size: 12px;
+    text-align: left;
+}
+.clean-history-table th {
+    background: #1a1a1a;
+    color: #FFD700;
+    padding: 12px 10px;
+    font-weight: 700;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    text-transform: uppercase;
+}
+.clean-history-table td {
+    padding: 12px 10px;
+    color: #ccc;
+    border-bottom: 1px solid #222;
+}
+.clean-history-table tr:last-child td {
+    border-bottom: none;
+}
+.table-duration-badge {
+    color: #FFD700;
+    font-weight: bold;
+    background: rgba(255, 215, 0, 0.08);
+    padding: 4px 6px;
+    border-radius: 5px;
+    display: inline-block;
+}
 
 .status-badge {
     padding: 4px 8px;
@@ -466,6 +518,54 @@ li {
     border-color: #fff;
     box-shadow: 0 0 12px rgba(0, 210, 255, 0.6);
 }
+
+/* CSS STRICT POUR L'IMPRESSION EXPORT RH (RETIENT JUSTE LE TABLEAU SUR 1 PAGE) */
+@media print {
+    body {
+        background: #fff !important;
+        color: #000 !important;
+    }
+    .main * {
+        visibility: hidden;
+    }
+    #rhPrintArea, #rhPrintArea * {
+        visibility: visible;
+    }
+    #rhPrintArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: #fff !important;
+        color: #000 !important;
+        padding: 0;
+        margin: 0;
+    }
+    .clean-history-table {
+        background: #fff !important;
+        width: 100% !important;
+        border: 1px solid #000 !important;
+    }
+    .clean-history-table th {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+        border-bottom: 2px solid #000 !important;
+    }
+    .clean-history-table td {
+        color: #000 !important;
+        border-bottom: 1px solid #ddd !important;
+    }
+    .table-duration-badge {
+        color: #000 !important;
+        background: transparent !important;
+        font-weight: bold !important;
+    }
+    html, body {
+        height: 99%;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+}
 </style>
 </head>
 <body>
@@ -478,9 +578,10 @@ li {
         <div class="logo-sub">— Casual & Sport —</div>
     </div>
     
-    <div class="signature">Created by Nazim Bouda</div>
+    <div class="signature">Created by Nazim</div>
     <div class="subtitle" id="subHeader">Système de pointage</div>
 
+    <!-- Écran Login -->
     <div id="loginSection" class="login-box">
         <input id="user" placeholder="Nom d'utilisateur">
         <input id="pass" type="password" placeholder="Mot de passe">
@@ -488,6 +589,7 @@ li {
         <button id="btnAdmin">Connexion Patron</button>
     </div>
 
+    <!-- Choix Boutique -->
     <div id="shopSelectionSection" style="display:none; text-align:center;">
         <h2 style="border-left-color: #FFD700; margin-bottom:5px;">Où travaillez-vous aujourd'hui ?</h2>
         <p style="color:#aaa; font-size:13px; margin-bottom:15px; text-align:left;">Sélectionnez votre boutique pour aujourd'hui :</p>
@@ -504,13 +606,28 @@ li {
         <button id="btnConfirmShop" style="margin-top:25px; background: linear-gradient(135deg, #FFD700 0%, #cca300 100%);">Valider et Entrer au Panel ✅</button>
     </div>
 
+    <!-- Écran Employé -->
     <div id="employee" style="display:none;">
         
+        <!-- HEADER / BOUTON POUR LE GÉRANT (Placé tout en haut) -->
+        <div id="managerTopMenu" style="display:none; width:100%; margin-bottom:15px; text-align:center;">
+            <button id="btnToggleManagerView" class="btn-manager-toggle">💼 Gérer mes employés</button>
+        </div>
+
+        <!-- LISTE CACHÉE PAR DÉFAUT DU GÉRANT (S'affiche/Masque au clic) -->
+        <div id="managerPanelSection" style="display:none; width:100%; margin-bottom:20px; border-bottom: 2px dashed rgba(0, 210, 255, 0.3); padding-bottom:20px;">
+            <h2 style="border-left-color: #00d2ff; margin-top: 10px;">🛠️ Gestion Boutique (<span id="managerShopTitle">---</span>)</h2>
+            <p style="font-size:12px; color:#aaa; margin-bottom:10px;">Voici la liste des employés rattachés à la même boutique que vous :</p>
+            <div id="managerWorkersData"></div>
+        </div>
+
+        <!-- MESSAGE PRIVÉ DU PATRON -->
         <div id="patronNoteZone" class="patron-note-banner">
             <span id="noteTextContent"></span>
             <button class="close-note-btn" id="btnCloseNote">❌ Fermer</button>
         </div>
 
+        <!-- VALIDATION DES HEURES PROPOSÉES -->
         <div id="propHeuresZone" class="patron-note-banner" style="background: linear-gradient(135deg, #ff9900 0%, #ff5500 100%); border-color: #fff; display:none;">
             <p style="margin-bottom: 10px;">⚠️ <b>PROPOSITION DU PATRON :</b> Le patron propose de modifier votre total d'heures à <span id="propHeuresValeur" style="text-decoration: underline;">0h 00min</span>. Êtes-vous d'accord ?</p>
             <div style="display:flex; gap: 10px;">
@@ -526,7 +643,7 @@ li {
             </div>
             <div style="flex-grow:1;">
                 <h2 id="welcome" style="margin:0; border:none; padding:0;">Bienvenue</h2>
-                <p style="font-size:12px; color:#aaa; margin-top:2px;">Boutique sélectionnée : <span id="currentActiveShopBadge" class="shop-badge-led">---</span></p>
+                <p style="font-size:12px; color:#aaa; margin-top:2px;">Boutique : <span id="currentActiveShopBadge" class="shop-badge-led">---</span></p>
                 <div style="display:flex; gap:5px; margin-top:5px;">
                     <input id="myStatusInput" placeholder="Votre statut style Insta..." style="padding:5px 10px; font-size:11px; margin:0; border-radius:6px; height:28px;">
                     <button id="btnUpdateStatus" class="btn-inline" style="margin:0; height:28px; padding:0 8px;">Ok</button>
@@ -554,10 +671,31 @@ li {
         </div>
 
         <h2>Mon Historique</h2>
-        <ul id="history"></ul>
-        <button id="btnPDF" style="background:#34495e; color:white;">📄 Exporter Rapport RH</button>
+        
+        <!-- Conteneur d'impression RH isolé -->
+        <div id="rhPrintArea">
+            <div class="history-table-container">
+                <table class="clean-history-table">
+                    <thead>
+                        <tr>
+                            <th>Boutique</th>
+                            <th>Date / Jour</th>
+                            <th>Entrée</th>
+                            <th>Sortie</th>
+                            <th>Durée</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <!-- Rempli en JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <button id="btnPDF" style="background:#34495e; color:white; margin-top:15px;">📄 Exporter Rapport RH (1 Page)</button>
     </div>
 
+    <!-- Écran Admin (Patron) -->
     <div id="admin" style="display:none;">
         <h2>Panel Patron</h2>
         
@@ -609,23 +747,32 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 let users = {};
-const adminUser = "Airouche";
+const adminUser = "airouche";
 const adminPass = "010167";
 let current = "";
 let tempPhotoBase64 = "";
 let workerToUpdatePhoto = "";
 let selectedWorkerForNote = "";
-let selectedShop = "AMRIW UG"; // Sera écrasé par la mémoire ou le choix de l'utilisateur
+let selectedShop = "AMRIW UG"; 
 let currentProposalValue = 0;
 
-// Objets Firebase chargés en cache pour l'employé connecté
-let snapAvatarData, snapNoteData, snapPropData, snapStatusData;
+let snapAvatarData, snapNoteData, snapPropData, snapStatusData, snapRoleData;
 
 function formaterHeuresEtMinutes(heuresDecimales) {
     let h = Math.floor(heuresDecimales);
     let m = Math.round((heuresDecimales - h) * 60);
     if (m === 60) { h += 1; m = 0; }
     return `${h}h ${String(m).padStart(2, '0')}min`;
+}
+
+function extraireHeureEtMinutes(chaineDate) {
+    if(!chaineDate || !chaineDate.includes("à")) return "--:--";
+    return chaineDate.split("à")[1].trim();
+}
+
+function extraireUniquementDate(chaineDate) {
+    if(!chaineDate || !chaineDate.includes("à")) return chaineDate;
+    return chaineDate.split("à")[0].trim();
 }
 
 function genererDatePrecise(dateObj) {
@@ -646,7 +793,6 @@ function afficherAlerteEcran(message, type) {
     setTimeout(() => { banner.style.display = "none"; }, 6000);
 }
 
-// Fonction de sélection visuelle sur l'écran intermédiaire
 window.selectLoginShop = function(element) {
     const chips = document.querySelectorAll('#loginShopContainer .shop-led-chip');
     chips.forEach(c => c.classList.remove('selected'));
@@ -698,7 +844,6 @@ async function initAppUsers() {
   } catch (e) { console.error("Erreur d'initialisation", e); }
 }
 
-// ETAPE 1 : Clic sur Connexion Employé (Vérification et affichage du choix de boutique)
 async function login() {
   let u = document.getElementById("user").value.trim().toLowerCase();
   let p = document.getElementById("pass").value.trim();
@@ -706,60 +851,47 @@ async function login() {
   if (users[u] && users[u] == p) {
     current = u;
     
-    // On cache l'écran de login
     document.getElementById("loginSection").style.display = "none";
     document.getElementById("subHeader").style.display = "none";
-    
-    // ÉCRAN INTERMÉDIAIRE : On affiche le choix de boutique
     document.getElementById("shopSelectionSection").style.display = "block";
     
-    // GESTION DE LA SAUVEGARDE AUTOMATIQUE (Mémoire du téléphone)
     let savedShop = localStorage.getItem("saved_shop_" + current);
-    if (!savedShop) {
-        savedShop = "AMRIW UG"; // Par défaut s'il n'y a pas d'historique
-    }
+    if (!savedShop) { savedShop = "AMRIW UG"; }
     
     selectedShop = savedShop;
     
-    // Sélectionner visuellement la puce LED correspondante
     const chips = document.querySelectorAll('#loginShopContainer .shop-led-chip');
     chips.forEach(c => {
-        if(c.getAttribute('data-shop') === savedShop) {
-            c.classList.add('selected');
-        } else {
-            c.classList.remove('selected');
-        }
+        if(c.getAttribute('data-shop') === savedShop) { c.classList.add('selected'); } 
+        else { c.classList.remove('selected'); }
     });
 
-    // On pré-charge les données Firebase en arrière plan pendant qu'il choisit sa boutique
-    const [snapshotAvatar, snapshotNote, snapshotProp, snapshotStatus] = await Promise.all([
+    const [snapshotAvatar, snapshotNote, snapshotProp, snapshotStatus, snapshotRole] = await Promise.all([
         get(ref(db, 'avatars/' + u)),
         get(ref(db, 'patron_notes/' + u)),
         get(ref(db, 'proposals/' + u)),
-        get(ref(db, 'user_statuses/' + u))
+        get(ref(db, 'user_statuses/' + u)),
+        get(ref(db, 'user_roles/' + u))
     ]);
     
     snapAvatarData = snapshotAvatar;
     snapNoteData = snapshotNote;
     snapPropData = snapshotProp;
     snapStatusData = snapshotStatus;
+    snapRoleData = snapshotRole;
 
   } else { alert("Identifiants incorrects"); }
 }
 
-// ETAPE 2 : Validation finale de la boutique choisie et entrée dans le Panel
 document.getElementById("btnConfirmShop").addEventListener("click", async () => {
-    // On sauvegarde la boutique choisie dans le téléphone pour la prochaine fois
     localStorage.setItem("saved_shop_" + current, selectedShop);
     
-    // On bascule sur le panel employé
     document.getElementById("shopSelectionSection").style.display = "none";
     document.getElementById("employee").style.display = "block";
     
     document.getElementById("welcome").innerText = "Bonjour, " + current + " ✨";
     document.getElementById("currentActiveShopBadge").innerText = selectedShop;
 
-    // Remplissage des données avec le pré-chargement effectué
     document.getElementById("userAvatar").src = (snapAvatarData && snapAvatarData.exists()) 
         ? snapAvatarData.val() 
         : "https://api.dicebear.com/7.x/initials/svg?seed=" + current + "&backgroundColor=ffd700&color=000000";
@@ -768,18 +900,14 @@ document.getElementById("btnConfirmShop").addEventListener("click", async () => 
     if (snapNoteData && snapNoteData.exists() && snapNoteData.val() !== "") {
         document.getElementById("noteTextContent").innerHTML = `✉️ <b>MESSAGE PATRON :</b> ${snapNoteData.val()}`;
         noteZone.style.display = "block";
-    } else {
-        noteZone.style.display = "none";
-    }
+    } else { noteZone.style.display = "none"; }
 
     const propZone = document.getElementById("propHeuresZone");
     if (snapPropData && snapPropData.exists()) {
         currentProposalValue = Number(snapPropData.val());
         document.getElementById("propHeuresValeur").innerText = formaterHeuresEtMinutes(currentProposalValue);
         propZone.style.display = "block";
-    } else {
-        propZone.style.display = "none";
-    }
+    } else { propZone.style.display = "none"; }
 
     const myBubble = document.getElementById("myStatusBubble");
     if(snapStatusData && snapStatusData.exists() && snapStatusData.val() !== "") {
@@ -787,7 +915,28 @@ document.getElementById("btnConfirmShop").addEventListener("click", async () => 
         myBubble.style.display = "block";
     }
 
+    // Gestion du rôle Gérant : Affiche le bouton "Gérer mes employés" tout en haut
+    if (snapRoleData && snapRoleData.exists() && snapRoleData.val() === "gerant") {
+        document.getElementById("managerTopMenu").style.display = "block";
+        document.getElementById("managerShopTitle").innerText = selectedShop;
+        // On pré-charge les données mais la section HTML reste masquée (display: none par défaut)
+        await loadManagerPanel();
+    } else {
+        document.getElementById("managerTopMenu").style.display = "none";
+        document.getElementById("managerPanelSection").style.display = "none";
+    }
+
     await load();
+});
+
+// Système Toggle pour dérouler/cacher la liste des employés du gérant
+document.getElementById("btnToggleManagerView").addEventListener("click", () => {
+    const section = document.getElementById("managerPanelSection");
+    if (section.style.display === "none") {
+        section.style.display = "block";
+    } else {
+        section.style.display = "none";
+    }
 });
 
 document.getElementById("btnCloseNote").addEventListener("click", async () => {
@@ -837,9 +986,7 @@ document.getElementById("btnUpdateStatus").addEventListener("click", async () =>
     if(text !== "") {
         myBubble.innerText = text;
         myBubble.style.display = "block";
-    } else {
-        myBubble.style.display = "none";
-    }
+    } else { myBubble.style.display = "none"; }
     document.getElementById("myStatusInput").value = "";
     alert("Statut Instagram mis à jour !");
 });
@@ -852,7 +999,6 @@ document.getElementById("btnSendForget").addEventListener("click", async () => {
     try {
         const snapshot = await get(ref(db, 'oublis/'));
         let oublis = snapshot.exists() ? snapshot.val() : [];
-        
         let dateObj = new Date(time);
         oublis.push({
             user: current,
@@ -862,7 +1008,7 @@ document.getElementById("btnSendForget").addEventListener("click", async () => {
         });
         await set(ref(db, 'oublis/'), oublis);
         document.getElementById("forgetReason").value = "";
-        alert("Signalement envoyé avec succès au patron !");
+        alert("Signalement envoyé avec succès !");
     } catch(err) { alert(err.message); }
 });
 
@@ -880,11 +1026,9 @@ document.getElementById("btnSendPatronNote").addEventListener("click", async () 
 
     await set(ref(db, 'patron_notes/' + selectedWorkerForNote), text);
     document.getElementById("noteText").value = "";
-    
     const chips = document.querySelectorAll('.worker-chip');
     chips.forEach(c => c.classList.remove('selected'));
     selectedWorkerForNote = "";
-
     alert("⚡ Transmission envoyée !");
 });
 
@@ -895,6 +1039,7 @@ async function addNewEmployee() {
 
   try {
     await set(ref(db, 'app_users/' + newName), newPass);
+    await set(ref(db, 'user_roles/' + newName), "employe"); 
     if(tempPhotoBase64 !== "") { await set(ref(db, 'avatars/' + newName), tempPhotoBase64); }
     document.getElementById("newWorkerName").value = "";
     document.getElementById("newWorkerPass").value = "";
@@ -910,6 +1055,14 @@ window.triggerUpdatePhoto = function(workerName) {
     document.getElementById("updateWorkerPhoto").click();
 }
 
+window.toggleUserRole = async function(workerName, currentRole) {
+    let nextRole = (currentRole === "gerant") ? "employe" : "gerant";
+    try {
+        await set(ref(db, 'user_roles/' + workerName), nextRole);
+        await loadAdmin();
+    } catch(err) { alert(err.message); }
+}
+
 window.deleteEmployee = async function(workerName) {
   if (confirm("Supprimer définitivement ?")) {
     try {
@@ -920,6 +1073,7 @@ window.deleteEmployee = async function(workerName) {
       await remove(ref(db, 'patron_notes/' + workerName));
       await remove(ref(db, 'user_statuses/' + workerName));
       await remove(ref(db, 'proposals/' + workerName));
+      await remove(ref(db, 'user_roles/' + workerName));
       await loadAdmin();
     } catch (error) { alert(error.message); }
   }
@@ -946,7 +1100,8 @@ window.modifierHeuresManuellement = async function(workerName, totalActuel) {
     try {
         await set(ref(db, 'proposals/' + workerName), nvTotal);
         alert(`⚡ Proposition transmise à ${workerName} !`);
-        await loadAdmin();
+        if(document.getElementById("admin").style.display === "block") { await loadAdmin(); } 
+        else { await loadManagerPanel(); }
     } catch(err) { alert(err.message); }
 }
 
@@ -957,9 +1112,11 @@ async function start() {
         afficherAlerteEcran("⚠️ Tu as déjà pointé à l'entrée !", "danger");
         return;
     }
-    
+    await set(ref(db, 'starts/' + current), {
+        timestamp: Date.now(),
+        shop: selectedShop
+    });
     afficherAlerteEcran(`✅ Entrée enregistrée à la boutique [ ${selectedShop} ] !`, "success");
-    await set(ref(db, 'starts/' + current), Date.now());
   } catch(e) { console.error(e); }
 }
 
@@ -967,12 +1124,13 @@ async function end() {
   const instantEndTime = new Date();
   try {
     const startSnapshot = await get(ref(db, 'starts/' + current));
-    let s = startSnapshot.val();
-    if (!s) { 
+    let startData = startSnapshot.val();
+    if (!startData) { 
         afficherAlerteEcran("❌ Erreur : Tu n'as pas pointé d'entrée.", "danger"); 
         return; 
     }
 
+    let s = startData.timestamp ? startData.timestamp : startData; 
     let startTime = new Date(parseInt(s));
     let h = (instantEndTime - startTime) / 3600000;
 
@@ -999,25 +1157,100 @@ async function load() {
     const snapshot = await get(ref(db, 'history/' + current));
     let data = snapshot.val() || [];
     let total = 0;
-    let list = document.getElementById("history");
-    list.innerHTML = "";
+    
+    let tbody = document.getElementById("historyTableBody");
+    tbody.innerHTML = "";
 
     data.forEach(e => {
       total += Number(e.hours);
       let nomBoutique = e.shop ? e.shop : "Non spécifiée";
-      let li = document.createElement("li");
-      li.innerHTML = `
-        <div class="hist-info">
-            <b>Du:</b> ${e.start}<br><b>Au:</b> ${e.end}<br>
-            <span class="shop-badge-led">${nomBoutique}</span>
-        </div>
-        <div class="hist-time">${formaterHeuresEtMinutes(Number(e.hours))}</div>`;
-      list.appendChild(li);
+      
+      let tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><span class="shop-badge-led">${nomBoutique}</span></td>
+        <td><b>${extraireUniquementDate(e.start)}</b></td>
+        <td>${extraireHeureEtMinutes(e.start)}</td>
+        <td>${extraireHeureEtMinutes(e.end)}</td>
+        <td><span class="table-duration-badge">${formaterHeuresEtMinutes(Number(e.hours))}</span></td>
+      `;
+      tbody.appendChild(tr);
     });
 
     document.getElementById("hours").innerText = formaterHeuresEtMinutes(total);
     document.getElementById("salary").innerText = (total * 100).toFixed(0);
   } catch (error) { console.error(error); }
+}
+
+async function loadManagerPanel() {
+    try {
+        const snapshot = await get(ref(db));
+        if (!snapshot.exists()) return;
+
+        const allData = snapshot.val();
+        const allUsers = allData.app_users || {};
+        const starts = allData.starts || {};
+        const histories = allData.history || {};
+        const avatars = allData.avatars || {};
+        const proposals = allData.proposals || {};
+
+        let container = document.getElementById("managerWorkersData");
+        container.innerHTML = "";
+        let count = 0;
+
+        for (let u in allUsers) {
+            if(u === current) continue; 
+
+            let sessionStart = starts[u];
+            let enPosteDansMaBoutique = false;
+            let derniereBoutiqueConnue = "Aucune";
+
+            let userHistory = histories[u] || [];
+            let total = 0;
+            userHistory.forEach(h => {
+                total += Number(h.hours);
+                if(h.shop) derniereBoutiqueConnue = h.shop;
+            });
+
+            if (sessionStart && sessionStart.shop === selectedShop) {
+                enPosteDansMaBoutique = true;
+                derniereBoutiqueConnue = sessionStart.shop;
+            }
+
+            // Filtre strict : Uniquement si l'employé travaille dans la même boutique que le gérant
+            if (derniereBoutiqueConnue === selectedShop || enPosteDansMaBoutique) {
+                count++;
+                let badgeHTML = enPosteDansMaBoutique 
+                    ? `<span class="status-badge status-online">🟢 En poste</span>` 
+                    : `<span class="status-badge status-offline">🔴 Parti</span>`;
+
+                let avatarSrc = avatars[u] 
+                    ? avatars[u] 
+                    : "https://api.dicebear.com/7.x/initials/svg?seed=" + u + "&backgroundColor=ffd700&color=000000";
+
+                let statutModifHTML = proposals[u] 
+                    ? `<p style="color:#ff9900; font-size:11px; margin-top:2px; font-weight:bold;">⏳ Ajustement en attente...</p>` 
+                    : "";
+
+                container.innerHTML += `
+                    <div class="card" style="align-items: center; justify-content: space-between; gap: 15px; text-align: left; background:#111;">
+                      <img src="${avatarSrc}" class="employee-avatar" style="width:50px; height:50px;" alt="Avatar">
+                      <div style="flex-grow: 1;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <h3 style="color:#FFD700; text-transform:capitalize; font-size:15px;">👤 ${u}</h3>
+                            ${badgeHTML}
+                        </div>
+                        <p style="margin-top:2px; font-size:12px;"><b>Total :</b> ${formaterHeuresEtMinutes(total)}</p>
+                        ${statutModifHTML}
+                        <button class="btn-inline" style="border-color:#ff9900; color:#ff9900; margin-top:5px;" onclick="modifierHeuresManuellement('${u}', ${total})">✏️ Ajuster Heures</button>
+                      </div>
+                    </div>`;
+            }
+        }
+
+        if(count === 0) {
+            container.innerHTML = `<p style="color:#aaa; font-style:italic; font-size:13px; text-align:center; padding:10px;">Aucun employé rattaché à ${selectedShop} aujourd'hui.</p>`;
+        }
+    } catch(err) { console.error(err); }
 }
 
 async function loadAdmin() {
@@ -1027,6 +1260,7 @@ async function loadAdmin() {
     
     const allData = mainSnapshot.val();
     users = allData.app_users || {};
+    const roles = allData.user_roles || {};
     const histories = allData.history || {};
     const starts = allData.starts || {};
     const avatars = allData.avatars || {};
@@ -1064,12 +1298,22 @@ async function loadAdmin() {
       
       userHistory.forEach(e => {
           total += Number(e.hours);
-          if(e.shop) derniereBoutique = e.shop;
+          if(e.shop) { derniereBoutique = e.shop; }
       });
 
-      let badgeHTML = starts[u]
+      let currentStartSession = starts[u];
+      let badgeHTML = currentStartSession
         ? `<span class="status-badge status-online">🟢 En poste</span>` 
         : `<span class="status-badge status-offline">🔴 Parti</span>`;
+
+      if(currentStartSession && currentStartSession.shop) {
+          derniereBoutique = currentStartSession.shop;
+      }
+
+      let userRole = roles[u] || "employe";
+      let roleBadgeHTML = (userRole === "gerant")
+        ? `<span class="role-badge role-gerant" onclick="toggleUserRole('${u}', 'gerant')">👑 Gérant</span>`
+        : `<span class="role-badge role-employe" onclick="toggleUserRole('${u}', 'employe')">👤 Employé</span>`;
 
       let avatarSrc = avatars[u] 
         ? avatars[u] 
@@ -1094,9 +1338,12 @@ async function loadAdmin() {
           </div>
           
           <div style="flex-grow: 1;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap: 5px;">
                 <h3 style="color:#FFD700; text-transform:capitalize; display:inline-block;">👤 ${u}</h3>
-                ${badgeHTML}
+                <div style="display:flex; gap:5px; align-items:center;">
+                    ${roleBadgeHTML}
+                    ${badgeHTML}
+                </div>
             </div>
             <p style="margin-top:2px; font-size:11px;">Boutique : <span class="shop-badge-led">${derniereBoutique}</span></p>
             <p style="margin-top:5px; font-size:12px;"><b>Total :</b> ${formaterHeuresEtMinutes(total)} | <b>Salaire :</b> ${(total * 100).toFixed(0)} DA</p>
