@@ -119,6 +119,13 @@ input, textarea, select {
     transition: all 0.3s ease;
 }
 
+/* Correction spécifique Android pour le calendrier d'oubli */
+input[type="datetime-local"] {
+    background: #252525 !important;
+    color: #ffffff !important;
+    min-height: 50px;
+}
+
 input:focus, textarea:focus, select:focus {
     outline: none;
     border-color: #FFD700;
@@ -393,7 +400,6 @@ h2 {
     cursor: pointer;
 }
 
-/* Timeline CSS Épurée */
 .timeline-container {
     position: relative;
     padding-left: 20px;
@@ -422,13 +428,6 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.timeline-row:hover {
-    background: rgba(0, 210, 255, 0.03);
-    border-color: rgba(0, 210, 255, 0.3);
-    box-shadow: 0 4px 15px rgba(0, 210, 255, 0.05);
 }
 
 .timeline-row::before {
@@ -442,7 +441,6 @@ h2 {
     background: #00d2ff;
     border-radius: 50%;
     box-shadow: 0 0 8px #00d2ff;
-    transition: all 0.2s ease;
 }
 
 .timeline-date-info {
@@ -472,17 +470,9 @@ h2 {
     font-weight: 600;
     color: #00d2ff;
     cursor: pointer;
-    transition: all 0.2s ease;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-}
-
-.timeline-time-capsule:hover {
-    background: rgba(0, 210, 255, 0.18);
-    border-color: #00d2ff;
-    box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
-    color: #fff;
 }
 
 .timeline-time-label {
@@ -575,14 +565,8 @@ h2 {
     border: 2px solid #FFD700;
     object-fit: cover;
     background: #222;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-.employee-avatar:hover {
-    transform: scale(1.05);
 }
 
-/* Modale Photo Épurée */
 .photo-modal {
     display: none;
     position: fixed;
@@ -607,7 +591,6 @@ h2 {
     border-radius: 20px;
     border: 2px solid #FFD700;
     box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
-    display: block;
 }
 .photo-modal-close {
     position: absolute;
@@ -621,15 +604,11 @@ h2 {
     border-radius: 50%;
     font-size: 22px;
     font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10000;
 }
 
-/* Bloc Focus Salaire */
 .salary-focus-box {
     background: linear-gradient(135deg, #222222 0%, #171717 100%);
     border-left: 4px solid #FFD700;
@@ -646,7 +625,6 @@ h2 {
     font-weight: 800;
     color: #FFD700;
     letter-spacing: 0.5px;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
     display: flex;
     align-items: baseline;
     gap: 4px;
@@ -655,7 +633,6 @@ h2 {
     font-size: 14px;
     font-weight: 600;
     color: #ffffff;
-    opacity: 0.9;
 }
 .hours-subtext {
     font-size: 12px;
@@ -681,10 +658,6 @@ h2 {
     font-size: 10px;
     font-weight: bold;
     white-space: nowrap;
-    max-width: 100px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .alert-banner {
@@ -718,13 +691,11 @@ h2 {
     text-transform: capitalize;
     border: 1px solid rgba(0, 210, 255, 0.15);
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .worker-chip.selected {
     background: linear-gradient(135deg, #0072ff 0%, #00d2ff 100%);
     color: #fff;
     border-color: #fff;
-    box-shadow: 0 0 12px rgba(0, 210, 255, 0.6);
 }
 
 .btn-toggle-history-admin {
@@ -733,12 +704,8 @@ h2 {
     color: #FFD700 !important;
     padding: 10px !important;
     font-size: 13px !important;
-    font-weight: 500;
     border-radius: 10px !important;
-    margin-top: 4px !important;
     width: 100% !important;
-    text-align: center;
-    box-shadow: none !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -749,7 +716,7 @@ h2 {
     body { background: #fff !important; color: #000 !important; }
     .main * { visibility: hidden; }
     #rhPrintArea, #rhPrintArea * { visibility: visible; }
-    #rhPrintArea { position: absolute; left: 0; top: 0; width: 100%; background: #fff !important; color: #000 !important; padding: 0; margin: 0; }
+    #rhPrintArea { position: absolute; left: 0; top: 0; width: 100%; background: #fff !important; }
 }
 </style>
 </head>
@@ -766,7 +733,6 @@ h2 {
     <div class="signature">Created by Nazim</div>
     <div class="subtitle" id="subHeader">Système de pointage</div>
 
-    <!-- Login -->
     <div id="loginSection" class="login-box">
         <input id="user" placeholder="Nom d'utilisateur">
         <input id="pass" type="password" placeholder="Mot de passe">
@@ -774,7 +740,6 @@ h2 {
         <button id="btnAdmin">Connexion Patron</button>
     </div>
 
-    <!-- Sélection Boutique -->
     <div id="shopSelectionSection" style="display:none; text-align:center;">
         <h2 style="border-left-color: #FFD700; margin-bottom:5px;">Où travaillez-vous aujourd'hui ?</h2>
         <div class="shop-led-container" id="loginShopContainer">
@@ -788,14 +753,12 @@ h2 {
         <button id="btnConfirmShop" style="margin-top:25px;">Valider et Entrer au Panel ✅</button>
     </div>
 
-    <!-- Écran Principal Utilisateur / Gérant -->
     <div id="employee" style="display:none;">
         
         <div id="managerTopMenu" style="display:none; width:100%; margin-bottom:15px; text-align:center;">
             <button id="btnToggleManagerView" class="btn-manager-toggle">💼 Panneau Gérant Terrain</button>
         </div>
 
-        <!-- PANEL DU GÉRANT -->
         <div id="managerPanelSection" style="display:none; width:100%; margin-bottom:20px; border-bottom: 2px dashed rgba(0, 210, 255, 0.2); padding-bottom:20px;">
             <h2 style="border-left-color: #00d2ff; margin-top: 10px;">🛠️ Gestion : <span id="managerShopTitle">---</span></h2>
             
@@ -806,7 +769,6 @@ h2 {
             <div id="managerWorkersData"></div>
         </div>
 
-        <!-- Bannières Notes & Propositions -->
         <div id="patronNoteZone" class="patron-note-banner">
             <span id="noteTextContent"></span>
             <button class="close-note-btn" id="btnCloseNote">❌</button>
@@ -847,10 +809,9 @@ h2 {
             <button id="btnEnd">🚪 Sortie</button>
         </div>
 
-        <!-- Formulaire d'Oubli -->
         <div class="add-box" style="border-color:#e74c3c;">
             <h4 style="color:#e74c3c; margin-bottom:5px; font-size:13px;">📝 Signaler un oubli de pointage</h4>
-            <input type="datetime-local" id="forgetTime" style="font-size:13px; padding:8px;">
+            <input type="datetime-local" id="forgetTime">
             <textarea id="forgetReason" placeholder="Expliquez l'oubli (ex: Oublié de pointer)..." rows="2" style="font-size:13px; padding:8px; margin-top:8px;"></textarea>
             <button id="btnSendForget" style="background:linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color:white; padding:8px; font-size:12px; margin-top:8px;">Envoyer au Gérant Désigné ✉️</button>
         </div>
@@ -875,7 +836,6 @@ h2 {
         <button id="btnPDF" style="background:#34495e; color:white; margin-top:15px;">📄 Exporter Rapport RH</button>
     </div>
 
-    <!-- Écran Patron -->
     <div id="admin" style="display:none;">
         <h2>Panel Global Patron (Airouche)</h2>
         
@@ -907,7 +867,6 @@ h2 {
 
 </div>
 
-<!-- Modale d'agrandissement d'image -->
 <div id="photoGlobalModal" class="photo-modal" onclick="this.style.display='none'">
     <div class="photo-modal-wrapper" onclick="event.stopPropagation()">
         <button class="photo-modal-close" onclick="document.getElementById('photoGlobalModal').style.display='none'">×</button>
