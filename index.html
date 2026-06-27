@@ -582,7 +582,7 @@ h2 {
     transform: scale(1.05);
 }
 
-/* --- DESIGN SOUHAITÉ DE LA MODALE PHOTO (Réf: 1000280620.jpg) --- */
+/* Modale Photo Épurée */
 .photo-modal {
     display: none;
     position: fixed;
@@ -609,7 +609,6 @@ h2 {
     box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
     display: block;
 }
-/* Le X jaune ovale supprimé au profit d'un petit bouton épuré sur le côté droit */
 .photo-modal-close {
     position: absolute;
     top: -15px;
@@ -630,7 +629,7 @@ h2 {
     z-index: 10000;
 }
 
-/* --- LOGIQUE FOCUS SALAIRE GRAND (Réf: 1000280619.jpg) --- */
+/* Bloc Focus Salaire */
 .salary-focus-box {
     background: linear-gradient(135deg, #222222 0%, #171717 100%);
     border-left: 4px solid #FFD700;
@@ -764,9 +763,10 @@ h2 {
         <div class="logo-sub">— Casual & Sport —</div>
     </div>
     
-    <div class="signature">Created by Nazim Bouda</div>
+    <div class="signature">Created by Nazim</div>
     <div class="subtitle" id="subHeader">Système de pointage</div>
 
+    <!-- Login -->
     <div id="loginSection" class="login-box">
         <input id="user" placeholder="Nom d'utilisateur">
         <input id="pass" type="password" placeholder="Mot de passe">
@@ -774,6 +774,7 @@ h2 {
         <button id="btnAdmin">Connexion Patron</button>
     </div>
 
+    <!-- Sélection Boutique -->
     <div id="shopSelectionSection" style="display:none; text-align:center;">
         <h2 style="border-left-color: #FFD700; margin-bottom:5px;">Où travaillez-vous aujourd'hui ?</h2>
         <div class="shop-led-container" id="loginShopContainer">
@@ -787,12 +788,14 @@ h2 {
         <button id="btnConfirmShop" style="margin-top:25px;">Valider et Entrer au Panel ✅</button>
     </div>
 
+    <!-- Écran Principal Utilisateur / Gérant -->
     <div id="employee" style="display:none;">
         
         <div id="managerTopMenu" style="display:none; width:100%; margin-bottom:15px; text-align:center;">
             <button id="btnToggleManagerView" class="btn-manager-toggle">💼 Panneau Gérant Terrain</button>
         </div>
 
+        <!-- PANEL DU GÉRANT -->
         <div id="managerPanelSection" style="display:none; width:100%; margin-bottom:20px; border-bottom: 2px dashed rgba(0, 210, 255, 0.2); padding-bottom:20px;">
             <h2 style="border-left-color: #00d2ff; margin-top: 10px;">🛠️ Gestion : <span id="managerShopTitle">---</span></h2>
             
@@ -803,6 +806,7 @@ h2 {
             <div id="managerWorkersData"></div>
         </div>
 
+        <!-- Bannières Notes & Propositions -->
         <div id="patronNoteZone" class="patron-note-banner">
             <span id="noteTextContent"></span>
             <button class="close-note-btn" id="btnCloseNote">❌</button>
@@ -843,6 +847,7 @@ h2 {
             <button id="btnEnd">🚪 Sortie</button>
         </div>
 
+        <!-- Formulaire d'Oubli -->
         <div class="add-box" style="border-color:#e74c3c;">
             <h4 style="color:#e74c3c; margin-bottom:5px; font-size:13px;">📝 Signaler un oubli de pointage</h4>
             <input type="datetime-local" id="forgetTime" style="font-size:13px; padding:8px;">
@@ -870,6 +875,7 @@ h2 {
         <button id="btnPDF" style="background:#34495e; color:white; margin-top:15px;">📄 Exporter Rapport RH</button>
     </div>
 
+    <!-- Écran Patron -->
     <div id="admin" style="display:none;">
         <h2>Panel Global Patron (Airouche)</h2>
         
@@ -901,6 +907,7 @@ h2 {
 
 </div>
 
+<!-- Modale d'agrandissement d'image -->
 <div id="photoGlobalModal" class="photo-modal" onclick="this.style.display='none'">
     <div class="photo-modal-wrapper" onclick="event.stopPropagation()">
         <button class="photo-modal-close" onclick="document.getElementById('photoGlobalModal').style.display='none'">×</button>
@@ -928,7 +935,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 let users = {};
-const adminUser = "Airouche";
+const adminUser = "airouche";
 const adminPass = "010167";
 let current = "";
 let tempPhotoBase64 = "";
@@ -976,6 +983,12 @@ function convertirChaineVersDate(chaineDate) {
 function recompilerChaineDateAvecNouvelleHeure(chaineOriginale, nouvelleHeureString) {
     if(!chaineOriginale || !chaineOriginale.includes("à")) return chaineOriginale;
     return `${chaineOriginale.split(" à ")[0].trim()} à ${nouvelleHeureString}:00`;
+}
+
+function safeGetHistoryArray(userHistoryData) {
+    if(!userHistoryData) return [];
+    if(Array.isArray(userHistoryData)) return userHistoryData;
+    return Object.values(userHistoryData);
 }
 
 function afficherAlerteEcran(message, type) {
@@ -1151,7 +1164,7 @@ document.getElementById("btnSendForget").addEventListener("click", async () => {
 
     try {
         const snapshot = await get(ref(db, 'oublis/'));
-        let oublis = snapshot.exists() ? snapshot.val() : [];
+        let oublis = snapshot.exists() ? safeGetHistoryArray(snapshot.val()) : [];
         oublis.push({
             user: current,
             shop: selectedShop,
@@ -1223,7 +1236,7 @@ window.supprimerOubli = async function(index) {
     if(confirm("Supprimer ce signalement ?")) {
         const snapshot = await get(ref(db, 'oublis/'));
         if(snapshot.exists()) {
-            let oublis = snapshot.val();
+            let oublis = safeGetHistoryArray(snapshot.val());
             oublis.splice(index, 1);
             await set(ref(db, 'oublis/'), oublis);
             if(current === adminUser) await loadAdmin();
@@ -1241,7 +1254,7 @@ window.modifierHeurePointageExacte = async function(workerName, indexLigne, type
     const snapshot = await get(ref(db, 'history/' + workerName));
     if(!snapshot.exists()) return;
     
-    let historique = snapshot.val();
+    let historique = safeGetHistoryArray(snapshot.val());
     let ligne = historique[indexLigne];
 
     if(typeAction === "start") ligne.start = recompilerChaineDateAvecNouvelleHeure(ligne.start, nvHeure.trim());
@@ -1265,7 +1278,7 @@ window.toggleAdminHistoryCollapse = async function(workerName) {
     }
     
     const snapshot = await get(ref(db, 'history/' + workerName));
-    let userHistory = snapshot.val() || [];
+    let userHistory = snapshot.exists() ? safeGetHistoryArray(snapshot.val()) : [];
     
     if(userHistory.length === 0) {
         box.innerHTML = "<p style='color:#666; font-size:12px; font-style:italic; padding:10px;'>Aucune session enregistrée.</p>";
@@ -1309,7 +1322,7 @@ async function end() {
     let h = (new Date() - new Date(parseInt(s))) / 3600000;
 
     const dataSnapshot = await get(ref(db, 'history/' + current));
-    let data = dataSnapshot.val() || [];
+    let data = dataSnapshot.exists() ? safeGetHistoryArray(dataSnapshot.val()) : [];
     data.push({ start: genererDatePrecise(new Date(parseInt(s))), end: genererDatePrecise(new Date()), hours: h.toFixed(2), shop: selectedShop });
 
     await set(ref(db, 'history/' + current), data);
@@ -1320,7 +1333,7 @@ async function end() {
 
 async function load() {
     const snapshot = await get(ref(db, 'history/' + current));
-    let data = snapshot.val() || [];
+    let data = snapshot.exists() ? safeGetHistoryArray(snapshot.val()) : [];
     let total = 0;
     let tbody = document.getElementById("historyTableBody");
     tbody.innerHTML = "";
@@ -1349,14 +1362,14 @@ async function loadManagerPanel() {
     const starts = allData.starts || {};
     const histories = allData.history || {};
     const avatars = allData.avatars || {};
-    const oublis = allData.oublis || [];
+    const oublis = allData.oublis ? safeGetHistoryArray(allData.oublis) : [];
 
     let oubliZone = document.getElementById("managerOublisZone");
     oubliZone.innerHTML = "";
     let aDesOublis = false;
     
     oublis.forEach((o, idx) => {
-        if(o.shop === selectedShop) {
+        if(o && o.shop === selectedShop) {
             aDesOublis = true;
             oubliZone.innerHTML += `
                 <div class="card" style="border-color:#e74c3c; flex-direction:column; text-align:left; padding:12px; gap:4px; font-size:13px; background:#161010;">
@@ -1377,7 +1390,7 @@ async function loadManagerPanel() {
         let sessionStart = starts[u];
         let enPosteIci = (sessionStart && sessionStart.shop === selectedShop);
         let derniereBoutique = "Aucune";
-        let userHistory = histories[u] || [];
+        let userHistory = safeGetHistoryArray(histories[u]);
         let total = 0;
         
         userHistory.forEach(h => { total += Number(h.hours); if(h.shop) derniereBoutique = h.shop; });
@@ -1431,17 +1444,19 @@ async function loadAdmin() {
     const histories = allData.history || {};
     const starts = allData.starts || {};
     const avatars = allData.avatars || {};
-    const oublis = allData.oublis || [];
+    const oublis = allData.oublis ? safeGetHistoryArray(allData.oublis) : [];
 
     let oubliZone = document.getElementById("adminOublisZone");
     oubliZone.innerHTML = "";
     oublis.forEach((o, index) => {
-        oubliZone.innerHTML += `
-            <div class="card" style="border-color:#e74c3c; flex-direction:column; text-align:left; padding:12px;">
-                <p style="color:#e74c3c; font-weight:bold;">⚠️ [${o.shop}] Oubli de : ${o.user}</p>
-                <p style="font-size:13px;"><b>Heure :</b> ${o.time} | <b>Raison :</b> "${o.reason}"</p>
-                <button class="btn-inline" style="background:#e74c3c; color:white; border:none;" onclick="supprimerOubli(${index})">Supprimer la demande</button>
-            </div>`;
+        if(o) {
+            oubliZone.innerHTML += `
+                <div class="card" style="border-color:#e74c3c; flex-direction:column; text-align:left; padding:12px;">
+                    <p style="color:#e74c3c; font-weight:bold;">⚠️ [${o.shop}] Oubli de : ${o.user}</p>
+                    <p style="font-size:13px;"><b>Heure :</b> ${o.time} | <b>Raison :</b> "${o.reason}"</p>
+                    <button class="btn-inline" style="background:#e74c3c; color:white; border:none;" onclick="supprimerOubli(${index})">Supprimer la demande</button>
+                </div>`;
+        }
     });
 
     let chipsContainer = document.getElementById("workerChipsList");
@@ -1451,16 +1466,15 @@ async function loadAdmin() {
 
     for (let u in users) {
       chipsContainer.innerHTML += `<div class="worker-chip" onclick="selectWorkerForNoteAction(this, '${u}')">${u}</div>`;
-      let userHistory = histories[u] || [];
+      let userHistory = safeGetHistoryArray(histories[u]);
       let total = 0; let derniereBoutique = "Aucune";
-      userHistory.forEach(e => { total += Number(e.hours); if(e.shop) derniereBoutique = e.shop; });
+      userHistory.forEach(e => { if(e) { total += Number(e.hours); if(e.shop) derniereBoutique = e.shop; } });
       if(starts[u]) derniereBoutique = starts[u].shop;
 
       let badgeHTML = starts[u] ? `<span class="status-badge status-online">🟢 En poste</span>` : `<span class="status-badge status-offline">🔴 Parti</span>`;
       let roleBadgeHTML = (roles[u] === "gerant") ? `<span class="role-badge role-gerant" onclick="toggleUserRole('${u}', 'gerant')"><i class="fa-solid fa-crown"></i> Gérant</span>` : `<span class="role-badge role-employe" onclick="toggleUserRole('${u}', 'employe')"><i class="fa-solid fa-user"></i> Employé</span>`;
       let photoSrc = avatars[u] || 'https://api.dicebear.com/7.x/initials/svg?seed=' + u + '&backgroundColor=ffd700&color=000000';
 
-      /* --- INTEGRATION PARFAITE SOUHAITÉE : SALAIRE VISIBLE DIRECTEMENT (Réf: 1000280619.jpg) --- */
       div.innerHTML += `
         <div class="card" style="flex-direction: column; align-items: stretch; text-align: left; padding: 15px;">
           <div style="display:flex; align-items:center; justify-content: space-between;">
