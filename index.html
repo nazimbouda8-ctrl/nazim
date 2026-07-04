@@ -13,12 +13,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
-    background: radial-gradient(circle at center, #151515 0%, #050505 100%);
-    color: #e0e0e0;
+    background: #0a0a0f;
+    color: #e8e8e8;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -28,255 +28,454 @@ body {
 
 .main {
     width: 100%;
-    max-width: 500px;
+    max-width: 480px;
     min-height: 100vh;
-    background: rgba(15, 15, 15, 0.95);
-    padding: 30px 20px;
+    background: #0f0f14;
+    padding: 20px 16px 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+    box-shadow: 0 0 60px rgba(0,0,0,0.9);
 }
 
-/* Logo CSS Vectoriel */
 .logo-container {
-    width: 130px;
-    height: 130px;
+    width: 110px;
+    height: 110px;
     background: #FFD700;
     border-radius: 50%;
-    border: 5px solid #252525;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), inset 0 0 15px rgba(0,0,0,0.4);
+    border: 4px solid #1a1a1a;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.12), inset 0 0 20px rgba(0,0,0,0.3);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     position: relative;
 }
-
 .logo-ls {
-    font-size: 52px;
+    font-size: 44px;
     font-weight: 900;
     color: #000;
-    line-height: 46px;
-    letter-spacing: -3px;
-    font-family: 'Arial Black', Impact, sans-serif;
-    border-bottom: 4px solid #000;
-    padding-bottom: 2px;
-    width: 80%;
+    line-height: 40px;
+    letter-spacing: -2px;
+    font-family: 'Inter', 'Arial Black', sans-serif;
+    border-bottom: 3px solid #000;
+    padding-bottom: 1px;
+    width: 75%;
     text-align: center;
 }
+.logo-text { font-size: 10px; font-weight: 800; color: #000; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 3px; }
+.logo-sub { font-size: 5.5px; font-weight: 700; color: #000; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; }
 
-.logo-text {
-    font-size: 11px;
-    font-weight: 800;
-    color: #000;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 4px;
-}
-
-.logo-sub {
-    font-size: 6px;
-    font-weight: 700;
-    color: #000;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.signature {
-    font-size: 11px;
-    color: #FFD700;
-    opacity: 0.6;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-.subtitle {
-    font-size: 14px;
-    color: #aaa;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-    font-weight: 500;
-}
-
-.login-box {
-    width: 100%;
-}
+.signature { font-size: 10px; color: #FFD700; opacity: 0.3; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+.subtitle { font-size: 13px; color: #666; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; font-weight: 500; }
 
 input, textarea, select {
     width: 100%;
-    padding: 15px;
-    margin-top: 12px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    background: #1e1e1e;
-    color: #fff;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-/* Correction spécifique Android pour le calendrier d'oubli */
-input[type="datetime-local"] {
-    background: #252525 !important;
-    color: #ffffff !important;
-    min-height: 50px;
-}
-
-input:focus, textarea:focus, select:focus {
+    padding: 14px 16px;
+    margin-top: 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 215, 0, 0.06);
+    background: #18181e;
+    color: #f0f0f0;
+    font-size: 15px;
+    transition: all 0.25s ease;
     outline: none;
+}
+input:focus, textarea:focus, select:focus {
     border-color: #FFD700;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.05);
+    background: #1e1e26;
 }
 
 button {
     width: 100%;
-    padding: 15px;
-    margin-top: 15px;
-    border-radius: 12px;
+    padding: 14px;
+    margin-top: 14px;
+    border-radius: 14px;
     border: none;
-    background: linear-gradient(135deg, #FFD700 0%, #cca300 100%);
-    color: #000;
-    font-size: 16px;
+    background: linear-gradient(135deg, #FFD700 0%, #e6c200 100%);
+    color: #0b0b0b;
+    font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.06);
 }
-
-button:active { transform: scale(0.96); }
+button:active { transform: scale(0.97); }
 
 #btnAdmin {
     background: transparent;
-    border: 1px solid #FFD700;
+    border: 1.5px solid #FFD700;
     color: #FFD700;
     box-shadow: none;
 }
 
 #employee, #admin, #shopSelectionSection {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 6px;
 }
 
 h2 {
-    font-size: 19px;
+    font-size: 17px;
     color: #fff;
-    margin: 25px 0 12px 0;
+    margin: 20px 0 10px 0;
     text-align: left;
     font-weight: 600;
     border-left: 4px solid #FFD700;
-    padding-left: 10px;
-    letter-spacing: 0.5px;
+    padding-left: 12px;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .card {
-    background: linear-gradient(145deg, #181818, #0f0f0f);
-    border: 1px solid rgba(255, 215, 0, 0.08);
+    background: #14141a;
+    border: 1px solid rgba(255, 255, 255, 0.02);
     border-radius: 20px;
-    padding: 20px;
-    margin-top: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: space-around;
+    padding: 16px;
+    margin-top: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 
-.big {
-    font-size: 14px;
-    color: #aaa;
-    text-align: center;
-}
-
-.big span {
-    display: block;
-    font-size: 24px;
-    font-weight: 700;
-    color: #FFD700;
-    margin-top: 5px;
-}
+.big { font-size: 13px; color: #888; text-align: center; }
+.big span { display: block; font-size: 20px; font-weight: 700; color: #FFD700; margin-top: 4px; }
 
 .action-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 20px;
+    gap: 14px;
+    margin-top: 16px;
 }
-
-#btnStart { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: #fff; }
+#btnStart { background: linear-gradient(135deg, #2ecc71 0%, #1ea85c 100%); color: #fff; }
 #btnEnd { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: #fff; }
 
 .btn-manager-toggle {
-    background: linear-gradient(135deg, #00d2ff 0%, #0072ff 100%) !important;
+    background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%) !important;
     color: #fff !important;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
-    margin-top: 10px;
+    font-weight: 700;
+    box-shadow: 0 4px 20px rgba(0, 114, 255, 0.15);
+    margin-top: 8px;
+    letter-spacing: 0.3px;
 }
 
 .add-box {
-    background: #111;
-    border: 1px dashed rgba(255, 215, 0, 0.3);
-    border-radius: 15px;
-    padding: 15px;
-    margin-top: 15px;
+    background: #121218;
+    border: 1px dashed rgba(255, 215, 0, 0.08);
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 12px;
 }
 
 .futuristic-box {
     background: #0d1117;
-    border: 2px solid #00d2ff;
-    box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+    border: 1.5px solid #00d2ff;
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.04);
     border-radius: 16px;
-    padding: 20px;
-    margin-top: 20px;
+    padding: 18px;
+    margin-top: 16px;
 }
-.futuristic-box h4 {
-    color: #00d2ff;
-    font-weight: 800;
+.futuristic-box h4 { color: #00d2ff; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; margin-bottom: 6px; }
+.futuristic-input { border: 1px solid rgba(0, 210, 255, 0.1) !important; background: #070a0f !important; color: #b0dfff !important; }
+.futuristic-btn { background: linear-gradient(135deg, #00d2ff 0%, #0072ff 100%) !important; color: #fff !important; font-weight: 700; box-shadow: 0 4px 20px rgba(0, 114, 255, 0.15); }
+
+.shop-led-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+    width: 100%;
+    justify-content: center;
+}
+.shop-led-chip {
+    background: #16161c;
+    color: rgba(255, 215, 0, 0.25);
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid rgba(255, 215, 0, 0.04);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    letter-spacing: 0.3px;
+}
+.shop-led-chip:hover { color: #FFD700; border-color: rgba(255, 215, 0, 0.12); }
+.shop-led-chip.selected {
+    background: #1a1a00;
+    color: #FFD700;
+    border: 1.5px solid #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.06);
+}
+
+.shop-badge-led {
+    background: #1e1b00;
+    color: #FFD700;
+    border: 1px solid rgba(255, 215, 0, 0.12);
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    display: inline-block;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-size: 13px;
-    margin-bottom: 5px;
-    text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+    letter-spacing: 0.3px;
 }
-.futuristic-input {
-    border: 1px solid rgba(0, 210, 255, 0.3) !important;
-    background: #070a0f !important;
-    color: #00d2ff !important;
+
+.role-badge {
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
 }
-.futuristic-btn {
-    background: linear-gradient(135deg, #00d2ff 0%, #0072ff 100%) !important;
-    color: #fff !important;
-    font-weight: 800;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
+.role-employe { background: #1a1a22; color: #999; border: 1px solid #282832; }
+.role-cogerant { background: #001a33; color: #00d2ff; border: 1px solid #00d2ff; }
+.role-gerant { background: #1b1100; color: #FFD700; border: 1px solid #FFD700; }
+
+.status-badge {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
+.status-online { background: rgba(46, 204, 113, 0.08); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.08); }
+.status-offline { background: rgba(231, 76, 60, 0.06); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.06); }
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 2px;
+}
+.status-dot.online {
+    background: #2ecc71;
+    box-shadow: 0 0 12px rgba(46, 204, 113, 0.4);
+    animation: pulse-dot 1.8s ease-in-out infinite;
+}
+.status-dot.offline {
+    background: #555;
+    opacity: 0.4;
+}
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.btn-inline {
+    background: #1a1a22;
+    border: 1px solid rgba(255, 215, 0, 0.08);
+    color: #FFD700;
+    padding: 4px 14px;
+    font-size: 11px;
+    border-radius: 8px;
+    width: auto;
+    display: inline-block;
+    margin-top: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.btn-inline:hover { background: #FFD700; color: #000; }
+
+.btn-validate-forget {
+    background: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+    padding: 4px 14px;
+    font-size: 11px;
+    border-radius: 8px;
+    border: 1px solid rgba(46, 204, 113, 0.08);
+    width: auto;
+    display: inline-block;
+    margin-top: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+}
+.btn-validate-forget:hover {
+    background: rgba(46, 204, 113, 0.2);
+    border-color: rgba(46, 204, 113, 0.2);
+}
+
+.btn-delete-worker {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    padding: 8px 12px;
+    font-size: 11px;
+    margin-top: 6px;
+    border-radius: 10px;
+    border: 1px solid rgba(231, 76, 60, 0.08);
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    width: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.btn-delete-worker:hover {
+    background: rgba(231, 76, 60, 0.2);
+    border-color: rgba(231, 76, 60, 0.3);
+}
+
+.employee-profile-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 10px 0;
+    background: #121218;
+    padding: 14px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 215, 0, 0.02);
+    width: 100%;
+}
+.employee-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #FFD700;
+    object-fit: cover;
+    background: #1a1a1a;
+}
+
+.timeline-container {
+    position: relative;
+    padding-left: 16px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 8px;
+    bottom: 8px;
+    width: 1.5px;
+    background: linear-gradient(to bottom, rgba(0, 210, 255, 0.12), rgba(0, 114, 255, 0.04));
+}
+.timeline-row {
+    position: relative;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.timeline-row::before {
+    content: '';
+    position: absolute;
+    left: -18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: #00d2ff;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(0, 210, 255, 0.08);
+}
+.timeline-date-main { font-size: 12px; font-weight: 600; color: #ddd; }
+.timeline-time-capsule {
+    background: rgba(0, 210, 255, 0.03);
+    border: 1px solid rgba(0, 210, 255, 0.06);
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #00d2ff;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+}
+.timeline-time-label { font-size: 8px; text-transform: uppercase; opacity: 0.4; letter-spacing: 0.3px; }
+.timeline-duration-pill {
+    background: rgba(255, 215, 0, 0.03);
+    border: 1px solid rgba(255, 215, 0, 0.04);
+    color: #FFD700;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 70px;
+    text-align: right;
+}
+
+.history-table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 215, 0, 0.02);
+}
+.clean-history-table { width: 100%; border-collapse: collapse; background: #111116; font-size: 11px; }
+.clean-history-table th { background: #16161c; color: #FFD700; padding: 10px 8px; font-weight: 600; border-bottom: 1px solid rgba(255, 215, 0, 0.04); text-transform: uppercase; letter-spacing: 0.3px; }
+.clean-history-table td { padding: 10px 8px; color: #bbb; border-bottom: 1px solid #18181e; }
+.table-duration-badge { color: #FFD700; font-weight: 600; background: rgba(255, 215, 0, 0.03); padding: 2px 8px; border-radius: 4px; }
+
+.salary-focus-box {
+    background: #12121a;
+    border-left: 3px solid #FFD700;
+    padding: 10px 14px;
+    border-radius: 4px 12px 12px 4px;
+    margin: 6px 0;
+}
+.salary-highlight { font-size: 13px; font-weight: 600; color: #999; display: flex; flex-wrap: wrap; gap: 6px; }
+.hours-subtext { font-size: 10px; color: #777; margin-top: 3px; display: flex; align-items: center; gap: 6px; }
+
+.instagram-bubble {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a22;
+    color: #ccc;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 9px;
+    font-weight: 600;
+    white-space: nowrap;
+    border: 1px solid #282832;
+}
+.alert-banner { width: 100%; padding: 10px; border-radius: 10px; margin-top: 10px; font-size: 13px; font-weight: 600; text-align: center; display: none; }
+.alert-success { background: rgba(46, 204, 113, 0.06); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.08); }
+.alert-danger { background: rgba(231, 76, 60, 0.06); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.08); }
 
 .patron-note-banner {
     background: linear-gradient(135deg, #0072ff 0%, #00d2ff 100%);
     color: #000;
-    padding: 16px;
+    padding: 14px;
     border-radius: 14px;
-    margin-bottom: 20px;
-    font-size: 15px;
-    font-weight: 800;
-    border: 2px solid #fff;
-    box-shadow: 0 8px 25px rgba(0, 210, 255, 0.4);
+    margin-bottom: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 0 8px 30px rgba(0, 210, 255, 0.06);
     display: none;
-    text-align: left;
     position: relative;
 }
 .close-note-btn {
     position: absolute;
     top: 50%;
-    right: 12px;
+    right: 10px;
     transform: translateY(-50%);
-    background: #000;
+    background: rgba(0,0,0,0.2);
     color: #fff;
     border: none;
-    padding: 6px 12px;
+    padding: 4px 12px;
     font-size: 11px;
     font-weight: 700;
     border-radius: 8px;
@@ -285,438 +484,531 @@ h2 {
     margin: 0;
 }
 
-.shop-led-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
-    width: 100%;
-    justify-content: center;
+.photo-modal {
+    display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 9999; justify-content: center; align-items: center;
 }
-.shop-led-chip {
-    background: #111;
-    color: rgba(255, 215, 0, 0.4);
-    padding: 14px 18px;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 800;
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.shop-led-chip:hover {
-    color: #FFD700;
-    border-color: #FFD700;
-}
-.shop-led-chip.selected {
-    background: #1a1a00;
-    color: #FFD700;
-    border: 2px solid #FFD700;
-    box-shadow: 0 0 15px #FFD700, inset 0 0 5px #FFD700;
-    text-shadow: 0 0 8px #FFD700;
-    transform: scale(1.03);
+.photo-modal-wrapper { position: relative; max-width: 85%; max-height: 70%; }
+.photo-modal-content { width: 100%; height: auto; border-radius: 20px; border: 2px solid #FFD700; box-shadow: 0 0 40px rgba(255, 215, 0, 0.04); }
+.photo-modal-close {
+    position: absolute; top: -14px; right: -14px; width: 32px; height: 32px; background: #FFD700;
+    color: #0b0b0b; border: none; border-radius: 50%; font-size: 18px; font-weight: 700; display: flex; justify-content: center; align-items: center; cursor: pointer;
 }
 
-.shop-badge-led {
-    background: #1e1b00;
-    color: #FFD700;
-    border: 1px solid rgba(255, 215, 0, 0.5);
-    padding: 3px 8px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: bold;
-    display: inline-block;
-    box-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
-    text-shadow: 0 0 3px #FFD700;
-    text-transform: uppercase;
-}
-
-.role-badge {
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-size: 11px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.revenue-log-item {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 4px;
-    text-transform: uppercase;
+    background: rgba(255,255,255,0.01);
+    border: 1px solid #18181e;
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin-top: 4px;
+    font-size: 12px;
 }
-.role-employe {
-    background: #222;
-    color: #aaa;
-    border: 1px solid #444;
-}
-.role-gerant {
-    background: #1b1100;
-    color: #FFD700;
-    border: 1px solid #FFD700;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-    text-shadow: 0 0 4px #FFD700;
-}
-
 .btn-file-label {
     display: block;
     text-align: center;
-    background: #222;
-    border: 1px solid rgba(255, 215, 0, 0.4);
+    background: #18181e;
+    border: 1px solid rgba(255, 215, 0, 0.06);
     color: #FFD700;
     padding: 10px;
-    border-radius: 8px;
-    margin-top: 12px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.btn-inline {
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    color: #FFD700;
-    padding: 5px 12px;
-    font-size: 11px;
-    border-radius: 6px;
-    width: auto;
-    display: inline-block;
-    margin-top: 5px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-.btn-inline:hover {
-    background: #FFD700;
-    color: #000;
-}
-
-.btn-delete-worker {
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-    color: #fff;
-    padding: 10px;
-    font-size: 13px;
-    margin-top: 8px;
     border-radius: 10px;
-    border: none;
-    font-weight: 600;
+    margin-top: 10px;
     cursor: pointer;
-}
-
-.timeline-container {
-    position: relative;
-    padding-left: 20px;
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.timeline-container::before {
-    content: '';
-    position: absolute;
-    left: 4px;
-    top: 10px;
-    bottom: 10px;
-    width: 2px;
-    background: linear-gradient(to bottom, rgba(0, 210, 255, 0.4), rgba(0, 114, 255, 0.1));
-}
-
-.timeline-row {
-    position: relative;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 12px 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.timeline-row::before {
-    content: '';
-    position: absolute;
-    left: -20px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    background: #00d2ff;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #00d2ff;
-}
-
-.timeline-date-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.timeline-date-main {
     font-size: 13px;
-    font-weight: 700;
-    color: #ffffff;
-}
-
-.timeline-hours-flex {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.timeline-time-capsule {
-    background: rgba(0, 210, 255, 0.06);
-    border: 1px solid rgba(0, 210, 255, 0.15);
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 12px;
     font-weight: 600;
-    color: #00d2ff;
-    cursor: pointer;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.timeline-time-label {
-    font-size: 9px;
-    text-transform: uppercase;
-    opacity: 0.6;
-    letter-spacing: 0.5px;
-    margin-bottom: 1px;
-}
-
-.timeline-duration-pill {
-    background: rgba(255, 215, 0, 0.1);
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    color: #FFD700;
-    padding: 6px 10px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 700;
-    text-align: right;
-    min-width: 75px;
-}
-
-.history-table-container {
-    width: 100%;
-    overflow-x: auto;
-    margin-top: 15px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 215, 0, 0.15);
-}
-.clean-history-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #111;
-    font-size: 12px;
-    text-align: left;
-}
-.clean-history-table th {
-    background: #1a1a1a;
-    color: #FFD700;
-    padding: 12px 10px;
-    font-weight: 700;
-    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
-    text-transform: uppercase;
-}
-.clean-history-table td {
-    padding: 12px 10px;
-    color: #ccc;
-    border-bottom: 1px solid #222;
-}
-.table-duration-badge {
-    color: #FFD700;
-    font-weight: bold;
-    background: rgba(255, 215, 0, 0.08);
-    padding: 4px 6px;
-    border-radius: 5px;
-    display: inline-block;
-}
-
-.status-badge {
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-.status-online { background: rgba(46, 204, 113, 0.15); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.4); }
-.status-offline { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.4); }
-
-.employee-profile-box {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin: 15px 0;
-    background: rgba(255, 215, 0, 0.02);
-    padding: 15px;
-    border-radius: 15px;
-    border: 1px solid rgba(255, 215, 0, 0.08);
-    width: 100%;
-}
-
-.avatar-container {
-    position: relative;
-    display: inline-block;
-}
-
-.employee-avatar {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    border: 2px solid #FFD700;
-    object-fit: cover;
-    background: #222;
-}
-
-.photo-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(4px);
-    z-index: 9999;
-    justify-content: center;
-    align-items: center;
-}
-.photo-modal-wrapper {
-    position: relative;
-    max-width: 85%;
-    max-height: 70%;
-}
-.photo-modal-content {
-    width: 100%;
-    height: auto;
-    border-radius: 20px;
-    border: 2px solid #FFD700;
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
-}
-.photo-modal-close {
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    width: 35px;
-    height: 35px;
-    background-color: #FFD700;
-    color: #121212;
-    border: none;
-    border-radius: 50%;
-    font-size: 22px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.salary-focus-box {
-    background: linear-gradient(135deg, #222222 0%, #171717 100%);
-    border-left: 4px solid #FFD700;
-    padding: 12px;
-    border-radius: 4px 12px 12px 4px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 10px 0;
-}
-.salary-highlight {
-    font-size: 24px;
-    font-weight: 800;
-    color: #FFD700;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-}
-.salary-highlight .currency {
-    font-size: 14px;
-    font-weight: 600;
-    color: #ffffff;
-}
-.hours-subtext {
-    font-size: 12px;
-    color: #aaaaaa;
-    margin-top: 4px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-.hours-subtext strong {
-    color: #ffffff;
-}
-
-.instagram-bubble {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #fff;
-    color: #000;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 10px;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.alert-banner {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    margin-top: 15px;
-    font-size: 14px;
-    font-weight: 600;
-    text-align: center;
-    display: none;
-}
-.alert-success { background: rgba(46, 204, 113, 0.15); color: #2ecc71; border: 1px solid #2ecc71; }
-.alert-danger { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid #e74c3c; }
-
-.worker-chips-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 12px;
-    width: 100%;
 }
 
 .worker-chip {
-    background: #1e1e1e;
-    color: #aaa;
-    padding: 10px 16px;
+    background: #16161c;
+    color: #999;
+    padding: 8px 16px;
     border-radius: 20px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
-    text-transform: capitalize;
-    border: 1px solid rgba(0, 210, 255, 0.15);
+    border: 1px solid rgba(0, 210, 255, 0.04);
     cursor: pointer;
+    transition: 0.2s;
 }
 .worker-chip.selected {
     background: linear-gradient(135deg, #0072ff 0%, #00d2ff 100%);
     color: #fff;
-    border-color: #fff;
+    border-color: transparent;
 }
-
 .btn-toggle-history-admin {
     background: transparent !important;
-    border: 1px solid #333 !important;
+    border: 1px solid #1a1a22 !important;
     color: #FFD700 !important;
-    padding: 10px !important;
-    font-size: 13px !important;
+    padding: 8px !important;
+    font-size: 12px !important;
     border-radius: 10px !important;
     width: 100% !important;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
+    transition: 0.3s;
+}
+.btn-toggle-history-admin:hover {
+    background: rgba(255, 215, 0, 0.04) !important;
+    border-color: rgba(255, 215, 0, 0.15) !important;
 }
 
-@media print {
-    body { background: #fff !important; color: #000 !important; }
-    .main * { visibility: hidden; }
-    #rhPrintArea, #rhPrintArea * { visibility: visible; }
-    #rhPrintArea { position: absolute; left: 0; top: 0; width: 100%; background: #fff !important; }
+#admin {
+    background: radial-gradient(ellipse at 20% 50%, rgba(0, 114, 255, 0.02) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(255, 215, 0, 0.015) 0%, transparent 60%),
+                #0a0a0f;
+    border-radius: 0;
+    padding: 0;
+}
+
+.admin-header {
+    width: 100%;
+    background: linear-gradient(135deg, rgba(20, 20, 30, 0.85), rgba(10, 10, 15, 0.95));
+    border: 1px solid rgba(255, 215, 0, 0.04);
+    border-radius: 20px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.admin-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.admin-header-top h2 {
+    margin: 0;
+    border: none;
+    padding: 0;
+    font-size: 18px;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+.admin-header-top h2 i { color: #FFD700; margin-right: 8px; }
+
+.admin-stats {
+    display: flex;
+    gap: 10px;
+}
+.admin-stat-item {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.03);
+    border-radius: 12px;
+    padding: 4px 12px;
+    text-align: center;
+}
+.admin-stat-item .stat-number {
+    font-size: 16px;
+    font-weight: 800;
+    color: #FFD700;
+    display: block;
+    line-height: 1.2;
+}
+.admin-stat-item .stat-label {
+    font-size: 8px;
+    text-transform: uppercase;
+    color: #666;
+    letter-spacing: 0.5px;
+}
+
+.admin-quick-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 6px;
+    margin-top: 10px;
+}
+.admin-quick-actions button {
+    padding: 8px 4px;
+    font-size: 9px;
+    margin: 0;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.03);
+    color: #888;
+    transition: 0.3s;
+    font-weight: 600;
+}
+.admin-quick-actions button:hover {
+    background: rgba(255, 215, 0, 0.04);
+    border-color: rgba(255, 215, 0, 0.08);
+    color: #fff;
+}
+.admin-quick-actions button i { display: block; font-size: 14px; margin-bottom: 3px; }
+
+.admin-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.25s ease;
+}
+.admin-modal-overlay.active {
+    display: flex;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.admin-modal-card {
+    background: #14141e;
+    border: 1px solid rgba(255, 215, 0, 0.06);
+    border-radius: 24px;
+    padding: 28px 24px;
+    max-width: 420px;
+    width: 92%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    animation: slideUp 0.3s ease;
+    position: relative;
+}
+.admin-modal-card .modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: rgba(255,255,255,0.04);
+    border: none;
+    color: #888;
+    font-size: 20px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    margin: 0;
+    padding: 0;
+}
+.admin-modal-card .modal-close:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+}
+.admin-modal-card h3 {
+    color: #FFD700;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.admin-modal-card h3 i { color: #FFD700; }
+.admin-modal-card .modal-sub {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.boss-employee-card {
+    background: linear-gradient(145deg, #14141e 0%, #1a1a26 100%);
+    border: 1px solid rgba(255, 215, 0, 0.04);
+    border-radius: 18px;
+    padding: 16px 18px;
+    margin-top: 12px;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.boss-employee-card::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.03), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+.boss-employee-card:hover {
+    border-color: rgba(255, 215, 0, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 35px rgba(0,0,0,0.35);
+}
+
+.boss-employee-card .card-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.boss-employee-card .avatar-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+.boss-employee-card .avatar-wrapper img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 215, 0, 0.12);
+    object-fit: cover;
+    background: #1a1a22;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.boss-employee-card .avatar-wrapper img:hover { border-color: #FFD700; }
+.boss-employee-card .avatar-wrapper .camera-icon {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    background: #1a1a22;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 8px;
+    border: 1px solid #282832;
+    cursor: pointer;
+    color: #666;
+    transition: 0.2s;
+}
+.boss-employee-card .avatar-wrapper .camera-icon:hover { color: #FFD700; }
+
+.boss-employee-card .info-main {
+    flex: 1;
+    min-width: 0;
+}
+.boss-employee-card .info-main .name-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+.boss-employee-card .info-main .name-row h3 {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin: 0;
+}
+.boss-employee-card .info-main .name-row .badge-group {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.boss-employee-card .shop-selector {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.boss-employee-card .shop-selector label {
+    font-size: 10px;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.boss-employee-card .shop-selector select {
+    padding: 4px 10px;
+    font-size: 11px;
+    margin: 0;
+    border-radius: 8px;
+    background: #0f0f18;
+    border: 1px solid rgba(255, 215, 0, 0.06);
+    color: #ddd;
+    width: auto;
+    flex: 1;
+    min-width: 80px;
+    height: 30px;
+}
+.boss-employee-card .shop-selector select:focus {
+    border-color: #FFD700;
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.05);
+}
+
+.boss-employee-card .salary-section {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.03);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.boss-employee-card .salary-section .salary-group {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.boss-employee-card .salary-section .salary-item {
+    display: flex;
+    flex-direction: column;
+}
+.boss-employee-card .salary-section .salary-item .label {
+    font-size: 8px;
+    text-transform: uppercase;
+    color: #555;
+    letter-spacing: 0.5px;
+}
+.boss-employee-card .salary-section .salary-item .value {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+}
+.boss-employee-card .salary-section .salary-item .value.gold { color: #FFD700; }
+.boss-employee-card .salary-section .salary-item .value.green { color: #2ecc71; }
+
+.boss-employee-card .salary-section .hours-info {
+    font-size: 10px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.boss-employee-card .salary-section .hours-info strong { color: #aaa; }
+.boss-employee-card .salary-section .hours-info .prime { color: #2ecc71; }
+.boss-employee-card .salary-section .hours-info .holiday-badge {
+    background: rgba(255, 215, 0, 0.1);
+    color: #FFD700;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 8px;
+    font-weight: 700;
+    border: 1px solid rgba(255, 215, 0, 0.08);
+}
+
+.boss-employee-card .actions-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.02);
+}
+.boss-employee-card .actions-row .action-btn {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.04);
+    color: #888;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.boss-employee-card .actions-row .action-btn:hover {
+    background: rgba(255, 215, 0, 0.04);
+    border-color: rgba(255, 215, 0, 0.08);
+    color: #fff;
+}
+.boss-employee-card .actions-row .action-btn.danger {
+    color: #e74c3c;
+    border-color: rgba(231, 76, 60, 0.06);
+}
+.boss-employee-card .actions-row .action-btn.danger:hover {
+    background: rgba(231, 76, 60, 0.06);
+    border-color: rgba(231, 76, 60, 0.15);
+}
+.boss-employee-card .actions-row .action-btn i { font-size: 12px; }
+
+.holiday-section {
+    background: #12121a;
+    border: 1px solid rgba(255, 215, 0, 0.04);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-top: 12px;
+}
+.holiday-section h4 {
+    color: #FFD700;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.holiday-section .holiday-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+.holiday-section .holiday-chip {
+    background: #1a1a24;
+    color: #FFD700;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    border: 1px solid rgba(255, 215, 0, 0.06);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.holiday-section .holiday-chip .remove-holiday {
+    cursor: pointer;
+    color: #666;
+    font-size: 10px;
+    transition: 0.2s;
+}
+.holiday-section .holiday-chip .remove-holiday:hover { color: #e74c3c; }
+.holiday-section .holiday-input-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+.holiday-section .holiday-input-row input {
+    margin: 0;
+    padding: 8px 12px;
+    font-size: 13px;
+    flex: 1;
+    background: #0f0f18;
+    border: 1px solid rgba(255, 215, 0, 0.06);
+    border-radius: 10px;
+    color: #fff;
+}
+.holiday-section .holiday-input-row input:focus {
+    border-color: #FFD700;
+}
+.holiday-section .holiday-input-row button {
+    margin: 0;
+    padding: 8px 16px;
+    width: auto;
+    font-size: 12px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #FFD700 0%, #e6c200 100%);
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+.holiday-section .holiday-input-row button:hover { opacity: 0.85; }
+
+@media (max-width: 420px) {
+    .main { padding: 16px 12px 30px; }
+    .logo-container { width: 90px; height: 90px; }
+    .logo-ls { font-size: 36px; line-height: 34px; }
+    .admin-stats { gap: 4px; }
+    .admin-stat-item { padding: 4px 8px; }
+    .admin-stat-item .stat-number { font-size: 14px; }
+    .admin-quick-actions { grid-template-columns: 1fr 1fr 1fr; }
+    .boss-employee-card .salary-section { flex-direction: column; align-items: stretch; gap: 4px; }
+    .boss-employee-card .actions-row { flex-wrap: wrap; }
+    .admin-modal-card { padding: 20px 16px; }
+    .holiday-section .holiday-input-row { flex-direction: column; }
 }
 </style>
 </head>
@@ -741,7 +1033,7 @@ h2 {
     </div>
 
     <div id="shopSelectionSection" style="display:none; text-align:center;">
-        <h2 style="border-left-color: #FFD700; margin-bottom:5px;">Où travaillez-vous aujourd'hui ?</h2>
+        <h2 style="border-left-color: #FFD700; margin-bottom:4px;">Où travaillez-vous ?</h2>
         <div class="shop-led-container" id="loginShopContainer">
             <div class="shop-led-chip" data-shop="AMRIW UG" onclick="selectLoginShop(this)">AMRIW UG</div>
             <div class="shop-led-chip" data-shop="LS" onclick="selectLoginShop(this)">LS</div>
@@ -750,33 +1042,44 @@ h2 {
             <div class="shop-led-chip" data-shop="EDIMCO LS" onclick="selectLoginShop(this)">EDIMCO LS</div>
             <div class="shop-led-chip" data-shop="PEAK LS" onclick="selectLoginShop(this)">PEAK LS</div>
         </div>
-        <button id="btnConfirmShop" style="margin-top:25px;">Valider et Entrer au Panel ✅</button>
+        <button id="btnConfirmShop" style="margin-top:20px;">Valider et Entrer ✅</button>
     </div>
 
     <div id="employee" style="display:none;">
         
-        <div id="managerTopMenu" style="display:none; width:100%; margin-bottom:15px; text-align:center;">
+        <div id="managerTopMenu" style="display:none; width:100%; margin-bottom:12px; text-align:center;">
             <button id="btnToggleManagerView" class="btn-manager-toggle">💼 Panneau Gérant Terrain</button>
         </div>
 
-        <div id="managerPanelSection" style="display:none; width:100%; margin-bottom:20px; border-bottom: 2px dashed rgba(0, 210, 255, 0.2); padding-bottom:20px;">
-            <h2 style="border-left-color: #00d2ff; margin-top: 10px;">🛠️ Gestion : <span id="managerShopTitle">---</span></h2>
+        <div id="managerPanelSection" style="display:none; width:100%; margin-bottom:16px; border-bottom: 1px solid rgba(0, 210, 255, 0.06); padding-bottom:16px;">
+            <h2 style="border-left-color: #00d2ff; margin-top: 6px;">🛠️ Gestion : <span id="managerShopTitle">---</span></h2>
             
-            <p style="font-size:12px; color:#aaa; margin-top:10px; font-weight:bold;">📝 Signalements d'oublis de cette boutique :</p>
-            <div id="managerOublisZone" style="margin-top:8px;"></div>
+            <div class="add-box" style="border-color: #00d2ff;">
+                <h4 style="color: #00d2ff; font-size:12px; margin-bottom:4px;">💰 Déclarer / Rattraper une Recette</h4>
+                <input type="date" id="managerRevenueDateInput" style="margin-top:4px; padding:8px; font-size:13px;">
+                <div style="display:flex; gap:8px; margin-top:8px;">
+                    <input type="number" id="managerDailyRevenueInput" placeholder="Montant en DA" style="margin:0; padding:10px;">
+                    <button id="btnSaveDailyRevenue" style="width:auto; margin:0; padding:10px 18px; background:#00d2ff; color:#000; font-size:13px;">Valider</button>
+                </div>
+                <p style="font-size:11px; margin-top:12px; color:#666; font-weight:600;">📋 Historique des Recettes Récents :</p>
+                <div id="managerRevenueLogZone" style="margin-top:4px;"></div>
+            </div>
 
-            <p style="font-size:12px; color:#aaa; margin-top:20px; font-weight:bold;">👥 Présences & Historique Équipe :</p>
+            <p style="font-size:11px; color:#666; margin-top:10px; font-weight:600;">📝 Signalements d'oublis :</p>
+            <div id="managerOublisZone" style="margin-top:6px;"></div>
+
+            <p style="font-size:11px; color:#666; margin-top:16px; font-weight:600;">👥 Présences & Historique Équipe :</p>
             <div id="managerWorkersData"></div>
         </div>
 
         <div id="patronNoteZone" class="patron-note-banner">
             <span id="noteTextContent"></span>
-            <button class="close-note-btn" id="btnCloseNote">❌</button>
+            <button class="close-note-btn" id="btnCloseNote">✕</button>
         </div>
 
         <div id="propHeuresZone" class="patron-note-banner" style="background: linear-gradient(135deg, #ff9900 0%, #ff5500 100%); display:none;">
-            <p>⚠️ <b>AJUSTEMENT PROPOSÉ :</b> Le gérant/patron a suggéré une correction. Accepter ?</p>
-            <div style="display:flex; gap: 10px; margin-top:10px;">
+            <p>⚠️ <b>AJUSTEMENT PROPOSÉ :</b> Le gérant/patron a suggéré une correction.</p>
+            <div style="display:flex; gap: 10px; margin-top:8px;">
                 <button id="btnAcceptProp" style="background:#2ecc71; color:white; padding:8px; margin:0; font-size:12px;">✅ Accepter</button>
                 <button id="btnRefuseProp" style="background:#e74c3c; color:white; padding:8px; margin:0; font-size:12px;">❌ Refuser</button>
             </div>
@@ -788,18 +1091,23 @@ h2 {
                 <img src="" id="userAvatar" class="employee-avatar" alt="Profil" onclick="zoomImagePleinEcran(this.src)">
             </div>
             <div style="flex-grow:1;">
-                <h2 id="welcome" style="margin:0; border:none; padding:0;">Bienvenue</h2>
-                <p style="font-size:12px; color:#aaa;">Boutique active : <span id="currentActiveShopBadge" class="shop-badge-led">---</span></p>
-                <div style="display:flex; gap:5px; margin-top:5px;">
-                    <input id="myStatusInput" placeholder="Votre humeur/statut..." style="padding:5px; font-size:11px; margin:0; border-radius:6px; height:28px;">
+                <h2 id="welcome" style="margin:0; border:none; padding:0; text-transform: capitalize; font-size:16px;">Bienvenue</h2>
+                <p style="font-size:10px; color:#777; margin-top:2px;">Rôle : <span id="myUserRoleBadgeDisplay">---</span></p>
+                <p style="font-size:10px; color:#777;">Boutique : <span id="currentActiveShopBadge" class="shop-badge-led">---</span></p>
+                <div style="display:flex; gap:6px; margin-top:4px;">
+                    <input id="myStatusInput" placeholder="Statut..." style="padding:4px 10px; font-size:11px; margin:0; border-radius:8px; height:28px;">
                     <button id="btnUpdateStatus" class="btn-inline" style="margin:0; height:28px;">Ok</button>
                 </div>
             </div>
         </div>
         
-        <div class="card">
-            <div class="big">Heures Cumulées<span id="hours">0h 00min</span></div>
-            <div class="big">Salaire Estimé<span id="salary">0</span> DA</div>
+        <div class="card" style="display:flex; flex-direction:row; justify-content:space-around; padding:14px;">
+            <div class="big">Heures<span id="hours">0h 00min</span></div>
+            <div class="big">Salaire Fixe<span id="salary">0</span> DA</div>
+        </div>
+        <div style="text-align:center; margin-top:4px;">
+            <p style="font-size:11px; color:#777;">💰 Salaire Global (+ Prime CA) :</p>
+            <span id="globalSalaryDisplay" style="font-size:20px; font-weight:800; color:#2ecc71; display:block;">0 DA</span>
         </div>
 
         <div id="actionAlert" class="alert-banner"></div>
@@ -810,66 +1118,128 @@ h2 {
         </div>
 
         <div class="add-box" style="border-color:#e74c3c;">
-            <h4 style="color:#e74c3c; margin-bottom:5px; font-size:13px;">📝 Signaler un oubli de pointage</h4>
+            <h4 style="color:#e74c3c; margin-bottom:4px; font-size:12px;">📝 Signaler un oubli</h4>
             <input type="datetime-local" id="forgetTime">
-            <textarea id="forgetReason" placeholder="Expliquez l'oubli (ex: Oublié de pointer)..." rows="2" style="font-size:13px; padding:8px; margin-top:8px;"></textarea>
-            <button id="btnSendForget" style="background:linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color:white; padding:8px; font-size:12px; margin-top:8px;">Envoyer au Gérant Désigné ✉️</button>
+            <textarea id="forgetReason" placeholder="Expliquez..." rows="2" style="font-size:13px; padding:8px; margin-top:6px;"></textarea>
+            <button id="btnSendForget" style="background:linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color:white; padding:8px; font-size:12px; margin-top:6px;">Envoyer ✉️</button>
         </div>
 
-        <h2>Mon Historique Personnel</h2>
+        <h2>Mon Historique</h2>
         <div id="rhPrintArea">
             <div class="history-table-container">
                 <table class="clean-history-table">
-                    <thead>
-                        <tr>
-                            <th>Boutique</th>
-                            <th>Date / Jour</th>
-                            <th>Entrée</th>
-                            <th>Sortie</th>
-                            <th>Durée</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Boutique</th><th>Date</th><th>Entrée</th><th>Sortie</th><th>Durée</th></tr></thead>
                     <tbody id="historyTableBody"></tbody>
                 </table>
             </div>
         </div>
-        <button id="btnPDF" style="background:#34495e; color:white; margin-top:15px;">📄 Exporter Rapport RH</button>
+        <button id="btnPDF" style="background:#1a1a22; color:#ddd; margin-top:12px; border:1px solid #282832;">📄 Exporter Rapport RH</button>
     </div>
 
     <div id="admin" style="display:none;">
-        <h2>Panel Global Patron (Airouche)</h2>
         
-        <div class="add-box">
-            <h4>➕ Ajouter un Nouvel Employé</h4>
-            <input id="newWorkerName" placeholder="Nom d'utilisateur (ex: anas)">
-            <input id="newWorkerPass" placeholder="Code d'accès secret">
-            <label for="newWorkerPhoto" class="btn-file-label">📸 Photo de profil</label>
-            <input type="file" id="newWorkerPhoto" accept="image/*" style="display:none;">
-            <div id="photoCheckMark" style="color:#2ecc71; font-size:12px; margin-top:5px; text-align:center; display:none;">✓ Image chargée</div>
-            <button id="btnAddUser">Créer le compte</button>
+        <div class="admin-header">
+            <div class="admin-header-top">
+                <h2><i class="fa-solid fa-chart-line"></i> Tableau de Bord</h2>
+                <div class="admin-stats">
+                    <div class="admin-stat-item">
+                        <span class="stat-number" id="bossTotalEmployees">0</span>
+                        <span class="stat-label">Employés</span>
+                    </div>
+                    <div class="admin-stat-item">
+                        <span class="stat-number" id="bossTotalDayCA">0 DA</span>
+                        <span class="stat-label">CA Jour</span>
+                    </div>
+                    <div class="admin-stat-item">
+                        <span class="stat-number" id="bossTotalMonthCA">0 DA</span>
+                        <span class="stat-label">CA Mois</span>
+                    </div>
+                </div>
+            </div>
+            
+            <select id="bossSelectShopFilter" style="margin-top:6px; padding:10px 14px; font-size:13px; background:#18181e; border:1px solid rgba(255,215,0,0.04);">
+                <option value="GLOBAL">🌐 TOUTES LES BOUTIQUES</option>
+                <option value="AMRIW UG">AMRIW UG</option>
+                <option value="LS">LS</option>
+                <option value="AKBOU UG">AKBOU UG</option>
+                <option value="TOP MAN">TOP MAN</option>
+                <option value="EDIMCO LS">EDIMCO LS</option>
+                <option value="PEAK LS">PEAK LS</option>
+            </select>
+
+            <div class="admin-quick-actions">
+                <button onclick="openModal('addEmployee')">
+                    <i class="fa-solid fa-user-plus"></i> Ajouter
+                </button>
+                <button onclick="openModal('message')">
+                    <i class="fa-solid fa-paper-plane"></i> Message
+                </button>
+                <button onclick="document.getElementById('oublisSection').scrollIntoView({behavior:'smooth'})">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Demandes
+                </button>
+                <button onclick="document.getElementById('holidaySection').scrollIntoView({behavior:'smooth'})">
+                    <i class="fa-regular fa-calendar-star"></i> Fériés
+                </button>
+                <button onclick="document.getElementById('employeesSection').scrollIntoView({behavior:'smooth'})">
+                    <i class="fa-solid fa-users"></i> Équipe
+                </button>
+            </div>
         </div>
 
-        <div class="futuristic-box">
-            <h4>⚡ TRANSMISSION MESSAGE SÉCURISÉ</h4>
-            <div id="workerChipsList" class="worker-chips-container"></div>
-            <input id="noteText" class="futuristic-input" placeholder="Écrire un message...">
-            <button id="btnSendPatronNote" class="futuristic-btn">LANCER L'ENVOI</button>
+        <div id="holidaySection" class="holiday-section">
+            <h4><i class="fa-regular fa-calendar-star"></i> Jours Fériés (+8h)</h4>
+            <div class="holiday-list" id="holidayList"></div>
+            <div class="holiday-input-row">
+                <input type="date" id="newHolidayInput" placeholder="Sélectionner une date">
+                <button id="btnAddHoliday">Ajouter</button>
+            </div>
+            <p style="font-size:9px; color:#555; margin-top:6px;">Les jours fériés ajoutent automatiquement +8h à tous les employés.</p>
         </div>
 
-        <h2>📌 Toutes les Demandes de Corrections</h2>
-        <div id="adminOublisZone"></div>
+        <div id="oublisSection" style="margin-top:12px;">
+            <h2>📌 Demandes de Corrections</h2>
+            <div id="adminOublisZone"></div>
+        </div>
 
-        <h2>Tableau de Bord Général</h2>
-        <input type="file" id="updateWorkerPhoto" accept="image/*" style="display:none;">
-        <div id="adminData" class="boss-panel"></div>
-        <button id="btnReset" style="background:#c0392b; color:white; margin-top:30px;">🗑 Réinitialiser toutes les données</button>
+        <div id="employeesSection" style="margin-top:8px; width:100%;">
+            <h2>👥 Équipe</h2>
+            <input type="file" id="updateWorkerPhoto" accept="image/*" style="display:none;">
+            <div id="bossGlobalWorkersContainer" style="width:100%;"></div>
+        </div>
+
+        <button id="btnReset" style="background:#c0392b; color:white; margin-top:20px;">🗑 Réinitialiser toutes les données</button>
     </div>
 
 </div>
 
+<div id="addEmployeeModal" class="admin-modal-overlay" onclick="closeModal(event, 'addEmployeeModal')">
+    <div class="admin-modal-card" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal(null, 'addEmployeeModal')">✕</button>
+        <h3><i class="fa-solid fa-user-plus"></i> Ajouter un Employé</h3>
+        <p class="modal-sub">Créez un nouveau compte employé avec ses identifiants.</p>
+        <input id="newWorkerName" placeholder="Nom d'utilisateur">
+        <input id="newWorkerPass" placeholder="Code d'accès">
+        <label for="newWorkerPhoto" class="btn-file-label">📸 Photo de profil</label>
+        <input type="file" id="newWorkerPhoto" accept="image/*" style="display:none;">
+        <div id="photoCheckMark" style="color:#2ecc71; font-size:11px; margin-top:4px; text-align:center; display:none;">✓ Image chargée</div>
+        <button id="btnAddUserModal" style="margin-top:16px;">Créer le compte</button>
+    </div>
+</div>
+
+<div id="messageModal" class="admin-modal-overlay" onclick="closeModal(event, 'messageModal')">
+    <div class="admin-modal-card" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal(null, 'messageModal')">✕</button>
+        <h3><i class="fa-solid fa-paper-plane"></i> Message Sécurisé</h3>
+        <p class="modal-sub">Sélectionnez un employé et envoyez-lui un message.</p>
+        <div id="workerChipsListModal" class="worker-chips-container" style="margin-bottom:12px; display:flex; flex-wrap:wrap; gap:6px;"></div>
+        <input id="noteText" class="futuristic-input" placeholder="Écrire un message...">
+        <button id="btnSendPatronNoteModal" class="futuristic-btn" style="margin-top:10px;">Envoyer</button>
+    </div>
+</div>
+
 <div id="photoGlobalModal" class="photo-modal" onclick="this.style.display='none'">
     <div class="photo-modal-wrapper" onclick="event.stopPropagation()">
-        <button class="photo-modal-close" onclick="document.getElementById('photoGlobalModal').style.display='none'">×</button>
+        <button class="photo-modal-close" onclick="document.getElementById('photoGlobalModal').style.display='none'">✕</button>
         <img id="photoGlobalModalImg" class="photo-modal-content" src="">
     </div>
 </div>
@@ -878,7 +1248,7 @@ h2 {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, set, get, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getDatabase, ref, set, get, remove, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDtkWf9ns8COymh_kh8wJzwxODp-HQ3weI",
@@ -900,10 +1270,91 @@ let current = "";
 let tempPhotoBase64 = "";
 let workerToUpdatePhoto = "";
 let selectedWorkerForNote = "";
-let selectedShop = "AMRIW UG"; 
+let selectedShop = "AMRIW UG";
+let holidays = [];
 
 let snapAvatarData, snapNoteData, snapPropData, snapStatusData, snapRoleData;
 
+// ===== FONCTIONS MODALES =====
+window.openModal = function(type) {
+    if (type === 'addEmployee') {
+        document.getElementById('addEmployeeModal').classList.add('active');
+    } else if (type === 'message') {
+        document.getElementById('messageModal').classList.add('active');
+        const chipsContainer = document.getElementById('workerChipsListModal');
+        chipsContainer.innerHTML = '';
+        for (let u in users) {
+            const chip = document.createElement('span');
+            chip.className = 'worker-chip';
+            chip.textContent = u;
+            chip.onclick = function() {
+                document.querySelectorAll('#workerChipsListModal .worker-chip').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedWorkerForNote = u;
+            };
+            chipsContainer.appendChild(chip);
+        }
+    }
+};
+
+window.closeModal = function(event, modalId) {
+    if (event && event.target !== event.currentTarget) return;
+    document.getElementById(modalId).classList.remove('active');
+};
+
+// ===== FONCTIONS JOURS FÉRIÉS =====
+async function loadHolidays() {
+    const snapshot = await get(ref(db, 'holidays/'));
+    if (snapshot.exists()) {
+        holidays = Object.values(snapshot.val()) || [];
+    } else {
+        holidays = [];
+    }
+    renderHolidays();
+}
+
+function renderHolidays() {
+    const container = document.getElementById('holidayList');
+    container.innerHTML = '';
+    holidays.forEach((date, index) => {
+        const chip = document.createElement('span');
+        chip.className = 'holiday-chip';
+        const formatted = date.split('-').reverse().join('/');
+        chip.innerHTML = `📅 ${formatted} <span class="remove-holiday" onclick="removeHoliday(${index})">✕</span>`;
+        container.appendChild(chip);
+    });
+}
+
+window.removeHoliday = async function(index) {
+    const snapshot = await get(ref(db, 'holidays/'));
+    if (snapshot.exists()) {
+        let data = Object.values(snapshot.val());
+        const keys = Object.keys(snapshot.val());
+        if (index < data.length) {
+            await remove(ref(db, 'holidays/' + keys[index]));
+            await loadHolidays();
+            await loadAdmin();
+        }
+    }
+};
+
+document.getElementById('btnAddHoliday').addEventListener('click', async () => {
+    const input = document.getElementById('newHolidayInput');
+    const date = input.value;
+    if (!date) return alert('Veuillez sélectionner une date.');
+    
+    const snapshot = await get(ref(db, 'holidays/'));
+    let existing = snapshot.exists() ? Object.values(snapshot.val()) : [];
+    if (existing.includes(date)) return alert('Cette date est déjà enregistrée.');
+    
+    await push(ref(db, 'holidays/'), date);
+    input.value = '';
+    await loadHolidays();
+    await loadAdmin();
+    alert('✅ Jour férié ajouté ! +8h seront ajoutés à tous les employés.');
+});
+
+// ===== FONCTIONS UTILITAIRES =====
 function formaterHeuresEtMinutes(heuresDecimales) {
     let h = Math.floor(heuresDecimales);
     let m = Math.round((heuresDecimales - h) * 60);
@@ -1016,6 +1467,8 @@ async function login() {
   let u = document.getElementById("user").value.trim().toLowerCase();
   let p = document.getElementById("pass").value.trim();
 
+  if(u === adminUser && p === adminPass) { return admin(); }
+
   if (users[u] && users[u] == p) {
     current = u;
     document.getElementById("loginSection").style.display = "none";
@@ -1060,12 +1513,69 @@ document.getElementById("btnConfirmShop").addEventListener("click", async () => 
         document.getElementById("myStatusBubble").style.display = "block";
     }
 
-    if (snapRoleData && snapRoleData.exists() && snapRoleData.val() === "gerant") {
+    let userRole = "employe";
+    if (snapRoleData && snapRoleData.exists()) {
+        userRole = snapRoleData.val();
+    }
+    
+    let displayRoleText = "Employé";
+    if(userRole === "gerant") displayRoleText = "👑 Gérant";
+    if(userRole === "cogerant") displayRoleText = "⚡ Co-Gérant";
+    document.getElementById("myUserRoleBadgeDisplay").innerText = displayRoleText;
+
+    if (userRole === "gerant" || userRole === "cogerant") {
         document.getElementById("managerTopMenu").style.display = "block";
         document.getElementById("managerShopTitle").innerText = selectedShop;
+        document.getElementById("managerRevenueDateInput").valueAsDate = new Date();
+        await loadManagerRevenueLog();
         await loadManagerPanel();
     }
     await load();
+});
+
+async function loadManagerRevenueLog() {
+    const snapRev = await get(ref(db, `recettes/${selectedShop}`));
+    const logZone = document.getElementById("managerRevenueLogZone");
+    logZone.innerHTML = "";
+    
+    if(snapRev.exists()) {
+        let items = snapRev.val();
+        let sortedDates = Object.keys(items).sort().reverse().slice(0, 7);
+        
+        sortedDates.forEach(dStr => {
+            logZone.innerHTML += `
+                <div class="revenue-log-item">
+                    <span>📅 <b>${dStr.replace(/-/g, "/")}</b> : <b style="color:#2ecc71;">${items[dStr]} DA</b></span>
+                    <button class="btn-inline" style="margin:0; background:#c0392b; color:#fff; border:none; padding:2px 10px;" onclick="deleteSpecificRevenue('${dStr}')">🗑</button>
+                </div>`;
+        });
+    } else {
+        logZone.innerHTML = "<p style='color:#555; font-style:italic; font-size:11px;'>Aucune recette enregistrée.</p>";
+    }
+}
+
+window.deleteSpecificRevenue = async function(dateStr) {
+    if(confirm(`Supprimer la recette du ${dateStr.replace(/-/g, "/")} ?`)) {
+        await remove(ref(db, `recettes/${selectedShop}/${dateStr}`));
+        await loadManagerRevenueLog();
+        alert("Recette supprimée !");
+    }
+}
+
+document.getElementById("btnSaveDailyRevenue").addEventListener("click", async () => {
+    let amt = parseFloat(document.getElementById("managerDailyRevenueInput").value);
+    let chosenDate = document.getElementById("managerRevenueDateInput").value;
+    
+    if(!amt || amt <= 0) return alert("Montant valide requis.");
+    if(!chosenDate) return alert("Sélectionnez une date.");
+    
+    let parts = chosenDate.split("-");
+    let formattedDateKey = `${parts[2]}-${parts[1]}-${parts[0]}`;
+
+    await set(ref(db, `recettes/${selectedShop}/${formattedDateKey}`), amt);
+    document.getElementById("managerDailyRevenueInput").value = "";
+    await loadManagerRevenueLog();
+    alert("Recette enregistrée !");
 });
 
 document.getElementById("btnToggleManagerView").addEventListener("click", () => {
@@ -1084,7 +1594,7 @@ document.getElementById("btnAcceptProp").addEventListener("click", async () => {
         await set(ref(db, 'history/' + current), snapProp.val());
         await remove(ref(db, 'proposals/' + current));
         document.getElementById("propHeuresZone").style.display = "none";
-        alert("✅ Ajustement horaire appliqué !");
+        alert("✅ Ajustement appliqué !");
         await load();
     }
 });
@@ -1095,14 +1605,16 @@ document.getElementById("btnRefuseProp").addEventListener("click", async () => {
 });
 
 async function admin() {
-  let u = document.getElementById("user").value.trim();
-  let p = document.getElementById("pass").value.trim();
-  if (u == adminUser && p == adminPass) {
     document.getElementById("loginSection").style.display = "none";
     document.getElementById("subHeader").style.display = "none";
     document.getElementById("admin").style.display = "block";
+    
+    document.getElementById("bossSelectShopFilter").addEventListener("change", () => {
+        calculateBossCADashboard();
+    });
+
+    await loadHolidays();
     await loadAdmin();
-  } else { alert("Accès Admin refusé"); }
 }
 
 document.getElementById("btnUpdateStatus").addEventListener("click", async () => {
@@ -1119,24 +1631,19 @@ document.getElementById("btnUpdateStatus").addEventListener("click", async () =>
 document.getElementById("btnSendForget").addEventListener("click", async () => {
     let time = document.getElementById("forgetTime").value;
     let reason = document.getElementById("forgetReason").value.trim();
-    if(!time || !reason) return alert("Veuillez remplir l'heure et la raison.");
+    if(!time || !reason) return alert("Remplissez l'heure et la raison.");
 
     try {
         const snapshot = await get(ref(db, 'oublis/'));
         let oublis = snapshot.exists() ? safeGetHistoryArray(snapshot.val()) : [];
         oublis.push({
-            user: current,
-            shop: selectedShop,
+            user: current, shop: selectedShop,
             time: genererDatePrecise(new Date(time)),
-            reason: reason,
-            timestamp: Date.now()
+            reason: reason, timestamp: Date.now()
         });
         await set(ref(db, 'oublis/'), oublis);
         document.getElementById("forgetReason").value = "";
-        alert("✉️ Signalement envoyé au Gérant Désigné de la boutique !");
-        if(document.getElementById("managerPanelSection").style.display !== "none") {
-            await loadManagerPanel();
-        }
+        alert("✉️ Signalement envoyé !");
     } catch(err) { alert(err.message); }
 });
 
@@ -1146,37 +1653,135 @@ window.selectWorkerForNoteAction = function(element, workerName) {
     selectedWorkerForNote = workerName;
 }
 
-document.getElementById("btnSendPatronNote").addEventListener("click", async () => {
-    if(!selectedWorkerForNote) return alert("Sélectionnez d'abord un employé !");
+// ===== VALIDATION DES OUBLIS DE POINTAGE =====
+window.validateForget = async function(index) {
+    const snapshot = await get(ref(db, 'oublis/'));
+    if (!snapshot.exists()) return;
+    
+    let oublis = safeGetHistoryArray(snapshot.val());
+    const oubli = oublis[index];
+    if (!oublis) return;
+    
+    const workerName = oubli.user;
+    
+    // Récupérer l'historique existant
+    const historySnap = await get(ref(db, 'history/' + workerName));
+    let history = historySnap.exists() ? safeGetHistoryArray(historySnap.val()) : [];
+    
+    // Extraire la date et l'heure de la demande
+    const timeStr = oubli.time; // format "DD/MM/YYYY à HH:MM:SS"
+    const parts = timeStr.split(" à ");
+    const datePart = parts[0];
+    const timePart = parts[1];
+    
+    // Déterminer si c'est une entrée ou une sortie (si l'utilisateur est en poste)
+    const startSnap = await get(ref(db, 'starts/' + workerName));
+    const isStarted = startSnap.exists() && startSnap.val() !== "";
+    
+    let newEntry;
+    if (isStarted) {
+        // C'est une sortie manquante
+        newEntry = {
+            start: genererDatePrecise(new Date(parseInt(startSnap.val().timestamp || startSnap.val()))),
+            end: timeStr,
+            hours: ((convertirChaineVersDate(timeStr) - convertirChaineVersDate(genererDatePrecise(new Date(parseInt(startSnap.val().timestamp || startSnap.val()))))) / 3600000).toFixed(2),
+            shop: oubli.shop || selectedShop
+        };
+        await remove(ref(db, 'starts/' + workerName));
+    } else {
+        // C'est une entrée manquante
+        // On cherche la dernière sortie pour calculer la durée
+        let lastEnd = null;
+        if (history.length > 0) {
+            const last = history[history.length - 1];
+            if (last && last.end) lastEnd = convertirChaineVersDate(last.end);
+        }
+        
+        newEntry = {
+            start: timeStr,
+            end: lastEnd ? genererDatePrecise(lastEnd) : timeStr,
+            hours: lastEnd ? ((lastEnd - convertirChaineVersDate(timeStr)) / 3600000).toFixed(2) : "0.00",
+            shop: oubli.shop || selectedShop
+        };
+    }
+    
+    history.push(newEntry);
+    await set(ref(db, 'history/' + workerName), history);
+    
+    // Supprimer la demande
+    oublis.splice(index, 1);
+    await set(ref(db, 'oublis/'), oublis);
+    
+    alert('✅ Pointage validé et corrigé !');
+    await loadAdmin();
+    if (current !== adminUser) await loadManagerPanel();
+};
+
+document.getElementById("btnSendPatronNoteModal").addEventListener("click", async () => {
+    if(!selectedWorkerForNote) return alert("Sélectionnez un employé !");
     let text = document.getElementById("noteText").value.trim();
-    if(!text) return alert("Veuillez écrire un message.");
+    if(!text) return alert("Écrivez un message.");
     await set(ref(db, 'patron_notes/' + selectedWorkerForNote), text);
     document.getElementById("noteText").value = "";
     alert("⚡ Message transmis !");
+    document.getElementById('messageModal').classList.remove('active');
 });
 
-async function addNewEmployee() {
-  let newName = document.getElementById("newWorkerName").value.trim().toLowerCase();
-  let newPass = document.getElementById("newWorkerPass").value.trim();
-  if(!newName || !newPass) return alert("Remplissez tous les champs");
-  await set(ref(db, 'app_users/' + newName), newPass);
-  await set(ref(db, 'user_roles/' + newName), "employe"); 
-  if(tempPhotoBase64 !== "") await set(ref(db, 'avatars/' + newName), tempPhotoBase64);
-  document.getElementById("newWorkerName").value = "";
-  document.getElementById("newWorkerPass").value = "";
-  document.getElementById("photoCheckMark").style.display = "none";
-  tempPhotoBase64 = "";
-  alert("Employé créé !");
-  await loadAdmin();
-}
+document.getElementById("btnAddUserModal").addEventListener("click", async () => {
+    let newName = document.getElementById("newWorkerName").value.trim().toLowerCase();
+    let newPass = document.getElementById("newWorkerPass").value.trim();
+    if(!newName || !newPass) return alert("Remplissez tous les champs");
+    await set(ref(db, 'app_users/' + newName), newPass);
+    await set(ref(db, 'user_roles/' + newName), "employe"); 
+    if(tempPhotoBase64 !== "") await set(ref(db, 'avatars/' + newName), tempPhotoBase64);
+    document.getElementById("newWorkerName").value = "";
+    document.getElementById("newWorkerPass").value = "";
+    document.getElementById("photoCheckMark").style.display = "none";
+    tempPhotoBase64 = "";
+    alert("Employé créé !");
+    document.getElementById('addEmployeeModal').classList.remove('active');
+    await loadAdmin();
+});
 
 window.triggerUpdatePhoto = function(workerName) {
     workerToUpdatePhoto = workerName;
     document.getElementById("updateWorkerPhoto").click();
 }
 
+window.updateEmployeeShop = async function(workerName, shop) {
+    localStorage.setItem("saved_shop_" + workerName, shop);
+    await loadAdmin();
+};
+
 window.toggleUserRole = async function(workerName, currentRole) {
-    let nextRole = (currentRole === "gerant") ? "employe" : "gerant";
+    let nextRole = "employe";
+    
+    if(currentRole === "employe") {
+        let snapshotRoles = await get(ref(db, 'user_roles/'));
+        let currentRolesData = snapshotRoles.exists() ? snapshotRoles.val() : {};
+        
+        let hasGerantAlready = false;
+        for(let w in currentRolesData) {
+            let wSavedShop = localStorage.getItem("saved_shop_" + w) || "AMRIW UG";
+            let mySavedShop = localStorage.getItem("saved_shop_" + workerName) || "AMRIW UG";
+            if(wSavedShop === mySavedShop && currentRolesData[w] === "gerant") {
+                hasGerantAlready = true;
+                break;
+            }
+        }
+        
+        if(hasGerantAlready) {
+            alert("⚠️ Cette boutique a déjà un Gérant. Passage en CO-GÉRANT.");
+            nextRole = "cogerant";
+        } else {
+            nextRole = "gerant";
+        }
+    } else if(currentRole === "gerant") {
+        nextRole = "cogerant";
+    } else {
+        nextRole = "employe";
+    }
+
     await set(ref(db, 'user_roles/' + workerName), nextRole);
     await loadAdmin();
 }
@@ -1187,6 +1792,7 @@ window.deleteEmployee = async function(workerName) {
       await remove(ref(db, 'history/' + workerName));
       await remove(ref(db, 'starts/' + workerName));
       await remove(ref(db, 'avatars/' + workerName));
+      await remove(ref(db, 'user_roles/' + workerName));
       await loadAdmin();
   }
 }
@@ -1205,7 +1811,7 @@ window.supprimerOubli = async function(index) {
 }
 
 window.modifierHeurePointageExacte = async function(workerName, indexLigne, typeAction, valeurActuelle) {
-    let nvHeure = prompt(`Modifier l'heure pour ${workerName} (Format HH:MM) :`, valeurActuelle);
+    let nvHeure = prompt(`Modifier l'heure (HH:MM) :`, valeurActuelle);
     if (nvHeure === null || nvHeure.trim() === "") return;
     
     if(!/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(nvHeure.trim())) return alert("Format HH:MM incorrect !");
@@ -1226,7 +1832,7 @@ window.modifierHeurePointageExacte = async function(workerName, indexLigne, type
     historique[indexLigne] = ligne;
 
     await set(ref(db, 'proposals/' + workerName), historique);
-    alert(`Ajustement envoyé à l'employé ${workerName}.`);
+    alert(`Ajustement envoyé à ${workerName}.`);
 }
 
 window.toggleAdminHistoryCollapse = async function(workerName) {
@@ -1240,7 +1846,7 @@ window.toggleAdminHistoryCollapse = async function(workerName) {
     let userHistory = snapshot.exists() ? safeGetHistoryArray(snapshot.val()) : [];
     
     if(userHistory.length === 0) {
-        box.innerHTML = "<p style='color:#666; font-size:12px; font-style:italic; padding:10px;'>Aucune session enregistrée.</p>";
+        box.innerHTML = "<p style='color:#555; font-size:11px; font-style:italic; padding:8px;'>Aucune session.</p>";
     } else {
         let timelineHTML = `<div class="timeline-container">`;
         userHistory.forEach((l, idx) => {
@@ -1250,7 +1856,7 @@ window.toggleAdminHistoryCollapse = async function(workerName) {
                 <div class="timeline-row">
                     <div class="timeline-date-info">
                         <span class="timeline-date-main">${extraireUniquementDate(l.start)}</span>
-                        <span style="font-size:10px; color:#aaa; display:block; text-transform:uppercase;">📍 ${l.shop || 'Générale'}</span>
+                        <span style="font-size:9px; color:#555; display:block;">📍 ${l.shop || 'Générale'}</span>
                     </div>
                     <div class="timeline-hours-flex">
                         <div class="timeline-time-capsule" onclick="modifierHeurePointageExacte('${workerName}', ${idx}, 'start', '${hE}')"><span class="timeline-time-label">Entrée</span><span>${hE}</span></div>
@@ -1273,6 +1879,17 @@ async function start() {
 }
 
 async function end() {
+    let userRole = "employe";
+    if(snapRoleData && snapRoleData.exists()) userRole = snapRoleData.val();
+
+    if(userRole === "gerant" || userRole === "cogerant") {
+        let todayStr = new Date().toLocaleDateString('fr-FR').replace(/\//g, "-");
+        const snapCheckRev = await get(ref(db, `recettes/${selectedShop}/${todayStr}`));
+        if(!snapCheckRev.exists()) {
+            return alert("⛔ BLOCAGE : Déclarez la recette du jour avant de sortir !");
+        }
+    }
+
     const startSnapshot = await get(ref(db, 'starts/' + current));
     let startData = startSnapshot.val();
     if (!startData) return alert("Pas d'entrée enregistrée.");
@@ -1291,15 +1908,18 @@ async function end() {
 }
 
 async function load() {
-    const snapshot = await get(ref(db, 'history/' + current));
+    const [snapshot, snapRecettes, snapRoles] = await Promise.all([
+        get(ref(db, 'history/' + current)), get(ref(db, 'recettes/')), get(ref(db, 'user_roles/' + current))
+    ]);
+
     let data = snapshot.exists() ? safeGetHistoryArray(snapshot.val()) : [];
     let total = 0;
     let tbody = document.getElementById("historyTableBody");
     tbody.innerHTML = "";
 
     data.forEach(e => {
-      total += Number(e.hours);
-      tbody.innerHTML += `
+       total += Number(e.hours);
+       tbody.innerHTML += `
         <tr>
           <td><span class="shop-badge-led">${e.shop || 'Générale'}</span></td>
           <td><b>${extraireUniquementDate(e.start)}</b></td>
@@ -1308,8 +1928,28 @@ async function load() {
           <td><span class="table-duration-badge">${formaterHeuresEtMinutes(Number(e.hours))}</span></td>
         </tr>`;
     });
+
+    let fixedSalary = total * 100;
     document.getElementById("hours").innerText = formaterHeuresEtMinutes(total);
-    document.getElementById("salary").innerText = (total * 100).toFixed(0);
+    document.getElementById("salary").innerText = fixedSalary.toFixed(0);
+
+    let role = snapRoles.exists() ? snapRoles.val() : "employe";
+    let bonusRate = 0.02; 
+    if(role === "gerant") bonusRate = 0.05;
+    if(role === "cogerant") bonusRate = 0.03;
+
+    let totalShopRevenue = 0;
+    if(snapRecettes.exists() && snapRecettes.val()[selectedShop]) {
+        let shopData = snapRecettes.val()[selectedShop];
+        for(let keyDate in shopData) {
+            totalShopRevenue += parseFloat(shopData[keyDate] || 0);
+        }
+    }
+
+    let primeCalculated = totalShopRevenue * bonusRate;
+    let finalGlobalSalary = fixedSalary + primeCalculated;
+
+    document.getElementById("globalSalaryDisplay").innerText = `${finalGlobalSalary.toFixed(0)} DA (dont +${primeCalculated.toFixed(0)} DA prime)`;
 }
 
 async function loadManagerPanel() {
@@ -1331,15 +1971,18 @@ async function loadManagerPanel() {
         if(o && o.shop === selectedShop) {
             aDesOublis = true;
             oubliZone.innerHTML += `
-                <div class="card" style="border-color:#e74c3c; flex-direction:column; text-align:left; padding:12px; gap:4px; font-size:13px; background:#161010;">
-                    <p style="color:#e74c3c; font-weight:bold;">👤 Employé : ${o.user}</p>
-                    <p style="color:#eee;"><b>Heure lue :</b> ${o.time}</p>
-                    <p style="color:#aaa; font-style:italic;">"${o.reason}"</p>
-                    <button class="btn-inline" style="background:#e74c3c; color:#fff; border:none; margin-top:5px;" onclick="supprimerOubli(${idx})">🗑 Effacer la demande</button>
+                <div class="card" style="border-color:#e74c3c; padding:10px; font-size:12px; background:#110d0d; margin-top:4px;">
+                    <p style="color:#e74c3c; font-weight:600;">👤 ${o.user}</p>
+                    <p style="color:#ddd;"><b>Heure :</b> ${o.time}</p>
+                    <p style="color:#999; font-style:italic;">"${o.reason}"</p>
+                    <div style="display:flex; gap:6px; margin-top:4px;">
+                        <button class="btn-validate-forget" onclick="validateForget(${idx})">✅ Valider</button>
+                        <button class="btn-inline" style="background:#e74c3c; color:#fff; border:none;" onclick="supprimerOubli(${idx})">🗑</button>
+                    </div>
                 </div>`;
         }
     });
-    if(!aDesOublis) oubliZone.innerHTML = "<p style='color:#666; font-style:italic; font-size:12px;'>Aucun signalement d'oubli pour votre boutique.</p>";
+    if(!aDesOublis) oubliZone.innerHTML = "<p style='color:#555; font-style:italic; font-size:11px;'>Aucun signalement.</p>";
 
     let container = document.getElementById("managerWorkersData");
     container.innerHTML = "";
@@ -1356,7 +1999,7 @@ async function loadManagerPanel() {
         if (sessionStart) derniereBoutique = sessionStart.shop;
 
         if (derniereBoutique === selectedShop || enPosteIci) {
-            let badge = enPosteIci ? `<span class="status-badge status-online">🟢 En poste</span>` : `<span class="status-badge status-offline">🔴 Parti</span>`;
+            let badge = enPosteIci ? `<span class="status-badge status-online"><span class="status-dot online"></span> En poste</span>` : `<span class="status-badge status-offline"><span class="status-dot offline"></span> Parti</span>`;
             let avatar = avatars[u] ? avatars[u] : "https://api.dicebear.com/7.x/initials/svg?seed=" + u + "&backgroundColor=ffd700&color=000000";
 
             let timelineHTML = `<div class="timeline-container">`;
@@ -1376,21 +2019,49 @@ async function loadManagerPanel() {
             timelineHTML += `</div>`;
 
             container.innerHTML += `
-                <div class="card" style="flex-direction: column; align-items: stretch; text-align: left; background:#121212; padding: 15px; margin-top:12px;">
-                  <div style="display:flex; align-items:center; gap:12px; padding-bottom:8px; border-bottom:1px solid #1f1f1f;">
-                      <img src="${avatar}" class="employee-avatar" style="width:45px; height:45px;" onclick="zoomImagePleinEcran(this.src)">
+                <div class="card" style="text-align: left; background:#121218; padding: 12px; margin-top:10px;">
+                  <div style="display:flex; align-items:center; gap:10px; padding-bottom:6px; border-bottom:1px solid #1a1a22;">
+                      <img src="${avatar}" class="employee-avatar" style="width:40px; height:40px;" onclick="zoomImagePleinEcran(this.src)">
                       <div style="flex-grow: 1;">
                         <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <h3 style="color:#FFD700; text-transform:capitalize; font-size:14px;">👤 ${u}</h3>
+                            <h3 style="color:#FFD700; text-transform:capitalize; font-size:13px;">👤 ${u}</h3>
                             ${badge}
                         </div>
-                        <p style="font-size:11px; color:#aaa;"><b>Cumulé :</b> ${formaterHeuresEtMinutes(total)}</p>
+                        <p style="font-size:10px; color:#777;"><b>Cumulé :</b> ${formaterHeuresEtMinutes(total)}</p>
                       </div>
                   </div>
                   ${timelineHTML}
                 </div>`;
         }
     }
+}
+
+async function calculateBossCADashboard() {
+    const mainSnapshot = await get(ref(db, 'recettes/'));
+    let selectedFilter = document.getElementById("bossSelectShopFilter").value;
+    
+    let totalDayCA = 0;
+    let totalMonthCA = 0;
+    let todayStr = new Date().toLocaleDateString('fr-FR').replace(/\//g, "-");
+
+    if(mainSnapshot.exists()) {
+        let recettes = mainSnapshot.val();
+        
+        for (let shopKey in recettes) {
+            if(selectedFilter !== "GLOBAL" && shopKey !== selectedFilter) continue;
+            
+            let datesObj = recettes[shopKey];
+            for (let dateKey in datesObj) {
+                let val = parseFloat(datesObj[dateKey] || 0);
+                totalMonthCA += val;
+                if(dateKey === todayStr) {
+                    totalDayCA += val;
+                }
+            }
+        }
+    }
+    document.getElementById("bossTotalDayCA").innerText = `${totalDayCA.toFixed(0)} DA`;
+    document.getElementById("bossTotalMonthCA").innerText = `${totalMonthCA.toFixed(0)} DA`;
 }
 
 async function loadAdmin() {
@@ -1404,75 +2075,146 @@ async function loadAdmin() {
     const starts = allData.starts || {};
     const avatars = allData.avatars || {};
     const oublis = allData.oublis ? safeGetHistoryArray(allData.oublis) : [];
+    const recettes = allData.recettes || {};
+
+    document.getElementById("bossTotalEmployees").innerText = Object.keys(users).length;
+    await calculateBossCADashboard();
 
     let oubliZone = document.getElementById("adminOublisZone");
     oubliZone.innerHTML = "";
     oublis.forEach((o, index) => {
         if(o) {
             oubliZone.innerHTML += `
-                <div class="card" style="border-color:#e74c3c; flex-direction:column; text-align:left; padding:12px;">
-                    <p style="color:#e74c3c; font-weight:bold;">⚠️ [${o.shop}] Oubli de : ${o.user}</p>
-                    <p style="font-size:13px;"><b>Heure :</b> ${o.time} | <b>Raison :</b> "${o.reason}"</p>
-                    <button class="btn-inline" style="background:#e74c3c; color:white; border:none;" onclick="supprimerOubli(${index})">Supprimer la demande</button>
+                <div class="card" style="border-color:#e74c3c; padding:10px; margin-top:4px;">
+                    <p style="color:#e74c3c; font-weight:600;">⚠️ [${o.shop}] ${o.user}</p>
+                    <p style="font-size:12px;"><b>Heure :</b> ${o.time} | <b>Raison :</b> "${o.reason}"</p>
+                    <div style="display:flex; gap:6px; margin-top:4px;">
+                        <button class="btn-validate-forget" onclick="validateForget(${index})">✅ Valider</button>
+                        <button class="btn-inline" style="background:#e74c3c; color:white; border:none;" onclick="supprimerOubli(${index})">🗑</button>
+                    </div>
                 </div>`;
         }
     });
 
-    let chipsContainer = document.getElementById("workerChipsList");
-    chipsContainer.innerHTML = "";
-    let div = document.getElementById("adminData");
-    div.innerHTML = "";
+    let targetZone = document.getElementById("bossGlobalWorkersContainer");
+    targetZone.innerHTML = "";
+
+    const shopOptions = ['AMRIW UG', 'LS', 'AKBOU UG', 'TOP MAN', 'EDIMCO LS', 'PEAK LS'];
 
     for (let u in users) {
-      chipsContainer.innerHTML += `<div class="worker-chip" onclick="selectWorkerForNoteAction(this, '${u}')">${u}</div>`;
+      let uShop = localStorage.getItem("saved_shop_" + u) || "AMRIW UG";
       let userHistory = safeGetHistoryArray(histories[u]);
-      let total = 0; let derniereBoutique = "Aucune";
-      userHistory.forEach(e => { if(e) { total += Number(e.hours); if(e.shop) derniereBoutique = e.shop; } });
-      if(starts[u]) derniereBoutique = starts[u].shop;
+      let total = 0; 
+      let derniereBoutique = uShop;
 
-      let badgeHTML = starts[u] ? `<span class="status-badge status-online">🟢 En poste</span>` : `<span class="status-badge status-offline">🔴 Parti</span>`;
-      let roleBadgeHTML = (roles[u] === "gerant") ? `<span class="role-badge role-gerant" onclick="toggleUserRole('${u}', 'gerant')"><i class="fa-solid fa-crown"></i> Gérant</span>` : `<span class="role-badge role-employe" onclick="toggleUserRole('${u}', 'employe')"><i class="fa-solid fa-user"></i> Employé</span>`;
+      userHistory.forEach(e => { if(e) { total += Number(e.hours); } });
+      if(starts[u]) {
+          derniereBoutique = starts[u].shop;
+      }
+
+      let holidayHours = 0;
+      if (holidays.length > 0) {
+          holidayHours = holidays.length * 8;
+      }
+      const totalWithHolidays = total + holidayHours;
+
+      let isOnline = !!starts[u];
+      let badgeHTML = isOnline 
+          ? `<span class="status-badge status-online"><span class="status-dot online"></span> En poste</span>`
+          : `<span class="status-badge status-offline"><span class="status-dot offline"></span> Parti</span>`;
+      
+      let currentRole = roles[u] || "employe";
+      let roleBadgeHTML = "";
+      let bonusRate = 0.02;
+
+      if(currentRole === "gerant") {
+          roleBadgeHTML = `<span class="role-badge role-gerant" onclick="toggleUserRole('${u}', 'gerant')"><i class="fa-solid fa-crown"></i> Gérant</span>`;
+          bonusRate = 0.05;
+      } else if(currentRole === "cogerant") {
+          roleBadgeHTML = `<span class="role-badge role-cogerant" onclick="toggleUserRole('${u}', 'cogerant')"><i class="fa-solid fa-bolt"></i> Co-Gérant</span>`;
+          bonusRate = 0.03;
+      } else {
+          roleBadgeHTML = `<span class="role-badge role-employe" onclick="toggleUserRole('${u}', 'employe')"><i class="fa-solid fa-user"></i> Employé</span>`;
+          bonusRate = 0.02;
+      }
+
       let photoSrc = avatars[u] || 'https://api.dicebear.com/7.x/initials/svg?seed=' + u + '&backgroundColor=ffd700&color=000000';
 
-      div.innerHTML += `
-        <div class="card" style="flex-direction: column; align-items: stretch; text-align: left; padding: 15px;">
-          <div style="display:flex; align-items:center; justify-content: space-between;">
-              <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
-                  <div class="avatar-container" style="width:55px; height:55px;">
-                      <img src="${photoSrc}" class="employee-avatar" style="width:100%; height:100%;" onclick="zoomImagePleinEcran(this.src)">
-                      <div class="instagram-bubble" style="font-size:9px; padding:2px 6px; bottom:-6px; top:auto; background:rgba(20,20,20,0.85); color:#ccc; border:1px solid #333; cursor:pointer;" onclick="triggerUpdatePhoto('${u}')"><i class="fa-solid fa-camera"></i> Changer</div>
-                  </div>
+      let fixedSalary = totalWithHolidays * 100;
+      let shopRevenueSum = 0;
+      if(recettes[uShop]) {
+          for(let d in recettes[uShop]) { shopRevenueSum += parseFloat(recettes[uShop][d] || 0); }
+      }
+      let primeAmt = shopRevenueSum * bonusRate;
+      let globalSalaryAmt = fixedSalary + primeAmt;
+
+      let shopOptionsHTML = shopOptions.map(s => 
+          `<option value="${s}" ${s === uShop ? 'selected' : ''}>${s}</option>`
+      ).join('');
+
+      targetZone.innerHTML += `
+        <div class="boss-employee-card">
+          <div class="card-row">
+              <div class="avatar-wrapper">
+                  <img src="${photoSrc}" alt="${u}" onclick="zoomImagePleinEcran(this.src)">
+                  <span class="camera-icon" onclick="triggerUpdatePhoto('${u}')"><i class="fa-solid fa-camera"></i></span>
               </div>
-              <div style="flex-grow: 1; padding-left:14px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <h3 style="color:#FFD700; text-transform:capitalize; font-size:15px;">👤 ${u}</h3>
-                    <div style="display:flex; gap:4px;">${roleBadgeHTML}${badgeHTML}</div>
-                </div>
-                <p style="font-size:12px; color:#aaa; margin-top:2px;">Boutique : <span class="shop-badge-led">${derniereBoutique}</span></p>
+              <div class="info-main">
+                  <div class="name-row">
+                      <h3>${u}</h3>
+                      <div class="badge-group">${roleBadgeHTML}${badgeHTML}</div>
+                  </div>
+                  <div class="shop-selector">
+                      <label><i class="fa-regular fa-building"></i> Boutique</label>
+                      <select onchange="updateEmployeeShop('${u}', this.value)">
+                          ${shopOptionsHTML}
+                      </select>
+                  </div>
               </div>
           </div>
           
-          <div class="salary-focus-box">
-              <div class="salary-highlight">
-                  ${(total * 100).toFixed(0)} <span class="currency">DA</span>
+          <div class="salary-section">
+              <div class="salary-group">
+                  <div class="salary-item">
+                      <span class="label">Heures</span>
+                      <span class="value gold">${formaterHeuresEtMinutes(totalWithHolidays)}</span>
+                      ${holidayHours > 0 ? `<span class="holiday-badge">+${holidayHours}h férié</span>` : ''}
+                  </div>
+                  <div class="salary-item">
+                      <span class="label">Salaire</span>
+                      <span class="value green">${globalSalaryAmt.toFixed(0)} DA</span>
+                  </div>
               </div>
-              <div class="hours-subtext">
-                  <i class="fa-regular fa-clock"></i> Temps de travail : <strong>${formaterHeuresEtMinutes(total)}</strong>
+              <div class="hours-info">
+                  <span>Travail : ${formaterHeuresEtMinutes(total)}</span>
+                  ${holidayHours > 0 ? `<span style="color:#FFD700;">| +${holidayHours}h férié</span>` : ''}
+                  <span style="color:#555;">|</span>
+                  <span>Prime : <strong class="prime">+${primeAmt.toFixed(0)} DA</strong></span>
               </div>
           </div>
 
-          <div style="display:flex; flex-direction:column; gap:4px; margin-top:5px;">
-              <button class="btn-toggle-history-admin" onclick="toggleAdminHistoryCollapse('${u}')"><i class="fa-regular fa-clipboard"></i> Voir Sessions</button>
-              <div id="history-box-${u}" style="display:none; margin-top:10px; border-top:1px solid #222; padding-top:10px;"></div>
-              <button class="btn-delete-worker" onclick="deleteEmployee('${u}')"><i class="fa-solid fa-trash-can"></i> Supprimer l'employé</button>
+          <div class="actions-row">
+              <button class="action-btn" onclick="toggleAdminHistoryCollapse('${u}')">
+                  <i class="fa-regular fa-clipboard"></i> Sessions
+              </button>
+              <button class="action-btn danger" onclick="deleteEmployee('${u}')">
+                  <i class="fa-regular fa-trash-can"></i> Supprimer
+              </button>
           </div>
+          <div id="history-box-${u}" style="display:none; margin-top:8px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.03);"></div>
         </div>`;
     }
 }
 
 async function reset() {
-  if (confirm("Voulez-vous purger TOUTES les heures ?")) {
-    for (let u in users) { await remove(ref(db, 'history/' + u)); await remove(ref(db, 'starts/' + u)); await remove(ref(db, 'oublis/')); }
+  if (confirm("Purger TOUTES les données ?")) {
+    for (let u in users) { 
+        await remove(ref(db, 'history/' + u)); 
+        await remove(ref(db, 'starts/' + u)); 
+    }
+    await remove(ref(db, 'oublis/'));
+    await remove(ref(db, 'recettes/'));
+    await remove(ref(db, 'holidays/'));
     await loadAdmin();
   }
 }
@@ -1484,7 +2226,6 @@ document.getElementById("btnStart").addEventListener("click", start);
 document.getElementById("btnEnd").addEventListener("click", end);
 document.getElementById("btnReset").addEventListener("click", reset);
 document.getElementById("btnPDF").addEventListener("click", () => window.print());
-document.getElementById("btnAddUser").addEventListener("click", addNewEmployee);
 </script>
 </body>
 </html>
