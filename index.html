@@ -2,10 +2,13 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Life Style Pointage</title>
 
 <meta name="theme-color" content="#FFD700">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -38,7 +41,7 @@ body {
     position: relative;
 }
 
-/* Logo CSS Vectoriel */
+/* Logo - INCHANGÉ */
 .logo-container {
     width: 130px;
     height: 130px;
@@ -103,9 +106,7 @@ body {
     font-weight: 500;
 }
 
-.login-box {
-    width: 100%;
-}
+.login-box { width: 100%; }
 
 input, textarea, select {
     width: 100%;
@@ -119,7 +120,6 @@ input, textarea, select {
     transition: all 0.3s ease;
 }
 
-/* Correction spécifique Android pour le calendrier d'oubli */
 input[type="datetime-local"] {
     background: #252525 !important;
     color: #ffffff !important;
@@ -331,6 +331,7 @@ h2 {
     text-transform: uppercase;
 }
 
+/* ===== RÔLE BADGE - AVEC CO-GÉRANT ===== */
 .role-badge {
     padding: 4px 10px;
     border-radius: 8px;
@@ -338,7 +339,7 @@ h2 {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 4px;
     text-transform: uppercase;
@@ -347,6 +348,12 @@ h2 {
     background: #222;
     color: #aaa;
     border: 1px solid #444;
+}
+.role-cogerant {
+    background: #001a33;
+    color: #00d2ff;
+    border: 1px solid #00d2ff;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
 }
 .role-gerant {
     background: #1b1100;
@@ -386,6 +393,26 @@ h2 {
 .btn-inline:hover {
     background: #FFD700;
     color: #000;
+}
+
+/* ===== BOUTON VALIDER POUR OUBLIS ===== */
+.btn-validate-forget {
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+    padding: 5px 14px;
+    font-size: 11px;
+    border-radius: 6px;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    width: auto;
+    display: inline-block;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 700;
+}
+.btn-validate-forget:hover {
+    background: rgba(46, 204, 113, 0.25);
+    border-color: #2ecc71;
 }
 
 .btn-delete-worker {
@@ -628,11 +655,21 @@ h2 {
     display: flex;
     align-items: baseline;
     gap: 4px;
+    flex-wrap: wrap;
 }
 .salary-highlight .currency {
     font-size: 14px;
     font-weight: 600;
     color: #ffffff;
+}
+.salary-highlight .prime-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #2ecc71;
+    background: rgba(46, 204, 113, 0.1);
+    padding: 2px 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(46, 204, 113, 0.2);
 }
 .hours-subtext {
     font-size: 12px;
@@ -641,9 +678,14 @@ h2 {
     display: flex;
     align-items: center;
     gap: 5px;
+    flex-wrap: wrap;
 }
 .hours-subtext strong {
     color: #ffffff;
+}
+.hours-subtext .prime-detail {
+    color: #2ecc71;
+    font-weight: 600;
 }
 
 .instagram-bubble {
@@ -712,6 +754,410 @@ h2 {
     gap: 8px;
 }
 
+/* ===== POP-UP RECETTE AVEC TABLEAU ===== */
+.receipt-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    overflow-y: auto;
+    animation: fadeIn 0.25s ease;
+}
+.receipt-overlay.active {
+    display: flex;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.receipt-card {
+    background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    border-radius: 24px;
+    padding: 24px 20px;
+    max-width: 420px;
+    width: 100%;
+    margin: 20px auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+    animation: slideUp 0.3s ease;
+    position: relative;
+}
+.receipt-card .receipt-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: rgba(255,255,255,0.04);
+    border: none;
+    color: #666;
+    font-size: 20px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    margin: 0;
+    padding: 0;
+}
+.receipt-card .receipt-close:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+}
+.receipt-card h3 {
+    color: #FFD700;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.receipt-card .receipt-shop {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 16px;
+}
+.receipt-card .receipt-total {
+    background: rgba(255, 215, 0, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    border-radius: 12px;
+    padding: 12px;
+    margin: 12px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.receipt-card .receipt-total .label {
+    font-size: 13px;
+    color: #aaa;
+}
+.receipt-card .receipt-total .amount {
+    font-size: 22px;
+    font-weight: 800;
+    color: #FFD700;
+}
+
+.receipt-card .receipt-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 10px;
+}
+.receipt-card .receipt-table th {
+    background: #1a1a1a;
+    color: #FFD700;
+    padding: 8px 6px;
+    text-align: left;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+}
+.receipt-card .receipt-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #1a1a1a;
+    color: #ccc;
+}
+.receipt-card .receipt-table .qty-input {
+    width: 40px;
+    padding: 4px 6px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    border-radius: 4px;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    margin: 0;
+}
+.receipt-card .receipt-table .price-input {
+    width: 70px;
+    padding: 4px 6px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    border-radius: 4px;
+    color: #fff;
+    text-align: right;
+    font-size: 12px;
+    margin: 0;
+}
+.receipt-card .receipt-table .remove-row {
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+.receipt-card .receipt-table .remove-row:hover { opacity: 0.7; }
+
+.receipt-card .add-row-btn {
+    background: rgba(255,255,255,0.04);
+    border: 1px dashed rgba(255, 215, 0, 0.2);
+    color: #aaa;
+    padding: 8px;
+    border-radius: 8px;
+    width: 100%;
+    margin-top: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.receipt-card .add-row-btn:hover {
+    background: rgba(255, 215, 0, 0.04);
+    border-color: rgba(255, 215, 0, 0.3);
+    color: #fff;
+}
+
+.receipt-card .receipt-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+.receipt-card .receipt-actions button {
+    margin: 0;
+    padding: 12px;
+    flex: 1;
+    font-size: 13px;
+    border-radius: 12px;
+}
+.receipt-card .btn-receipt-confirm {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: #fff;
+}
+.receipt-card .btn-receipt-cancel {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.04);
+    color: #888;
+}
+.receipt-card .btn-receipt-cancel:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+}
+
+/* ===== SECTION JOURS FÉRIÉS ===== */
+.holiday-section {
+    background: #121218;
+    border: 1px solid rgba(255, 215, 0, 0.06);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-top: 15px;
+}
+.holiday-section h4 {
+    color: #FFD700;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.holiday-section .holiday-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+.holiday-section .holiday-chip {
+    background: #1a1a24;
+    color: #FFD700;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid rgba(255, 215, 0, 0.08);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.holiday-section .holiday-chip .remove-holiday {
+    cursor: pointer;
+    color: #666;
+    font-size: 10px;
+    transition: 0.2s;
+}
+.holiday-section .holiday-chip .remove-holiday:hover { color: #e74c3c; }
+.holiday-section .holiday-input-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+.holiday-section .holiday-input-row input {
+    margin: 0;
+    padding: 8px 12px;
+    font-size: 13px;
+    flex: 1;
+    background: #0f0f18;
+    border: 1px solid rgba(255, 215, 0, 0.06);
+    border-radius: 10px;
+    color: #fff;
+    min-height: 38px;
+}
+.holiday-section .holiday-input-row input:focus {
+    border-color: #FFD700;
+}
+.holiday-section .holiday-input-row button {
+    margin: 0;
+    padding: 8px 16px;
+    width: auto;
+    font-size: 12px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #FFD700 0%, #e6c200 100%);
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+    min-height: 38px;
+}
+.holiday-section .holiday-input-row button:hover { opacity: 0.85; }
+
+/* ===== SECTION CACHÉE PAR DÉFAUT (MODALE) ===== */
+.modal-hidden-section {
+    display: none;
+}
+
+/* ===== SELECTEUR BOUTIQUE POUR EMPLOYÉ ===== */
+.employee-shop-selector {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.employee-shop-selector label {
+    font-size: 10px;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.employee-shop-selector select {
+    padding: 3px 8px;
+    font-size: 11px;
+    margin: 0;
+    border-radius: 6px;
+    background: #0f0f18;
+    border: 1px solid rgba(255, 215, 0, 0.06);
+    color: #ddd;
+    width: auto;
+    flex: 1;
+    min-width: 80px;
+    height: 30px;
+}
+
+/* ===== DASHBOARD VENTES PATRON ===== */
+.sales-dashboard {
+    background: linear-gradient(145deg, #14141e, #0f0f18);
+    border: 1px solid rgba(255, 215, 0, 0.06);
+    border-radius: 20px;
+    padding: 18px 16px;
+    margin-top: 15px;
+    width: 100%;
+}
+.sales-dashboard .shop-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+.sales-dashboard .shop-selector label {
+    font-size: 12px;
+    color: #aaa;
+    font-weight: 600;
+}
+.sales-dashboard .shop-selector select {
+    padding: 8px 12px;
+    font-size: 13px;
+    margin: 0;
+    border-radius: 10px;
+    background: #1a1a22;
+    border: 1px solid rgba(255, 215, 0, 0.08);
+    color: #fff;
+    flex: 1;
+}
+.sales-dashboard .sales-circles {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+.sales-dashboard .sales-circle {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.03);
+}
+.sales-dashboard .sales-circle .amount {
+    font-size: 20px;
+    font-weight: 800;
+    display: block;
+}
+.sales-dashboard .sales-circle .amount.day { color: #00d2ff; }
+.sales-dashboard .sales-circle .amount.month { color: #ec4899; }
+.sales-dashboard .sales-circle .label {
+    font-size: 10px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+    display: block;
+}
+
+.sales-dashboard .top-articles {
+    margin-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.03);
+    padding-top: 12px;
+}
+.sales-dashboard .top-articles h5 {
+    color: #FFD700;
+    font-size: 13px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.sales-dashboard .top-articles .article-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.02);
+    margin-top: 4px;
+    font-size: 12px;
+}
+.sales-dashboard .top-articles .article-item .rank {
+    color: #FFD700;
+    font-weight: 700;
+    width: 25px;
+}
+.sales-dashboard .top-articles .article-item .name {
+    flex: 1;
+    color: #ddd;
+    padding-left: 6px;
+}
+.sales-dashboard .top-articles .article-item .qty {
+    color: #888;
+    font-size: 11px;
+}
+.sales-dashboard .top-articles .article-item .ca {
+    color: #2ecc71;
+    font-weight: 700;
+    font-size: 12px;
+}
+
 @media print {
     body { background: #fff !important; color: #000 !important; }
     .main * { visibility: hidden; }
@@ -724,6 +1170,7 @@ h2 {
 
 <div class="main">
 
+    <!-- LOGO - INCHANGÉ -->
     <div class="logo-container">
         <div class="logo-ls">LS</div>
         <div class="logo-text">Life Style</div>
@@ -733,6 +1180,7 @@ h2 {
     <div class="signature">Created by Nazim</div>
     <div class="subtitle" id="subHeader">Système de pointage</div>
 
+    <!-- LOGIN -->
     <div id="loginSection" class="login-box">
         <input id="user" placeholder="Nom d'utilisateur">
         <input id="pass" type="password" placeholder="Mot de passe">
@@ -740,6 +1188,7 @@ h2 {
         <button id="btnAdmin">Connexion Patron</button>
     </div>
 
+    <!-- CHOIX BOUTIQUE -->
     <div id="shopSelectionSection" style="display:none; text-align:center;">
         <h2 style="border-left-color: #FFD700; margin-bottom:5px;">Où travaillez-vous aujourd'hui ?</h2>
         <div class="shop-led-container" id="loginShopContainer">
@@ -753,6 +1202,7 @@ h2 {
         <button id="btnConfirmShop" style="margin-top:25px;">Valider et Entrer au Panel ✅</button>
     </div>
 
+    <!-- PANEL EMPLOYÉ -->
     <div id="employee" style="display:none;">
         
         <div id="managerTopMenu" style="display:none; width:100%; margin-bottom:15px; text-align:center;">
@@ -802,6 +1252,13 @@ h2 {
             <div class="big">Salaire Estimé<span id="salary">0</span> DA</div>
         </div>
 
+        <!-- SALAIRE GLOBAL AVEC PRIME -->
+        <div style="text-align:center; margin-top:8px; padding:12px; background:rgba(46,204,113,0.04); border-radius:12px; border:1px solid rgba(46,204,113,0.08); width:100%;">
+            <p style="font-size:12px; color:#888;">💰 Salaire Global <span style="font-size:10px; color:#2ecc71;">(Prime CA incluse)</span></p>
+            <span id="globalSalaryDisplay" style="font-size:22px; font-weight:800; color:#2ecc71; display:block; margin-top:2px;">0 DA</span>
+            <span id="primeDetailDisplay" style="font-size:11px; color:#666; display:block;">Prime CA : 0 DA</span>
+        </div>
+
         <div id="actionAlert" class="alert-banner"></div>
 
         <div class="action-buttons">
@@ -812,8 +1269,8 @@ h2 {
         <div class="add-box" style="border-color:#e74c3c;">
             <h4 style="color:#e74c3c; margin-bottom:5px; font-size:13px;">📝 Signaler un oubli de pointage</h4>
             <input type="datetime-local" id="forgetTime">
-            <textarea id="forgetReason" placeholder="Expliquez l'oubli (ex: Oublié de pointer)..." rows="2" style="font-size:13px; padding:8px; margin-top:8px;"></textarea>
-            <button id="btnSendForget" style="background:linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color:white; padding:8px; font-size:12px; margin-top:8px;">Envoyer au Gérant Désigné ✉️</button>
+            <textarea id="forgetReason" placeholder="Expliquez l'oubli..." rows="2" style="font-size:13px; padding:8px; margin-top:8px;"></textarea>
+            <button id="btnSendForget" style="background:linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color:white; padding:8px; font-size:12px; margin-top:8px;">Envoyer au Gérant ✉️</button>
         </div>
 
         <h2>Mon Historique Personnel</h2>
@@ -836,35 +1293,127 @@ h2 {
         <button id="btnPDF" style="background:#34495e; color:white; margin-top:15px;">📄 Exporter Rapport RH</button>
     </div>
 
+    <!-- PANEL PATRON -->
     <div id="admin" style="display:none;">
-        <h2>Panel Global Patron (Airouche)</h2>
+        <h2>Panel Global Patron</h2>
         
-        <div class="add-box">
+        <!-- ===== DASHBOARD VENTES ===== -->
+        <div class="sales-dashboard">
+            <div class="shop-selector">
+                <label><i class="fa-regular fa-building"></i> Boutique</label>
+                <select id="bossShopFilter">
+                    <option value="GLOBAL">🌐 TOUTES LES BOUTIQUES</option>
+                    <option value="AMRIW UG">AMRIW UG</option>
+                    <option value="LS">LS</option>
+                    <option value="AKBOU UG">AKBOU UG</option>
+                    <option value="TOP MAN">TOP MAN</option>
+                    <option value="EDIMCO LS">EDIMCO LS</option>
+                    <option value="PEAK LS">PEAK LS</option>
+                </select>
+            </div>
+            <div class="sales-circles">
+                <div class="sales-circle">
+                    <span class="amount day" id="bossDayCA">0 DA</span>
+                    <span class="label">Vente du Jour</span>
+                </div>
+                <div class="sales-circle">
+                    <span class="amount month" id="bossMonthCA">0 DA</span>
+                    <span class="label">Vente du Mois</span>
+                </div>
+            </div>
+            <div class="top-articles">
+                <h5><i class="fa-solid fa-trophy"></i> Top Articles</h5>
+                <div id="bossTopArticles"></div>
+            </div>
+        </div>
+
+        <!-- JOURS FÉRIÉS -->
+        <div class="holiday-section">
+            <h4><i class="fa-regular fa-calendar-star"></i> Jours Fériés (+8h)</h4>
+            <div class="holiday-list" id="holidayList"></div>
+            <div class="holiday-input-row">
+                <input type="date" id="newHolidayInput">
+                <button id="btnAddHoliday">Ajouter</button>
+            </div>
+            <p style="font-size:10px; color:#555; margin-top:6px;">Les jours fériés ajoutent +8h à tous les employés.</p>
+        </div>
+
+        <!-- AJOUT EMPLOYÉ (CACHÉ) -->
+        <div id="addEmployeeSection" class="add-box modal-hidden-section">
             <h4>➕ Ajouter un Nouvel Employé</h4>
-            <input id="newWorkerName" placeholder="Nom d'utilisateur (ex: anas)">
-            <input id="newWorkerPass" placeholder="Code d'accès secret">
+            <input id="newWorkerName" placeholder="Nom d'utilisateur">
+            <input id="newWorkerPass" placeholder="Code d'accès">
             <label for="newWorkerPhoto" class="btn-file-label">📸 Photo de profil</label>
             <input type="file" id="newWorkerPhoto" accept="image/*" style="display:none;">
             <div id="photoCheckMark" style="color:#2ecc71; font-size:12px; margin-top:5px; text-align:center; display:none;">✓ Image chargée</div>
             <button id="btnAddUser">Créer le compte</button>
         </div>
 
-        <div class="futuristic-box">
+        <!-- MESSAGE SÉCURISÉ (CACHÉ) -->
+        <div id="messageSection" class="futuristic-box modal-hidden-section">
             <h4>⚡ TRANSMISSION MESSAGE SÉCURISÉ</h4>
             <div id="workerChipsList" class="worker-chips-container"></div>
             <input id="noteText" class="futuristic-input" placeholder="Écrire un message...">
             <button id="btnSendPatronNote" class="futuristic-btn">LANCER L'ENVOI</button>
         </div>
 
-        <h2>📌 Toutes les Demandes de Corrections</h2>
+        <!-- BOUTONS D'ACTION -->
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;">
+            <button id="btnToggleAddEmployee" style="background:rgba(255,215,0,0.1); border:1px solid rgba(255,215,0,0.2); color:#FFD700;">➕ Ajouter</button>
+            <button id="btnToggleMessage" style="background:rgba(0,210,255,0.1); border:1px solid rgba(0,210,255,0.2); color:#00d2ff;">💬 Message</button>
+        </div>
+
+        <h2>📌 Demandes de Corrections</h2>
         <div id="adminOublisZone"></div>
 
-        <h2>Tableau de Bord Général</h2>
+        <h2>👥 Équipe</h2>
         <input type="file" id="updateWorkerPhoto" accept="image/*" style="display:none;">
-        <div id="adminData" class="boss-panel"></div>
-        <button id="btnReset" style="background:#c0392b; color:white; margin-top:30px;">🗑 Réinitialiser toutes les données</button>
+        <div id="adminData"></div>
+        <button id="btnReset" style="background:#c0392b; color:white; margin-top:30px;">🗑 Réinitialiser</button>
     </div>
 
+</div>
+
+<!-- ===== POP-UP RECETTE ===== -->
+<div id="receiptOverlay" class="receipt-overlay">
+    <div class="receipt-card">
+        <button class="receipt-close" onclick="closeReceipt()">✕</button>
+        <h3><i class="fa-solid fa-coins"></i> Déclarer la Recette</h3>
+        <div class="receipt-shop">Boutique : <span id="receiptShopName" style="color:#FFD700;">---</span></div>
+        
+        <div class="receipt-total">
+            <span class="label">Total Vente du Jour</span>
+            <span class="amount" id="receiptTotalDisplay">0 DA</span>
+        </div>
+
+        <table class="receipt-table">
+            <thead>
+                <tr>
+                    <th>Article</th>
+                    <th style="text-align:center;">Qté</th>
+                    <th style="text-align:right;">Prix</th>
+                    <th style="text-align:right;">Total</th>
+                    <th style="width:25px;"></th>
+                </tr>
+            </thead>
+            <tbody id="receiptTableBody">
+                <tr>
+                    <td><input type="text" class="article-name" placeholder="Nom article" style="width:100%; padding:4px 6px; background:#1a1a1a; border:1px solid rgba(255,215,0,0.1); border-radius:4px; color:#fff; font-size:12px; margin:0;"></td>
+                    <td style="text-align:center;"><input type="number" class="article-qty" value="1" min="1" style="width:40px; padding:4px 6px; background:#1a1a1a; border:1px solid rgba(255,215,0,0.1); border-radius:4px; color:#fff; text-align:center; font-size:12px; margin:0;"></td>
+                    <td style="text-align:right;"><input type="number" class="article-price" value="0" min="0" step="100" style="width:70px; padding:4px 6px; background:#1a1a1a; border:1px solid rgba(255,215,0,0.1); border-radius:4px; color:#fff; text-align:right; font-size:12px; margin:0;"></td>
+                    <td style="text-align:right; font-weight:700; color:#FFD700;" class="article-total">0 DA</td>
+                    <td><span class="remove-row" onclick="removeReceiptRow(this)">✕</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <button class="add-row-btn" onclick="addReceiptRow()">➕ Ajouter un article</button>
+
+        <div class="receipt-actions">
+            <button class="btn-receipt-cancel" onclick="closeReceipt()">Annuler</button>
+            <button class="btn-receipt-confirm" id="btnReceiptConfirm">✅ Valider la vente</button>
+        </div>
+    </div>
 </div>
 
 <div id="photoGlobalModal" class="photo-modal" onclick="this.style.display='none'">
@@ -878,7 +1427,7 @@ h2 {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, set, get, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getDatabase, ref, set, get, remove, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDtkWf9ns8COymh_kh8wJzwxODp-HQ3weI",
@@ -900,10 +1449,207 @@ let current = "";
 let tempPhotoBase64 = "";
 let workerToUpdatePhoto = "";
 let selectedWorkerForNote = "";
-let selectedShop = "AMRIW UG"; 
+let selectedShop = "AMRIW UG";
+let holidays = [];
+let pendingEnd = false;
 
 let snapAvatarData, snapNoteData, snapPropData, snapStatusData, snapRoleData;
 
+// ===== FONCTIONS POP-UP RECETTE =====
+function updateReceiptTotal() {
+    const rows = document.querySelectorAll('#receiptTableBody tr');
+    let total = 0;
+    rows.forEach(row => {
+        const qty = parseInt(row.querySelector('.article-qty')?.value || 0);
+        const price = parseFloat(row.querySelector('.article-price')?.value || 0);
+        const subtotal = qty * price;
+        const totalCell = row.querySelector('.article-total');
+        if (totalCell) totalCell.textContent = subtotal.toFixed(2) + ' DA';
+        total += subtotal;
+    });
+    document.getElementById('receiptTotalDisplay').textContent = total.toFixed(2) + ' DA';
+    return total;
+}
+
+window.addReceiptRow = function() {
+    const tbody = document.getElementById('receiptTableBody');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+        <td><input type="text" class="article-name" placeholder="Nom article" style="width:100%; padding:4px 6px; background:#1a1a1a; border:1px solid rgba(255,215,0,0.1); border-radius:4px; color:#fff; font-size:12px; margin:0;"></td>
+        <td style="text-align:center;"><input type="number" class="article-qty" value="1" min="1" style="width:40px; padding:4px 6px; background:#1a1a1a; border:1px solid rgba(255,215,0,0.1); border-radius:4px; color:#fff; text-align:center; font-size:12px; margin:0;"></td>
+        <td style="text-align:right;"><input type="number" class="article-price" value="0" min="0" step="100" style="width:70px; padding:4px 6px; background:#1a1a1a; border:1px solid rgba(255,215,0,0.1); border-radius:4px; color:#fff; text-align:right; font-size:12px; margin:0;"></td>
+        <td style="text-align:right; font-weight:700; color:#FFD700;" class="article-total">0 DA</td>
+        <td><span class="remove-row" onclick="removeReceiptRow(this)">✕</span></td>
+    `;
+    tr.querySelector('.article-qty').addEventListener('input', updateReceiptTotal);
+    tr.querySelector('.article-price').addEventListener('input', updateReceiptTotal);
+    tr.querySelector('.article-name').addEventListener('input', updateReceiptTotal);
+    tbody.appendChild(tr);
+    updateReceiptTotal();
+};
+
+window.removeReceiptRow = function(element) {
+    const row = element.closest('tr');
+    if (document.querySelectorAll('#receiptTableBody tr').length > 1) {
+        row.remove();
+        updateReceiptTotal();
+    }
+};
+
+window.openReceipt = function() {
+    document.getElementById('receiptShopName').textContent = selectedShop;
+    document.getElementById('receiptOverlay').classList.add('active');
+    const tbody = document.getElementById('receiptTableBody');
+    tbody.innerHTML = '';
+    addReceiptRow();
+    document.getElementById('receiptTotalDisplay').textContent = '0 DA';
+    pendingEnd = true;
+};
+
+window.closeReceipt = function() {
+    document.getElementById('receiptOverlay').classList.remove('active');
+    pendingEnd = false;
+};
+
+document.getElementById('btnReceiptConfirm').addEventListener('click', async () => {
+    const rows = document.querySelectorAll('#receiptTableBody tr');
+    let articles = [];
+    let total = 0;
+    rows.forEach(row => {
+        const name = row.querySelector('.article-name')?.value.trim() || 'Article sans nom';
+        const qty = parseInt(row.querySelector('.article-qty')?.value || 0);
+        const price = parseFloat(row.querySelector('.article-price')?.value || 0);
+        if (qty > 0 && price > 0) {
+            articles.push({ name, qty, price, total: qty * price });
+            total += qty * price;
+        }
+    });
+    
+    if (articles.length === 0) {
+        alert('Veuillez ajouter au moins un article valide.');
+        return;
+    }
+    
+    const todayStr = new Date().toLocaleDateString('fr-FR').replace(/\//g, "-");
+    
+    await set(ref(db, `recettes/${selectedShop}/${todayStr}`), {
+        total: total,
+        articles: articles,
+        date: todayStr,
+        shop: selectedShop
+    });
+    
+    closeReceipt();
+    await executeEnd();
+    alert(`✅ Recette enregistrée : ${total.toFixed(2)} DA`);
+});
+
+// ===== FONCTIONS JOURS FÉRIÉS =====
+async function loadHolidays() {
+    const snapshot = await get(ref(db, 'holidays/'));
+    if (snapshot.exists()) {
+        holidays = Object.values(snapshot.val()) || [];
+    } else {
+        holidays = [];
+    }
+    renderHolidays();
+}
+
+function renderHolidays() {
+    const container = document.getElementById('holidayList');
+    container.innerHTML = '';
+    holidays.forEach((date, index) => {
+        const chip = document.createElement('span');
+        chip.className = 'holiday-chip';
+        const formatted = date.split('-').reverse().join('/');
+        chip.innerHTML = `📅 ${formatted} <span class="remove-holiday" onclick="removeHoliday(${index})">✕</span>`;
+        container.appendChild(chip);
+    });
+}
+
+window.removeHoliday = async function(index) {
+    const snapshot = await get(ref(db, 'holidays/'));
+    if (snapshot.exists()) {
+        let data = Object.values(snapshot.val());
+        const keys = Object.keys(snapshot.val());
+        if (index < data.length) {
+            await remove(ref(db, 'holidays/' + keys[index]));
+            await loadHolidays();
+            await loadAdmin();
+        }
+    }
+};
+
+document.getElementById('btnAddHoliday').addEventListener('click', async () => {
+    const input = document.getElementById('newHolidayInput');
+    const date = input.value;
+    if (!date) return alert('Veuillez sélectionner une date.');
+    
+    const snapshot = await get(ref(db, 'holidays/'));
+    let existing = snapshot.exists() ? Object.values(snapshot.val()) : [];
+    if (existing.includes(date)) return alert('Cette date est déjà enregistrée.');
+    
+    await push(ref(db, 'holidays/'), date);
+    input.value = '';
+    await loadHolidays();
+    await loadAdmin();
+    alert('✅ Jour férié ajouté ! +8h seront ajoutés à tous les employés.');
+});
+
+// ===== VALIDATION DES OUBLIS =====
+window.validateForget = async function(index) {
+    const snapshot = await get(ref(db, 'oublis/'));
+    if (!snapshot.exists()) return;
+    
+    let oublis = safeGetHistoryArray(snapshot.val());
+    const oubli = oublis[index];
+    if (!oublis) return;
+    
+    const workerName = oubli.user;
+    
+    const historySnap = await get(ref(db, 'history/' + workerName));
+    let history = historySnap.exists() ? safeGetHistoryArray(historySnap.val()) : [];
+    
+    const timeStr = oubli.time;
+    const startSnap = await get(ref(db, 'starts/' + workerName));
+    const isStarted = startSnap.exists() && startSnap.val() !== "";
+    
+    let newEntry;
+    if (isStarted) {
+        newEntry = {
+            start: genererDatePrecise(new Date(parseInt(startSnap.val().timestamp || startSnap.val()))),
+            end: timeStr,
+            hours: ((convertirChaineVersDate(timeStr) - convertirChaineVersDate(genererDatePrecise(new Date(parseInt(startSnap.val().timestamp || startSnap.val()))))) / 3600000).toFixed(2),
+            shop: oubli.shop || selectedShop
+        };
+        await remove(ref(db, 'starts/' + workerName));
+    } else {
+        let lastEnd = null;
+        if (history.length > 0) {
+            const last = history[history.length - 1];
+            if (last && last.end) lastEnd = convertirChaineVersDate(last.end);
+        }
+        
+        newEntry = {
+            start: timeStr,
+            end: lastEnd ? genererDatePrecise(lastEnd) : timeStr,
+            hours: lastEnd ? ((lastEnd - convertirChaineVersDate(timeStr)) / 3600000).toFixed(2) : "0.00",
+            shop: oubli.shop || selectedShop
+        };
+    }
+    
+    history.push(newEntry);
+    await set(ref(db, 'history/' + workerName), history);
+    
+    oublis.splice(index, 1);
+    await set(ref(db, 'oublis/'), oublis);
+    
+    alert('✅ Pointage validé et corrigé !');
+    await loadAdmin();
+    if (current !== adminUser) await loadManagerPanel();
+};
+
+// ===== FONCTIONS UTILITAIRES =====
 function formaterHeuresEtMinutes(heuresDecimales) {
     let h = Math.floor(heuresDecimales);
     let m = Math.round((heuresDecimales - h) * 60);
@@ -1101,8 +1847,99 @@ async function admin() {
     document.getElementById("loginSection").style.display = "none";
     document.getElementById("subHeader").style.display = "none";
     document.getElementById("admin").style.display = "block";
+    await loadHolidays();
     await loadAdmin();
+    // Mettre à jour le dashboard des ventes
+    document.getElementById('bossShopFilter').addEventListener('change', updateSalesDashboard);
+    await updateSalesDashboard();
   } else { alert("Accès Admin refusé"); }
+}
+
+// ===== DASHBOARD VENTES =====
+async function updateSalesDashboard() {
+    const filter = document.getElementById('bossShopFilter').value;
+    const recettesSnap = await get(ref(db, 'recettes/'));
+    if (!recettesSnap.exists()) {
+        document.getElementById('bossDayCA').textContent = '0 DA';
+        document.getElementById('bossMonthCA').textContent = '0 DA';
+        document.getElementById('bossTopArticles').innerHTML = '<p style="color:#555; font-size:12px;">Aucune vente enregistrée.</p>';
+        return;
+    }
+    
+    const recettes = recettesSnap.val();
+    let dayTotal = 0;
+    let monthTotal = 0;
+    let allArticles = [];
+    const todayStr = new Date().toLocaleDateString('fr-FR').replace(/\//g, "-");
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+    
+    for (let shop in recettes) {
+        if (filter !== 'GLOBAL' && shop !== filter) continue;
+        
+        for (let dateKey in recettes[shop]) {
+            const data = recettes[shop][dateKey];
+            const total = typeof data === 'object' ? data.total || 0 : data || 0;
+            
+            // Vérifier si la date est dans le mois actuel
+            const dateParts = dateKey.split('-');
+            const d = new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
+            
+            if (d.getMonth() === currentMonth && d.getFullYear() === currentYear) {
+                monthTotal += total;
+            }
+            
+            if (dateKey === todayStr) {
+                dayTotal += total;
+            }
+            
+            // Récupérer les articles
+            if (typeof data === 'object' && data.articles) {
+                data.articles.forEach(article => {
+                    if (article.name && article.qty > 0) {
+                        allArticles.push({
+                            name: article.name,
+                            qty: article.qty || 1,
+                            total: article.total || (article.qty * article.price) || 0
+                        });
+                    }
+                });
+            }
+        }
+    }
+    
+    document.getElementById('bossDayCA').textContent = dayTotal.toFixed(2) + ' DA';
+    document.getElementById('bossMonthCA').textContent = monthTotal.toFixed(2) + ' DA';
+    
+    // Top articles
+    const topContainer = document.getElementById('bossTopArticles');
+    if (allArticles.length === 0) {
+        topContainer.innerHTML = '<p style="color:#555; font-size:12px;">Aucun article vendu.</p>';
+        return;
+    }
+    
+    // Agréger par nom
+    const aggregated = {};
+    allArticles.forEach(a => {
+        if (!aggregated[a.name]) {
+            aggregated[a.name] = { qty: 0, total: 0 };
+        }
+        aggregated[a.name].qty += a.qty;
+        aggregated[a.name].total += a.total;
+    });
+    
+    const sorted = Object.entries(aggregated)
+        .sort((a, b) => b[1].total - a[1].total)
+        .slice(0, 10);
+    
+    topContainer.innerHTML = sorted.map(([name, data], index) => `
+        <div class="article-item">
+            <span class="rank">#${index + 1}</span>
+            <span class="name">${name}</span>
+            <span class="qty">x${data.qty}</span>
+            <span class="ca">${data.total.toFixed(2)} DA</span>
+        </div>
+    `).join('');
 }
 
 document.getElementById("btnUpdateStatus").addEventListener("click", async () => {
@@ -1133,7 +1970,7 @@ document.getElementById("btnSendForget").addEventListener("click", async () => {
         });
         await set(ref(db, 'oublis/'), oublis);
         document.getElementById("forgetReason").value = "";
-        alert("✉️ Signalement envoyé au Gérant Désigné de la boutique !");
+        alert("✉️ Signalement envoyé au Gérant !");
         if(document.getElementById("managerPanelSection").style.display !== "none") {
             await loadManagerPanel();
         }
@@ -1175,8 +2012,16 @@ window.triggerUpdatePhoto = function(workerName) {
     document.getElementById("updateWorkerPhoto").click();
 }
 
+window.updateEmployeeShop = async function(workerName, shop) {
+    localStorage.setItem("saved_shop_" + workerName, shop);
+    await loadAdmin();
+};
+
 window.toggleUserRole = async function(workerName, currentRole) {
-    let nextRole = (currentRole === "gerant") ? "employe" : "gerant";
+    let nextRole = "employe";
+    if (currentRole === "employe") nextRole = "cogerant";
+    else if (currentRole === "cogerant") nextRole = "gerant";
+    else nextRole = "employe";
     await set(ref(db, 'user_roles/' + workerName), nextRole);
     await loadAdmin();
 }
@@ -1272,10 +2117,13 @@ async function start() {
     afficherAlerteEcran(`📍 Entrée Validée : ${selectedShop}`, "success");
 }
 
-async function end() {
+async function executeEnd() {
     const startSnapshot = await get(ref(db, 'starts/' + current));
     let startData = startSnapshot.val();
-    if (!startData) return alert("Pas d'entrée enregistrée.");
+    if (!startData) {
+        afficherAlerteEcran("❌ Pas d'entrée enregistrée.", "danger");
+        return;
+    }
 
     let s = startData.timestamp ? startData.timestamp : startData; 
     let h = (new Date() - new Date(parseInt(s))) / 3600000;
@@ -1290,16 +2138,39 @@ async function end() {
     await load();
 }
 
+async function end() {
+    const roleSnap = await get(ref(db, 'user_roles/' + current));
+    const userRole = roleSnap.exists() ? roleSnap.val() : "employe";
+    
+    const startSnapshot = await get(ref(db, 'starts/' + current));
+    if (!startSnapshot.exists() || startSnapshot.val() === "") {
+        afficherAlerteEcran("❌ Pas d'entrée enregistrée.", "danger");
+        return;
+    }
+
+    if (userRole === "gerant" || userRole === "cogerant") {
+        openReceipt();
+        return;
+    }
+
+    await executeEnd();
+}
+
 async function load() {
-    const snapshot = await get(ref(db, 'history/' + current));
+    const [snapshot, snapRecettes, snapRoles] = await Promise.all([
+        get(ref(db, 'history/' + current)),
+        get(ref(db, 'recettes/')),
+        get(ref(db, 'user_roles/' + current))
+    ]);
+
     let data = snapshot.exists() ? safeGetHistoryArray(snapshot.val()) : [];
     let total = 0;
     let tbody = document.getElementById("historyTableBody");
     tbody.innerHTML = "";
 
     data.forEach(e => {
-      total += Number(e.hours);
-      tbody.innerHTML += `
+       total += Number(e.hours);
+       tbody.innerHTML += `
         <tr>
           <td><span class="shop-badge-led">${e.shop || 'Générale'}</span></td>
           <td><b>${extraireUniquementDate(e.start)}</b></td>
@@ -1308,8 +2179,29 @@ async function load() {
           <td><span class="table-duration-badge">${formaterHeuresEtMinutes(Number(e.hours))}</span></td>
         </tr>`;
     });
+
+    let fixedSalary = total * 100;
     document.getElementById("hours").innerText = formaterHeuresEtMinutes(total);
-    document.getElementById("salary").innerText = (total * 100).toFixed(0);
+    document.getElementById("salary").innerText = fixedSalary.toFixed(0);
+
+    let role = snapRoles.exists() ? snapRoles.val() : "employe";
+    let bonusRate = 0.02;
+    if(role === "gerant") bonusRate = 0.05;
+    else if(role === "cogerant") bonusRate = 0.03;
+
+    let totalShopRevenue = 0;
+    if(snapRecettes.exists() && snapRecettes.val()[selectedShop]) {
+        let shopData = snapRecettes.val()[selectedShop];
+        for(let keyDate in shopData) {
+            totalShopRevenue += parseFloat(shopData[keyDate]?.total || shopData[keyDate] || 0);
+        }
+    }
+
+    let primeCalculated = totalShopRevenue * bonusRate;
+    let finalGlobalSalary = fixedSalary + primeCalculated;
+
+    document.getElementById("globalSalaryDisplay").innerText = `${finalGlobalSalary.toFixed(0)} DA`;
+    document.getElementById("primeDetailDisplay").innerHTML = `Prime CA : ${primeCalculated.toFixed(0)} DA (${(bonusRate*100).toFixed(0)}%)`;
 }
 
 async function loadManagerPanel() {
@@ -1335,7 +2227,10 @@ async function loadManagerPanel() {
                     <p style="color:#e74c3c; font-weight:bold;">👤 Employé : ${o.user}</p>
                     <p style="color:#eee;"><b>Heure lue :</b> ${o.time}</p>
                     <p style="color:#aaa; font-style:italic;">"${o.reason}"</p>
-                    <button class="btn-inline" style="background:#e74c3c; color:#fff; border:none; margin-top:5px;" onclick="supprimerOubli(${idx})">🗑 Effacer la demande</button>
+                    <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                        <button class="btn-validate-forget" onclick="validateForget(${idx})">✅ Valider</button>
+                        <button class="btn-inline" style="background:#e74c3c; color:#fff; border:none;" onclick="supprimerOubli(${idx})">🗑 Effacer</button>
+                    </div>
                 </div>`;
         }
     });
@@ -1404,6 +2299,11 @@ async function loadAdmin() {
     const starts = allData.starts || {};
     const avatars = allData.avatars || {};
     const oublis = allData.oublis ? safeGetHistoryArray(allData.oublis) : [];
+    const recettes = allData.recettes || {};
+
+    const holidaySnap = await get(ref(db, 'holidays/'));
+    const holidaysList = holidaySnap.exists() ? Object.values(holidaySnap.val()) : [];
+    const holidayHours = holidaysList.length * 8;
 
     let oubliZone = document.getElementById("adminOublisZone");
     oubliZone.innerHTML = "";
@@ -1413,7 +2313,10 @@ async function loadAdmin() {
                 <div class="card" style="border-color:#e74c3c; flex-direction:column; text-align:left; padding:12px;">
                     <p style="color:#e74c3c; font-weight:bold;">⚠️ [${o.shop}] Oubli de : ${o.user}</p>
                     <p style="font-size:13px;"><b>Heure :</b> ${o.time} | <b>Raison :</b> "${o.reason}"</p>
-                    <button class="btn-inline" style="background:#e74c3c; color:white; border:none;" onclick="supprimerOubli(${index})">Supprimer la demande</button>
+                    <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                        <button class="btn-validate-forget" onclick="validateForget(${index})">✅ Valider</button>
+                        <button class="btn-inline" style="background:#e74c3c; color:white; border:none;" onclick="supprimerOubli(${index})">🗑 Supprimer</button>
+                    </div>
                 </div>`;
         }
     });
@@ -1423,16 +2326,52 @@ async function loadAdmin() {
     let div = document.getElementById("adminData");
     div.innerHTML = "";
 
+    const shopOptions = ['AMRIW UG', 'LS', 'AKBOU UG', 'TOP MAN', 'EDIMCO LS', 'PEAK LS'];
+
     for (let u in users) {
       chipsContainer.innerHTML += `<div class="worker-chip" onclick="selectWorkerForNoteAction(this, '${u}')">${u}</div>`;
+      
+      let uShop = localStorage.getItem("saved_shop_" + u) || "AMRIW UG";
       let userHistory = safeGetHistoryArray(histories[u]);
-      let total = 0; let derniereBoutique = "Aucune";
+      let total = 0; 
+      let derniereBoutique = uShop;
+      
       userHistory.forEach(e => { if(e) { total += Number(e.hours); if(e.shop) derniereBoutique = e.shop; } });
       if(starts[u]) derniereBoutique = starts[u].shop;
 
+      const totalWithHolidays = total + holidayHours;
+
+      let role = roles[u] || "employe";
+      let bonusRate = 0.02;
+      if(role === "gerant") bonusRate = 0.05;
+      else if(role === "cogerant") bonusRate = 0.03;
+
+      let shopRevenueSum = 0;
+      if(recettes[derniereBoutique]) {
+          for(let d in recettes[derniereBoutique]) {
+              shopRevenueSum += parseFloat(recettes[derniereBoutique][d]?.total || recettes[derniereBoutique][d] || 0);
+          }
+      }
+      let primeAmt = shopRevenueSum * bonusRate;
+      let fixedSalary = totalWithHolidays * 100;
+      let globalSalaryAmt = fixedSalary + primeAmt;
+
       let badgeHTML = starts[u] ? `<span class="status-badge status-online">🟢 En poste</span>` : `<span class="status-badge status-offline">🔴 Parti</span>`;
-      let roleBadgeHTML = (roles[u] === "gerant") ? `<span class="role-badge role-gerant" onclick="toggleUserRole('${u}', 'gerant')"><i class="fa-solid fa-crown"></i> Gérant</span>` : `<span class="role-badge role-employe" onclick="toggleUserRole('${u}', 'employe')"><i class="fa-solid fa-user"></i> Employé</span>`;
+      
+      let roleBadgeHTML = "";
+      if(role === "gerant") {
+          roleBadgeHTML = `<span class="role-badge role-gerant" onclick="toggleUserRole('${u}', 'gerant')"><i class="fa-solid fa-crown"></i> Gérant</span>`;
+      } else if(role === "cogerant") {
+          roleBadgeHTML = `<span class="role-badge role-cogerant" onclick="toggleUserRole('${u}', 'cogerant')"><i class="fa-solid fa-bolt"></i> Co-Gérant</span>`;
+      } else {
+          roleBadgeHTML = `<span class="role-badge role-employe" onclick="toggleUserRole('${u}', 'employe')"><i class="fa-solid fa-user"></i> Employé</span>`;
+      }
+      
       let photoSrc = avatars[u] || 'https://api.dicebear.com/7.x/initials/svg?seed=' + u + '&backgroundColor=ffd700&color=000000';
+
+      let shopOptionsHTML = shopOptions.map(s => 
+          `<option value="${s}" ${s === uShop ? 'selected' : ''}>${s}</option>`
+      ).join('');
 
       div.innerHTML += `
         <div class="card" style="flex-direction: column; align-items: stretch; text-align: left; padding: 15px;">
@@ -1444,38 +2383,63 @@ async function loadAdmin() {
                   </div>
               </div>
               <div style="flex-grow: 1; padding-left:14px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
                     <h3 style="color:#FFD700; text-transform:capitalize; font-size:15px;">👤 ${u}</h3>
-                    <div style="display:flex; gap:4px;">${roleBadgeHTML}${badgeHTML}</div>
+                    <div style="display:flex; gap:4px; flex-wrap:wrap;">${roleBadgeHTML}${badgeHTML}</div>
                 </div>
-                <p style="font-size:12px; color:#aaa; margin-top:2px;">Boutique : <span class="shop-badge-led">${derniereBoutique}</span></p>
+                <div class="employee-shop-selector">
+                    <label><i class="fa-regular fa-building"></i> Boutique</label>
+                    <select onchange="updateEmployeeShop('${u}', this.value)">
+                        ${shopOptionsHTML}
+                    </select>
+                </div>
               </div>
           </div>
           
           <div class="salary-focus-box">
               <div class="salary-highlight">
-                  ${(total * 100).toFixed(0)} <span class="currency">DA</span>
+                  ${globalSalaryAmt.toFixed(0)} <span class="currency">DA</span>
+                  <span class="prime-badge">+${primeAmt.toFixed(0)} DA prime</span>
+                  ${holidayHours > 0 ? `<span style="font-size:12px; color:#2ecc71; margin-left:6px;">(+${holidayHours}h férié)</span>` : ''}
               </div>
               <div class="hours-subtext">
-                  <i class="fa-regular fa-clock"></i> Temps de travail : <strong>${formaterHeuresEtMinutes(total)}</strong>
+                  <i class="fa-regular fa-clock"></i> Temps : <strong>${formaterHeuresEtMinutes(totalWithHolidays)}</strong>
+                  <span class="prime-detail">| Prime ${(bonusRate*100).toFixed(0)}% du CA</span>
+                  ${holidayHours > 0 ? `<span style="color:#FFD700;">| +${holidayHours}h férié</span>` : ''}
               </div>
           </div>
 
           <div style="display:flex; flex-direction:column; gap:4px; margin-top:5px;">
               <button class="btn-toggle-history-admin" onclick="toggleAdminHistoryCollapse('${u}')"><i class="fa-regular fa-clipboard"></i> Voir Sessions</button>
               <div id="history-box-${u}" style="display:none; margin-top:10px; border-top:1px solid #222; padding-top:10px;"></div>
-              <button class="btn-delete-worker" onclick="deleteEmployee('${u}')"><i class="fa-solid fa-trash-can"></i> Supprimer l'employé</button>
+              <button class="btn-delete-worker" onclick="deleteEmployee('${u}')"><i class="fa-solid fa-trash-can"></i> Supprimer</button>
           </div>
         </div>`;
     }
 }
 
 async function reset() {
-  if (confirm("Voulez-vous purger TOUTES les heures ?")) {
-    for (let u in users) { await remove(ref(db, 'history/' + u)); await remove(ref(db, 'starts/' + u)); await remove(ref(db, 'oublis/')); }
+  if (confirm("Voulez-vous purger TOUTES les données ?")) {
+    for (let u in users) { 
+        await remove(ref(db, 'history/' + u)); 
+        await remove(ref(db, 'starts/' + u)); 
+    }
+    await remove(ref(db, 'oublis/'));
+    await remove(ref(db, 'recettes/'));
+    await remove(ref(db, 'holidays/'));
     await loadAdmin();
   }
 }
+
+document.getElementById('btnToggleAddEmployee').addEventListener('click', () => {
+    const section = document.getElementById('addEmployeeSection');
+    section.style.display = section.style.display === 'none' ? 'block' : 'none';
+});
+
+document.getElementById('btnToggleMessage').addEventListener('click', () => {
+    const section = document.getElementById('messageSection');
+    section.style.display = section.style.display === 'none' ? 'block' : 'none';
+});
 
 initAppUsers();
 document.getElementById("btnLogin").addEventListener("click", login);
