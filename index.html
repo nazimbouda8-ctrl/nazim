@@ -331,7 +331,7 @@ h2 {
     text-transform: uppercase;
 }
 
-/* ===== RÔLE BADGE - AVEC CO-GÉRANT ===== */
+/* ===== RÔLE BADGE ===== */
 .role-badge {
     padding: 4px 10px;
     border-radius: 8px;
@@ -395,7 +395,6 @@ h2 {
     color: #000;
 }
 
-/* ===== BOUTON VALIDER POUR OUBLIS ===== */
 .btn-validate-forget {
     background: rgba(46, 204, 113, 0.15);
     color: #2ecc71;
@@ -754,7 +753,7 @@ h2 {
     gap: 8px;
 }
 
-/* ===== POP-UP RECETTE AVEC TABLEAU ===== */
+/* ===== POP-UP RECETTE MANUELLE ===== */
 .receipt-overlay {
     display: none;
     position: fixed;
@@ -832,92 +831,97 @@ h2 {
     color: #888;
     margin-bottom: 16px;
 }
-.receipt-card .receipt-total {
-    background: rgba(255, 215, 0, 0.05);
-    border: 1px solid rgba(255, 215, 0, 0.1);
+
+.receipt-card .receipt-manual-input {
+    background: rgba(255, 215, 0, 0.03);
+    border: 2px solid rgba(255, 215, 0, 0.2);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 16px 0;
+    text-align: center;
+}
+.receipt-card .receipt-manual-input label {
+    display: block;
+    font-size: 14px;
+    color: #FFD700;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+.receipt-card .receipt-manual-input input {
+    width: 100%;
+    padding: 16px;
+    font-size: 28px;
+    font-weight: 800;
+    text-align: center;
+    background: #0f0f0f;
+    border: 2px solid rgba(255, 215, 0, 0.3);
     border-radius: 12px;
-    padding: 12px;
-    margin: 12px 0;
+    color: #FFD700;
+    margin: 0;
+    letter-spacing: 1px;
+}
+.receipt-card .receipt-manual-input input:focus {
+    border-color: #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+.receipt-card .receipt-manual-input .currency-suffix {
+    font-size: 16px;
+    color: #888;
+    margin-top: 6px;
+}
+
+.receipt-card .existing-receipts {
+    margin-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 12px;
+}
+.receipt-card .existing-receipts h4 {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.receipt-card .existing-receipt-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-.receipt-card .receipt-total .label {
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+    margin-top: 6px;
     font-size: 13px;
+}
+.receipt-card .existing-receipt-item .rec-date {
     color: #aaa;
+    font-size: 11px;
 }
-.receipt-card .receipt-total .amount {
-    font-size: 22px;
-    font-weight: 800;
+.receipt-card .existing-receipt-item .rec-amount {
     color: #FFD700;
+    font-weight: 700;
 }
-
-.receipt-card .receipt-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-    margin-top: 10px;
+.receipt-card .existing-receipt-item .rec-actions {
+    display: flex;
+    gap: 8px;
 }
-.receipt-card .receipt-table th {
-    background: #1a1a1a;
-    color: #FFD700;
-    padding: 8px 6px;
-    text-align: left;
+.receipt-card .existing-receipt-item .rec-actions button {
+    width: auto;
+    padding: 5px 10px;
     font-size: 10px;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-}
-.receipt-card .receipt-table td {
-    padding: 8px 6px;
-    border-bottom: 1px solid #1a1a1a;
-    color: #ccc;
-}
-.receipt-card .receipt-table .qty-input {
-    width: 40px;
-    padding: 4px 6px;
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 215, 0, 0.1);
-    border-radius: 4px;
-    color: #fff;
-    text-align: center;
-    font-size: 12px;
     margin: 0;
+    border-radius: 6px;
 }
-.receipt-card .receipt-table .price-input {
-    width: 70px;
-    padding: 4px 6px;
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 215, 0, 0.1);
-    border-radius: 4px;
-    color: #fff;
-    text-align: right;
-    font-size: 12px;
-    margin: 0;
+.btn-modify-rec {
+    background: rgba(0, 210, 255, 0.15) !important;
+    color: #00d2ff !important;
+    border: 1px solid rgba(0, 210, 255, 0.3) !important;
+    box-shadow: none !important;
 }
-.receipt-card .receipt-table .remove-row {
-    color: #e74c3c;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.2s;
-}
-.receipt-card .receipt-table .remove-row:hover { opacity: 0.7; }
-
-.receipt-card .add-row-btn {
-    background: rgba(255,255,255,0.04);
-    border: 1px dashed rgba(255, 215, 0, 0.2);
-    color: #aaa;
-    padding: 8px;
-    border-radius: 8px;
-    width: 100%;
-    margin-top: 8px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-.receipt-card .add-row-btn:hover {
-    background: rgba(255, 215, 0, 0.04);
-    border-color: rgba(255, 215, 0, 0.3);
-    color: #fff;
+.btn-delete-rec {
+    background: rgba(231, 76, 60, 0.15) !important;
+    color: #e74c3c !important;
+    border: 1px solid rgba(231, 76, 60, 0.3) !important;
+    box-shadow: none !important;
 }
 
 .receipt-card .receipt-actions {
@@ -933,17 +937,14 @@ h2 {
     border-radius: 12px;
 }
 .receipt-card .btn-receipt-confirm {
-    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
-    color: #fff;
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%) !important;
+    color: #fff !important;
 }
 .receipt-card .btn-receipt-cancel {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.04);
-    color: #888;
-}
-.receipt-card .btn-receipt-cancel:hover {
-    background: rgba(255,255,255,0.08);
-    color: #fff;
+    background: rgba(255,255,255,0.04) !important;
+    border: 1px solid rgba(255,255,255,0.04) !important;
+    color: #888 !important;
+    box-shadow: none !important;
 }
 
 /* ===== SECTION JOURS FÉRIÉS ===== */
@@ -1004,9 +1005,6 @@ h2 {
     color: #fff;
     min-height: 38px;
 }
-.holiday-section .holiday-input-row input:focus {
-    border-color: #FFD700;
-}
 .holiday-section .holiday-input-row button {
     margin: 0;
     padding: 8px 16px;
@@ -1021,14 +1019,11 @@ h2 {
     transition: 0.3s;
     min-height: 38px;
 }
-.holiday-section .holiday-input-row button:hover { opacity: 0.85; }
 
-/* ===== SECTION CACHÉE PAR DÉFAUT (MODALE) ===== */
 .modal-hidden-section {
     display: none;
 }
 
-/* ===== SELECTEUR BOUTIQUE POUR EMPLOYÉ ===== */
 .employee-shop-selector {
     margin-top: 4px;
     display: flex;
@@ -1056,7 +1051,6 @@ h2 {
     height: 30px;
 }
 
-/* ===== DASHBOARD VENTES PATRON ===== */
 .sales-dashboard {
     background: linear-gradient(145deg, #14141e, #0f0f18);
     border: 1px solid rgba(255, 215, 0, 0.06);
@@ -1115,47 +1109,23 @@ h2 {
     display: block;
 }
 
-.sales-dashboard .top-articles {
-    margin-top: 14px;
-    border-top: 1px solid rgba(255,255,255,0.03);
-    padding-top: 12px;
-}
-.sales-dashboard .top-articles h5 {
-    color: #FFD700;
-    font-size: 13px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-.sales-dashboard .top-articles .article-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 8px;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.02);
-    margin-top: 4px;
-    font-size: 12px;
-}
-.sales-dashboard .top-articles .article-item .rank {
-    color: #FFD700;
+.cloture-message {
+    background: rgba(231, 76, 60, 0.15);
+    border: 2px solid #e74c3c;
+    color: #e74c3c;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
     font-weight: 700;
-    width: 25px;
+    font-size: 16px;
+    margin: 20px 0;
+    animation: pulse 2s infinite;
 }
-.sales-dashboard .top-articles .article-item .name {
-    flex: 1;
-    color: #ddd;
-    padding-left: 6px;
-}
-.sales-dashboard .top-articles .article-item .qty {
-    color: #888;
-    font-size: 11px;
-}
-.sales-dashboard .top-articles .article-item .ca {
-    color: #2ecc71;
-    font-weight: 700;
-    font-size: 12px;
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
 }
 
 @media print {
@@ -1211,10 +1181,8 @@ h2 {
 
         <div id="managerPanelSection" style="display:none; width:100%; margin-bottom:20px; border-bottom: 2px dashed rgba(0, 210, 255, 0.2); padding-bottom:20px;">
             <h2 style="border-left-color: #00d2ff; margin-top: 10px;">🛠️ Gestion : <span id="managerShopTitle">---</span></h2>
-            
             <p style="font-size:12px; color:#aaa; margin-top:10px; font-weight:bold;">📝 Signalements d'oublis de cette boutique :</p>
             <div id="managerOublisZone" style="margin-top:8px;"></div>
-
             <p style="font-size:12px; color:#aaa; margin-top:20px; font-weight:bold;">👥 Présences & Historique Équipe :</p>
             <div id="managerWorkersData"></div>
         </div>
@@ -1230,6 +1198,10 @@ h2 {
                 <button id="btnAcceptProp" style="background:#2ecc71; color:white; padding:8px; margin:0; font-size:12px;">✅ Accepter</button>
                 <button id="btnRefuseProp" style="background:#e74c3c; color:white; padding:8px; margin:0; font-size:12px;">❌ Refuser</button>
             </div>
+        </div>
+
+        <div id="clotureMessage" class="cloture-message" style="display:none;">
+            🔒 La journée est clôturée - Recette déjà enregistrée
         </div>
 
         <div class="employee-profile-box">
@@ -1252,7 +1224,6 @@ h2 {
             <div class="big">Salaire Estimé<span id="salary">0</span> DA</div>
         </div>
 
-        <!-- SALAIRE GLOBAL AVEC PRIME -->
         <div style="text-align:center; margin-top:8px; padding:12px; background:rgba(46,204,113,0.04); border-radius:12px; border:1px solid rgba(46,204,113,0.08); width:100%;">
             <p style="font-size:12px; color:#888;">💰 Salaire Global <span style="font-size:10px; color:#2ecc71;">(Prime CA incluse)</span></p>
             <span id="globalSalaryDisplay" style="font-size:22px; font-weight:800; color:#2ecc71; display:block; margin-top:2px;">0 DA</span>
@@ -1297,7 +1268,6 @@ h2 {
     <div id="admin" style="display:none;">
         <h2>Panel Global Patron</h2>
         
-        <!-- ===== DASHBOARD VENTES ===== -->
         <div class="sales-dashboard">
             <div class="shop-selector">
                 <label><i class="fa-regular fa-building"></i> Boutique</label>
@@ -1321,13 +1291,11 @@ h2 {
                     <span class="label">Vente du Mois</span>
                 </div>
             </div>
-            <div class="top-articles">
-                <h5><i class="fa-solid fa-trophy"></i> Top Articles</h5>
-                <div id="bossTopArticles"></div>
+            <div style="margin-top:14px; border-top:1px solid rgba(255,255,255,0.03); padding-top:12px; text-align:center;">
+                <p style="color:#555; font-size:11px;">💡 Recette manuelle - saisie directe du CA</p>
             </div>
         </div>
 
-        <!-- JOURS FÉRIÉS -->
         <div class="holiday-section">
             <h4><i class="fa-regular fa-calendar-star"></i> Jours Fériés (+8h)</h4>
             <div class="holiday-list" id="holidayList"></div>
@@ -1338,7 +1306,6 @@ h2 {
             <p style="font-size:10px; color:#555; margin-top:6px;">Les jours fériés ajoutent +8h à tous les employés.</p>
         </div>
 
-        <!-- AJOUT EMPLOYÉ (CACHÉ) -->
         <div id="addEmployeeSection" class="add-box modal-hidden-section">
             <h4>➕ Ajouter un Nouvel Employé</h4>
             <input id="newWorkerName" placeholder="Nom d'utilisateur">
@@ -1349,7 +1316,6 @@ h2 {
             <button id="btnAddUser">Créer le compte</button>
         </div>
 
-        <!-- MESSAGE SÉCURISÉ (CACHÉ) -->
         <div id="messageSection" class="futuristic-box modal-hidden-section">
             <h4>⚡ TRANSMISSION MESSAGE SÉCURISÉ</h4>
             <div id="workerChipsList" class="worker-chips-container"></div>
@@ -1357,7 +1323,6 @@ h2 {
             <button id="btnSendPatronNote" class="futuristic-btn">LANCER L'ENVOI</button>
         </div>
 
-        <!-- BOUTONS D'ACTION -->
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;">
             <button id="btnToggleAddEmployee" style="background:rgba(255,215,0,0.1); border:1px solid rgba(255,215,0,0.2); color:#FFD700;">➕ Ajouter</button>
             <button id="btnToggleMessage" style="background:rgba(0,210,255,0.1); border:1px solid rgba(0,210,255,0.2); color:#00d2ff;">💬 Message</button>
@@ -1374,44 +1339,29 @@ h2 {
 
 </div>
 
-<!-- ===== POP-UP RECETTE ===== -->
+<!-- ===== POP-UP RECETTE MANUELLE ===== -->
 <div id="receiptOverlay" class="receipt-overlay">
     <div class="receipt-card">
         <button class="receipt-close" onclick="closeReceipt()">✕</button>
         <h3><i class="fa-solid fa-coins"></i> Déclarer la Recette</h3>
         <div class="receipt-shop">Boutique : <span id="receiptShopName" style="color:#FFD700;">---</span></div>
         
-        <div class="receipt-total">
-            <span class="label">Total Vente du Jour</span>
-            <span class="amount" id="receiptTotalDisplay">0 DA</span>
+        <div class="receipt-manual-input">
+            <label>💰 Chiffre d'Affaires du Jour</label>
+            <input type="number" id="receiptManualAmount" placeholder="0" min="0" step="100">
+            <div class="currency-suffix">Dinars Algériens (DA)</div>
         </div>
 
-        <table class="receipt-table">
-            <thead>
-                <tr>
-                    <th>Article</th>
-                    <th style="text-align:center;">Qté</th>
-                    <th style="text-align:right;">Prix</th>
-                    <th style="text-align:right;">Total</th>
-                    <th style="width:25px;"></th>
-                </tr>
-            </thead>
-            <tbody id="receiptTableBody">
-                <tr>
-                    <td><input type="text" class="article-name" placeholder="Nom article" style="width:100%; padding:4px 6px; background:#1a1a1a; border:1px solid rgba(255,215,0,0.1); border-radius:4px; color:#fff; font-size:12px; margin:0;"></td>
-                    <td style="text-align:center;"><input type="number" class="article-qty" value="1" min="1" style="width:40px; padding:4px 6px; background:#1a1a1a; border:1px solid rgba(255,215,0,0.1); border-radius:4px; color:#fff; text-align:center; font-size:12px; margin:0;"></td>
-                    <td style="text-align:right;"><input type="number" class="article-price" value="0" min="0" step="100" style="width:70px; padding:4px 6px; background:#1a1a1a; border:1px solid rgba(255,215,0,0.1); border-radius:4px; color:#fff; text-align:right; font-size:12px; margin:0;"></td>
-                    <td style="text-align:right; font-weight:700; color:#FFD700;" class="article-total">0 DA</td>
-                    <td><span class="remove-row" onclick="removeReceiptRow(this)">✕</span></td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <button class="add-row-btn" onclick="addReceiptRow()">➕ Ajouter un article</button>
+        <div class="existing-receipts" id="existingReceiptsSection" style="display:none;">
+            <h4>📋 Recettes récentes</h4>
+            <div id="existingReceiptsList">
+                <p style="color:#555; font-size:11px; text-align:center;">Chargement...</p>
+            </div>
+        </div>
 
         <div class="receipt-actions">
             <button class="btn-receipt-cancel" onclick="closeReceipt()">Annuler</button>
-            <button class="btn-receipt-confirm" id="btnReceiptConfirm">✅ Valider la vente</button>
+            <button class="btn-receipt-confirm" id="btnReceiptConfirm">✅ Valider la recette</button>
         </div>
     </div>
 </div>
@@ -1455,55 +1405,19 @@ let pendingEnd = false;
 
 let snapAvatarData, snapNoteData, snapPropData, snapStatusData, snapRoleData;
 
-// ===== FONCTIONS POP-UP RECETTE =====
-function updateReceiptTotal() {
-    const rows = document.querySelectorAll('#receiptTableBody tr');
-    let total = 0;
-    rows.forEach(row => {
-        const qty = parseInt(row.querySelector('.article-qty')?.value || 0);
-        const price = parseFloat(row.querySelector('.article-price')?.value || 0);
-        const subtotal = qty * price;
-        const totalCell = row.querySelector('.article-total');
-        if (totalCell) totalCell.textContent = subtotal.toFixed(2) + ' DA';
-        total += subtotal;
-    });
-    document.getElementById('receiptTotalDisplay').textContent = total.toFixed(2) + ' DA';
-    return total;
-}
-
-window.addReceiptRow = function() {
-    const tbody = document.getElementById('receiptTableBody');
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-        <td><input type="text" class="article-name" placeholder="Nom article" style="width:100%; padding:4px 6px; background:#1a1a1a; border:1px solid rgba(255,215,0,0.1); border-radius:4px; color:#fff; font-size:12px; margin:0;"></td>
-        <td style="text-align:center;"><input type="number" class="article-qty" value="1" min="1" style="width:40px; padding:4px 6px; background:#1a1a1a; border:1px solid rgba(255,215,0,0.1); border-radius:4px; color:#fff; text-align:center; font-size:12px; margin:0;"></td>
-        <td style="text-align:right;"><input type="number" class="article-price" value="0" min="0" step="100" style="width:70px; padding:4px 6px; background:#1a1a1a; border:1px solid rgba(255,215,0,0.1); border-radius:4px; color:#fff; text-align:right; font-size:12px; margin:0;"></td>
-        <td style="text-align:right; font-weight:700; color:#FFD700;" class="article-total">0 DA</td>
-        <td><span class="remove-row" onclick="removeReceiptRow(this)">✕</span></td>
-    `;
-    tr.querySelector('.article-qty').addEventListener('input', updateReceiptTotal);
-    tr.querySelector('.article-price').addEventListener('input', updateReceiptTotal);
-    tr.querySelector('.article-name').addEventListener('input', updateReceiptTotal);
-    tbody.appendChild(tr);
-    updateReceiptTotal();
-};
-
-window.removeReceiptRow = function(element) {
-    const row = element.closest('tr');
-    if (document.querySelectorAll('#receiptTableBody tr').length > 1) {
-        row.remove();
-        updateReceiptTotal();
-    }
-};
-
-window.openReceipt = function() {
+// ===== FONCTIONS POP-UP RECETTE MANUELLE =====
+window.openReceipt = async function() {
     document.getElementById('receiptShopName').textContent = selectedShop;
+    document.getElementById('receiptManualAmount').value = '';
     document.getElementById('receiptOverlay').classList.add('active');
-    const tbody = document.getElementById('receiptTableBody');
-    tbody.innerHTML = '';
-    addReceiptRow();
-    document.getElementById('receiptTotalDisplay').textContent = '0 DA';
     pendingEnd = true;
+    
+    const btnConfirm = document.getElementById('btnReceiptConfirm');
+    btnConfirm.textContent = '✅ Valider la recette';
+    btnConfirm.removeAttribute('data-mode');
+    btnConfirm.removeAttribute('data-datekey');
+    
+    await loadExistingReceipts();
 };
 
 window.closeReceipt = function() {
@@ -1511,37 +1425,144 @@ window.closeReceipt = function() {
     pendingEnd = false;
 };
 
-document.getElementById('btnReceiptConfirm').addEventListener('click', async () => {
-    const rows = document.querySelectorAll('#receiptTableBody tr');
-    let articles = [];
-    let total = 0;
-    rows.forEach(row => {
-        const name = row.querySelector('.article-name')?.value.trim() || 'Article sans nom';
-        const qty = parseInt(row.querySelector('.article-qty')?.value || 0);
-        const price = parseFloat(row.querySelector('.article-price')?.value || 0);
-        if (qty > 0 && price > 0) {
-            articles.push({ name, qty, price, total: qty * price });
-            total += qty * price;
-        }
-    });
+async function loadExistingReceipts() {
+    const container = document.getElementById('existingReceiptsList');
+    const section = document.getElementById('existingReceiptsSection');
     
-    if (articles.length === 0) {
-        alert('Veuillez ajouter au moins un article valide.');
+    container.innerHTML = '<p style="color:#555; font-size:11px; text-align:center;">Chargement...</p>';
+    
+    const snapshot = await get(ref(db, `recettes/${selectedShop}`));
+    if (!snapshot.exists()) {
+        section.style.display = 'none';
+        return;
+    }
+    
+    const recettes = snapshot.val();
+    const entries = Object.entries(recettes).sort((a, b) => {
+        const dateA = a[0].split('-').reverse().join('');
+        const dateB = b[0].split('-').reverse().join('');
+        return dateB.localeCompare(dateA);
+    }).slice(0, 10);
+    
+    if (entries.length === 0) {
+        section.style.display = 'none';
+        return;
+    }
+    
+    section.style.display = 'block';
+    
+    container.innerHTML = entries.map(([dateKey, data]) => {
+        const total = typeof data === 'object' ? (data.total || 0) : (data || 0);
+        const formattedDate = dateKey.split('-').reverse().join('/');
+        const todayStr = new Date().toLocaleDateString('fr-FR').replace(/\//g, "-");
+        const isToday = (dateKey === todayStr);
+        
+        return `
+            <div class="existing-receipt-item" style="${isToday ? 'border: 1px solid rgba(255,215,0,0.3);' : ''}">
+                <span class="rec-date">📅 ${formattedDate} ${isToday ? '<span style="color:#FFD700; font-size:10px;">(Aujourd\'hui)</span>' : ''}</span>
+                <span class="rec-amount">${parseFloat(total).toFixed(0)} DA</span>
+                <span class="rec-actions">
+                    <button class="btn-modify-rec" onclick="modifyReceipt('${dateKey}', ${parseFloat(total)})">✏️</button>
+                    <button class="btn-delete-rec" onclick="deleteReceipt('${dateKey}')">🗑</button>
+                </span>
+            </div>
+        `;
+    }).join('');
+}
+
+window.modifyReceipt = function(dateKey, currentAmount) {
+    document.getElementById('receiptManualAmount').value = currentAmount;
+    document.getElementById('receiptManualAmount').focus();
+    
+    const btnConfirm = document.getElementById('btnReceiptConfirm');
+    btnConfirm.textContent = '✅ Mettre à jour';
+    btnConfirm.setAttribute('data-mode', 'modify');
+    btnConfirm.setAttribute('data-datekey', dateKey);
+};
+
+window.deleteReceipt = async function(dateKey) {
+    const formattedDate = dateKey.split('-').reverse().join('/');
+    if (!confirm(`🗑 Supprimer définitivement la recette du ${formattedDate} ?`)) return;
+    
+    try {
+        await remove(ref(db, `recettes/${selectedShop}/${dateKey}`));
+        alert('✅ Recette supprimée !');
+        
+        await loadExistingReceipts();
+        await load();
+        await checkCloture();
+        
+        if (document.getElementById('admin').style.display === 'block') {
+            await loadAdmin();
+            await updateSalesDashboard();
+        }
+    } catch(err) {
+        alert('❌ Erreur : ' + err.message);
+    }
+};
+
+document.getElementById('btnReceiptConfirm').addEventListener('click', async () => {
+    const amountInput = document.getElementById('receiptManualAmount');
+    const amount = parseFloat(amountInput.value);
+    
+    if (!amount || amount <= 0) {
+        alert('❌ Veuillez entrer un montant valide supérieur à 0 DA.');
+        amountInput.focus();
         return;
     }
     
     const todayStr = new Date().toLocaleDateString('fr-FR').replace(/\//g, "-");
+    const btnConfirm = document.getElementById('btnReceiptConfirm');
+    const mode = btnConfirm.getAttribute('data-mode');
     
-    await set(ref(db, `recettes/${selectedShop}/${todayStr}`), {
-        total: total,
-        articles: articles,
-        date: todayStr,
-        shop: selectedShop
-    });
+    let dateKey = todayStr;
+    let isModification = false;
     
-    closeReceipt();
-    await executeEnd();
-    alert(`✅ Recette enregistrée : ${total.toFixed(2)} DA`);
+    if (mode === 'modify') {
+        dateKey = btnConfirm.getAttribute('data-datekey');
+        isModification = true;
+    }
+    
+    try {
+        await set(ref(db, `recettes/${selectedShop}/${dateKey}`), {
+            total: amount,
+            date: dateKey,
+            shop: selectedShop,
+            declaredBy: current,
+            timestamp: Date.now()
+        });
+        
+        const formattedDate = dateKey.split('-').reverse().join('/');
+        
+        if (isModification) {
+            alert(`✅ Recette du ${formattedDate} mise à jour : ${amount.toFixed(0)} DA`);
+        } else {
+            alert(`✅ Recette enregistrée : ${amount.toFixed(0)} DA`);
+        }
+        
+        amountInput.value = '';
+        btnConfirm.textContent = '✅ Valider la recette';
+        btnConfirm.removeAttribute('data-mode');
+        btnConfirm.removeAttribute('data-datekey');
+        
+        await loadExistingReceipts();
+        
+        if (!isModification && dateKey === todayStr) {
+            closeReceipt();
+            await executeEnd();
+        }
+        
+        await load();
+        await checkCloture();
+        
+        if (document.getElementById('admin').style.display === 'block') {
+            await loadAdmin();
+            await updateSalesDashboard();
+        }
+        
+    } catch(err) {
+        alert('❌ Erreur lors de l\'enregistrement : ' + err.message);
+    }
 });
 
 // ===== FONCTIONS JOURS FÉRIÉS =====
@@ -1812,7 +1833,25 @@ document.getElementById("btnConfirmShop").addEventListener("click", async () => 
         await loadManagerPanel();
     }
     await load();
+    await checkCloture();
 });
+
+async function checkCloture() {
+    const todayStr = new Date().toLocaleDateString('fr-FR').replace(/\//g, "-");
+    const recetteSnap = await get(ref(db, `recettes/${selectedShop}/${todayStr}`));
+    const roleSnap = await get(ref(db, 'user_roles/' + current));
+    const userRole = roleSnap.exists() ? roleSnap.val() : "employe";
+    
+    if (recetteSnap.exists() && (userRole === "gerant" || userRole === "cogerant")) {
+        document.getElementById('clotureMessage').style.display = 'block';
+    } else {
+        document.getElementById('clotureMessage').style.display = 'none';
+    }
+    // Ne jamais désactiver le bouton
+    document.getElementById('btnEnd').disabled = false;
+    document.getElementById('btnEnd').style.opacity = '1';
+    document.getElementById('btnEnd').style.cursor = 'pointer';
+}
 
 document.getElementById("btnToggleManagerView").addEventListener("click", () => {
     const section = document.getElementById("managerPanelSection");
@@ -1849,27 +1888,23 @@ async function admin() {
     document.getElementById("admin").style.display = "block";
     await loadHolidays();
     await loadAdmin();
-    // Mettre à jour le dashboard des ventes
     document.getElementById('bossShopFilter').addEventListener('change', updateSalesDashboard);
     await updateSalesDashboard();
   } else { alert("Accès Admin refusé"); }
 }
 
-// ===== DASHBOARD VENTES =====
 async function updateSalesDashboard() {
     const filter = document.getElementById('bossShopFilter').value;
     const recettesSnap = await get(ref(db, 'recettes/'));
     if (!recettesSnap.exists()) {
         document.getElementById('bossDayCA').textContent = '0 DA';
         document.getElementById('bossMonthCA').textContent = '0 DA';
-        document.getElementById('bossTopArticles').innerHTML = '<p style="color:#555; font-size:12px;">Aucune vente enregistrée.</p>';
         return;
     }
     
     const recettes = recettesSnap.val();
     let dayTotal = 0;
     let monthTotal = 0;
-    let allArticles = [];
     const todayStr = new Date().toLocaleDateString('fr-FR').replace(/\//g, "-");
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
@@ -1879,9 +1914,8 @@ async function updateSalesDashboard() {
         
         for (let dateKey in recettes[shop]) {
             const data = recettes[shop][dateKey];
-            const total = typeof data === 'object' ? data.total || 0 : data || 0;
+            const total = typeof data === 'object' ? (data.total || 0) : (data || 0);
             
-            // Vérifier si la date est dans le mois actuel
             const dateParts = dateKey.split('-');
             const d = new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
             
@@ -1892,54 +1926,11 @@ async function updateSalesDashboard() {
             if (dateKey === todayStr) {
                 dayTotal += total;
             }
-            
-            // Récupérer les articles
-            if (typeof data === 'object' && data.articles) {
-                data.articles.forEach(article => {
-                    if (article.name && article.qty > 0) {
-                        allArticles.push({
-                            name: article.name,
-                            qty: article.qty || 1,
-                            total: article.total || (article.qty * article.price) || 0
-                        });
-                    }
-                });
-            }
         }
     }
     
-    document.getElementById('bossDayCA').textContent = dayTotal.toFixed(2) + ' DA';
-    document.getElementById('bossMonthCA').textContent = monthTotal.toFixed(2) + ' DA';
-    
-    // Top articles
-    const topContainer = document.getElementById('bossTopArticles');
-    if (allArticles.length === 0) {
-        topContainer.innerHTML = '<p style="color:#555; font-size:12px;">Aucun article vendu.</p>';
-        return;
-    }
-    
-    // Agréger par nom
-    const aggregated = {};
-    allArticles.forEach(a => {
-        if (!aggregated[a.name]) {
-            aggregated[a.name] = { qty: 0, total: 0 };
-        }
-        aggregated[a.name].qty += a.qty;
-        aggregated[a.name].total += a.total;
-    });
-    
-    const sorted = Object.entries(aggregated)
-        .sort((a, b) => b[1].total - a[1].total)
-        .slice(0, 10);
-    
-    topContainer.innerHTML = sorted.map(([name, data], index) => `
-        <div class="article-item">
-            <span class="rank">#${index + 1}</span>
-            <span class="name">${name}</span>
-            <span class="qty">x${data.qty}</span>
-            <span class="ca">${data.total.toFixed(2)} DA</span>
-        </div>
-    `).join('');
+    document.getElementById('bossDayCA').textContent = dayTotal.toFixed(0) + ' DA';
+    document.getElementById('bossMonthCA').textContent = monthTotal.toFixed(0) + ' DA';
 }
 
 document.getElementById("btnUpdateStatus").addEventListener("click", async () => {
@@ -2115,6 +2106,7 @@ async function start() {
     if (startSnapshot.exists() && startSnapshot.val() !== "") return alert("Déjà pointé à l'entrée !");
     await set(ref(db, 'starts/' + current), { timestamp: Date.now(), shop: selectedShop });
     afficherAlerteEcran(`📍 Entrée Validée : ${selectedShop}`, "success");
+    await checkCloture();
 }
 
 async function executeEnd() {
@@ -2136,6 +2128,7 @@ async function executeEnd() {
     await remove(ref(db, 'starts/' + current));
     afficherAlerteEcran("🚪 Sortie Validée !", "success");
     await load();
+    await checkCloture();
 }
 
 async function end() {
@@ -2148,7 +2141,11 @@ async function end() {
         return;
     }
 
-    if (userRole === "gerant" || userRole === "cogerant") {
+    let startData = startSnapshot.val();
+    let s = startData.timestamp ? startData.timestamp : startData;
+    let hoursWorked = (new Date() - new Date(parseInt(s))) / 3600000;
+
+    if (hoursWorked >= 10 && (userRole === "gerant" || userRole === "cogerant")) {
         openReceipt();
         return;
     }
@@ -2185,9 +2182,10 @@ async function load() {
     document.getElementById("salary").innerText = fixedSalary.toFixed(0);
 
     let role = snapRoles.exists() ? snapRoles.val() : "employe";
-    let bonusRate = 0.02;
-    if(role === "gerant") bonusRate = 0.05;
-    else if(role === "cogerant") bonusRate = 0.03;
+    // ✅ CORRECTION : 0.5% gérant, 0.3% co-gérant, 0.2% employé
+    let bonusRate = 0.002;
+    if(role === "gerant") bonusRate = 0.005;
+    else if(role === "cogerant") bonusRate = 0.003;
 
     let totalShopRevenue = 0;
     if(snapRecettes.exists() && snapRecettes.val()[selectedShop]) {
@@ -2201,7 +2199,9 @@ async function load() {
     let finalGlobalSalary = fixedSalary + primeCalculated;
 
     document.getElementById("globalSalaryDisplay").innerText = `${finalGlobalSalary.toFixed(0)} DA`;
-    document.getElementById("primeDetailDisplay").innerHTML = `Prime CA : ${primeCalculated.toFixed(0)} DA (${(bonusRate*100).toFixed(0)}%)`;
+    document.getElementById("primeDetailDisplay").innerHTML = `Prime CA : ${primeCalculated.toFixed(0)} DA (${(bonusRate*100).toFixed(1)}%)`;
+    
+    await checkCloture();
 }
 
 async function loadManagerPanel() {
@@ -2342,9 +2342,10 @@ async function loadAdmin() {
       const totalWithHolidays = total + holidayHours;
 
       let role = roles[u] || "employe";
-      let bonusRate = 0.02;
-      if(role === "gerant") bonusRate = 0.05;
-      else if(role === "cogerant") bonusRate = 0.03;
+      // ✅ CORRECTION : 0.5% gérant, 0.3% co-gérant, 0.2% employé
+      let bonusRate = 0.002;
+      if(role === "gerant") bonusRate = 0.005;
+      else if(role === "cogerant") bonusRate = 0.003;
 
       let shopRevenueSum = 0;
       if(recettes[derniereBoutique]) {
@@ -2404,7 +2405,7 @@ async function loadAdmin() {
               </div>
               <div class="hours-subtext">
                   <i class="fa-regular fa-clock"></i> Temps : <strong>${formaterHeuresEtMinutes(totalWithHolidays)}</strong>
-                  <span class="prime-detail">| Prime ${(bonusRate*100).toFixed(0)}% du CA</span>
+                  <span class="prime-detail">| Prime ${(bonusRate*100).toFixed(1)}% du CA</span>
                   ${holidayHours > 0 ? `<span style="color:#FFD700;">| +${holidayHours}h férié</span>` : ''}
               </div>
           </div>
@@ -2415,6 +2416,10 @@ async function loadAdmin() {
               <button class="btn-delete-worker" onclick="deleteEmployee('${u}')"><i class="fa-solid fa-trash-can"></i> Supprimer</button>
           </div>
         </div>`;
+    }
+    
+    if (document.getElementById('admin').style.display === 'block') {
+        await updateSalesDashboard();
     }
 }
 
