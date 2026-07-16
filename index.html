@@ -1617,7 +1617,9 @@ document.getElementById('btnAddHoliday').addEventListener('click', async () => {
     alert('✅ Jour férié ajouté ! +8h seront ajoutés à tous les employés.');
 });
 
-// ===== VALIDATION DES OUBLIS =====
+// ===================================================================
+// ===== VALIDATION DES OUBLIS - CORRIGÉE =====
+// ===================================================================
 window.validateForget = async function(index) {
     const snapshot = await get(ref(db, 'oublis/'));
     if (!snapshot.exists()) return;
@@ -1628,6 +1630,7 @@ window.validateForget = async function(index) {
     
     const workerName = oubli.user;
     
+    // Récupérer l'historique existant
     const historySnap = await get(ref(db, 'history/' + workerName));
     let history = historySnap.exists() ? safeGetHistoryArray(historySnap.val()) : [];
     
@@ -1635,8 +1638,20 @@ window.validateForget = async function(index) {
     const startSnap = await get(ref(db, 'starts/' + workerName));
     const isStarted = startSnap.exists() && startSnap.val() !== "";
     
+    // Trouver et SUPPRIMER l'entrée erronée
+    const oubliDate = extraireUniquementDate(timeStr);
+    let indexToReplace = -1;
+    
+    history.forEach((entry, idx) => {
+        const entryDate = extraireUniquementDate(entry.start);
+        if (entryDate === oubliDate) {
+            indexToReplace = idx;
+        }
+    });
+    
     let newEntry;
     if (isStarted) {
+        // C'est une sortie manquante
         newEntry = {
             start: genererDatePrecise(new Date(parseInt(startSnap.val().timestamp || startSnap.val()))),
             end: timeStr,
@@ -1645,10 +1660,23 @@ window.validateForget = async function(index) {
         };
         await remove(ref(db, 'starts/' + workerName));
     } else {
+        // C'est une entrée manquante
         let lastEnd = null;
         if (history.length > 0) {
-            const last = history[history.length - 1];
-            if (last && last.end) lastEnd = convertirChaineVersDate(last.end);
+            // Chercher la dernière sortie avant cette date
+            let lastEntry = null;
+            for (let i = history.length - 1; i >= 0; i--) {
+                if (history[i] && history[i].end) {
+                    const entryDate = extraireUniquementDate(history[i].start);
+                    if (entryDate === oubliDate) {
+                        lastEntry = history[i];
+                        break;
+                    }
+                }
+            }
+            if (lastEntry && lastEntry.end) {
+                lastEnd = convertirChaineVersDate(lastEntry.end);
+            }
         }
         
         newEntry = {
@@ -1659,9 +1687,17 @@ window.validateForget = async function(index) {
         };
     }
     
-    history.push(newEntry);
+    // SI on a trouvé une entrée à remplacer, on la remplace
+    if (indexToReplace !== -1) {
+        history[indexToReplace] = newEntry;
+    } else {
+        // Sinon on ajoute (cas où l'entrée n'existe pas)
+        history.push(newEntry);
+    }
+    
     await set(ref(db, 'history/' + workerName), history);
     
+    // Supprimer la demande d'oubli
     oublis.splice(index, 1);
     await set(ref(db, 'oublis/'), oublis);
     
@@ -2182,7 +2218,6 @@ async function load() {
     document.getElementById("salary").innerText = fixedSalary.toFixed(0);
 
     let role = snapRoles.exists() ? snapRoles.val() : "employe";
-    // ✅ CORRECTION : 0.5% gérant, 0.3% co-gérant, 0.2% employé
     let bonusRate = 0.002;
     if(role === "gerant") bonusRate = 0.005;
     else if(role === "cogerant") bonusRate = 0.003;
@@ -2342,7 +2377,6 @@ async function loadAdmin() {
       const totalWithHolidays = total + holidayHours;
 
       let role = roles[u] || "employe";
-      // ✅ CORRECTION : 0.5% gérant, 0.3% co-gérant, 0.2% employé
       let bonusRate = 0.002;
       if(role === "gerant") bonusRate = 0.005;
       else if(role === "cogerant") bonusRate = 0.003;
