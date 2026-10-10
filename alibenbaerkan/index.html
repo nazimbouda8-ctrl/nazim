@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WebTU - Student Portal</title>
+    <!-- FontAwesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #d8dcdb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Conteneur Simulateur Mobile */
+        .app-container {
+            width: 100%;
+            max-width: 412px;
+            height: 100vh;
+            max-height: 870px;
+            background-color: #e3e3e3;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            border-radius: 20px;
+        }
+
+        /* Système de pages SPA */
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #e3e3e3;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(30px);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0);
+        }
+
+        /* ==================== 1. PAGE DE LOGIN ==================== */
+        #login-page {
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 24px 20px 24px;
+            background-color: #e3e3e3;
+            text-align: center;
+        }
+
+        .login-body-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .progres-logo-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 45px;
+        }
+
+        .progres-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .progres-arcs {
+            width: 45px;
+            height: 45px;
+            position: relative;
+        }
+
+        .arc-red {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border: 4px solid #e53935;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            transform: rotate(-30deg);
+        }
+
+        .arc-green {
+            position: absolute;
+            bottom: 0;
+            left: 5px;
+            width: 38px;
+            height: 38px;
+            border: 5px solid #009677;
+            border-top-color: transparent;
+            border-right-color: transparent;
+            border-radius: 50%;
+            transform: rotate(20deg);
+        }
+
+        .progres-text {
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #000000;
+            font-family: 'Arial', sans-serif;
+            border-bottom: 4px solid #009677;
+            padding-bottom: 2px;
+        }
+
+        .ministry-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .ministry-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .sub-ar {
+            font-size: 14px;
+            font-weight: 800;
+            color: #000000;
+            line-height: 1.2;
+        }
+
+        .sub-fr {
+            font-size: 8.5px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .flag-dz {
+            width: 28px;
+            height: 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            border: 1px solid #ccc;
+        }
+
+        .login-header-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #83888b;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .login-form {
+            width: 100%;
+        }
+
+        .input-group {
+            width: 100%;
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .input-group i.left-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #009677;
+            font-size: 16px;
+        }
+
+        .input-group i.right-icon {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #71777d;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 13px 45px;
+            border: 2px solid #009677;
+            border-radius: 25px;
+            outline: none;
+            font-size: 15px;
+            background-color: #ededed;
+            color: #555;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+        .input-field.password {
+            border-color: #c4c8cb;
+        }
+
+        .input-field::placeholder {
+            color: #7d8489;
+            font-weight: 500;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 13px;
+            background-color: #009677;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            margin-top: 15px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-login:active {
+            transform: scale(0.98);
+            background-color: #007a61;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 12px;
+            margin-top: 6px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .login-footer {
+            font-size: 10px;
+            color: #71777d;
+            font-weight: 700;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        /* ==================== 2. PAGE ACCUEIL (HOME) ==================== */
+        .scrollable-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 16px;
+            background-color: #ffffff;
+        }
+
+        .title-home {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        .campuce-banner {
+            background: linear-gradient(135deg, #009677 0%, #157e68 100%);
+            border: 2px solid #fbbf24;
+            border-radius: 16px;
+            padding: 16px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .banner-text h3 { font-size: 18px; font-weight: 900; color: #fbbf24; }
+        .banner-text h2 { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+        .banner-tags { display: flex; gap: 6px; }
+        .tag { background-color: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin: 14px 0 18px 0;
+        }
+
+        .dot { width: 8px; height: 8px; border-radius: 50%; background-color: #d1d5db; }
+        .dot.active { width: 24px; border-radius: 10px; background-color: #009677; }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding-bottom: 10px;
+        }
+
+        .grid-item {
+            background-color: #009677;
+            border-radius: 12px;
+            padding: 14px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            min-height: 70px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+
+        .grid-item:active { transform: scale(0.97); background-color: #007a61; }
+        .grid-item i { font-size: 20px; margin-bottom: 6px; }
+        .grid-item span { font-size: 13px; font-weight: 600; line-height: 1.1; }
+
+        /* BARRE DE NAVIGATION EN BAS */
+        .bottom-nav-wrapper {
+            padding: 10px 16px 14px 16px;
+            background-color: #ffffff;
+            border-top: 1px solid #f0f0f0;
+            width: 100%;
+        }
+
+        .bottom-nav {
+            background-color: #262938;
+            border-radius: 16px;
+            display: flex;
+            padding: 5px;
+            justify-content: space-between;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #a0a5b5;
+            padding: 8px 0;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .nav-item i { font-size: 18px; margin-bottom: 3px; }
+        .nav-item.active { background-color: #00966b; color: white; }
+
+        /* ==================== 3. SOUS-PAGES & EN-TÊTE ==================== */
+        .subpage-header {
+            background-color: #009677;
+            color: white;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .subpage-title { font-size: 18px; font-weight: 700; }
+
+        /* ==================== 4. PAGE CARTE (FORMAT PORTRAIT WEBTU) ==================== */
+        .cards-page-container {
+            padding: 16px 16px 0 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .card-flip-container {
+            width: 100%;
+            max-width: 285px;
+            aspect-ratio: 53.98 / 85.6;
+            perspective: 1000px;
+            cursor: pointer;
+            margin: 0 auto;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .card-flip-container.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        .card-front img, .card-back img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .flip-hint {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            margin-bottom: 10px;
+        }
+
+        /* ==================== 5. ONOU SERVICES & EMPTY STATE ==================== */
+        .onou-container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background-color: #ffffff;
+            height: 100%;
+        }
+
+        .onou-card {
+            border-radius: 16px;
+            padding: 20px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .onou-card.restauration { background-color: #ff6b35; }
+        .onou-card.transport { background-color: #4ecdc4; }
+
+        .onou-icon-circle {
+            width: 48px; height: 48px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .onou-card-title { font-size: 18px; font-weight: 700; }
+        .onou-card-sub { font-size: 13px; opacity: 0.9; }
+
+        .empty-state-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+            background-color: #ffffff;
+        }
+
+        .empty-state-text { font-size: 18px; font-weight: 800; color: #111827; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <!-- 1. LOGIN PAGE -->
+        <div id="login-page" class="page active">
+            <div class="login-body-wrapper">
+                <div class="progres-logo-box">
+                    <div class="progres-brand">
+                        <div class="progres-arcs">
+                            <div class="arc-red"></div>
+                            <div class="arc-green"></div>
+                        </div>
+                        <span class="progres-text">PROGRES</span>
+                    </div>
+
+                    <div class="ministry-row">
+                        <div class="ministry-text">
+                            <span class="sub-ar">وزارة التعليم العالي والبحث العلمي</span>
+                            <span class="sub-fr">Ministère de l'Enseignement Supérieur et de la Recherche Scientifique</span>
+                        </div>
+                        <img class="flag-dz" src="https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Algeria.svg" alt="Drapeau Algérie">
+                    </div>
+                </div>
+
+                <div class="login-header-title">Student Portal</div>
+
+                <form class="login-form" onsubmit="handleLogin(event)">
+                    <div class="input-group">
+                        <i class="fa-solid fa-user left-icon"></i>
+                        <input type="text" id="username" class="input-field" placeholder="Registration number" value="33155005" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fa-solid fa-lock left-icon"></i>
+                        <input type="password" id="password" class="input-field password" placeholder="Password" value="12345678" required>
+                        <i class="fa-regular fa-eye right-icon" onclick="togglePassword()"></i>
+                    </div>
+
+                    <div id="error-msg" class="error-message">Identifiants incorrects !</div>
+
+                    <button type="submit" class="btn-login">LOGIN</button>
+                </form>
+            </div>
+
+            <div class="login-footer">
+                Ministry of Higher Education and Scientific Research<br>
+                Copyright © 2026
+            </div>
+        </div>
+
+        <!-- 2. HOME PAGE -->
+        <div id="home-page" class="page">
+            <div class="scrollable-content">
+                <h1 class="title-home">Student Portal</h1>
+
+                <div class="campuce-banner">
+                    <div class="banner-text">
+                        <h3>اكتشفوا برنامج</h3>
+                        <h2>STUDENT CAMPUCE</h2>
+                        <div class="banner-tags">
+                            <span class="tag">FREE COURSES</span>
+                            <span class="tag">EASY PAY</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-graduation-cap" style="font-size: 45px; opacity: 0.8;"></i>
+                </div>
+
+                <div class="carousel-dots">
+                    <div class="dot"></div>
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                </div>
+
+                <div class="grid-container">
+                    <div class="grid-item" onclick="navigateTo('empty-page', 'Discharge')">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <span>Discharge</span>
+                    </div>
+                    <div class="grid-item" onclick="navigateTo('empty-page', 'Timetable')">
+                        <i class="fa-regular fa-calendar-days"></i>
+                        <span>Timetable</span>
+                    </div>
+
+                    <div class="grid-item" onclick="navigateTo('empty-page', 'Group and Section')">
+                        <i class="fa-solid fa-user-group"></i>
+                        <span>Group and Section</span>
+                    </div>
+                    <div class="grid-item" onclick="navigateTo('empty-page', 'Exams Schedule')">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        <span>Exams Schedule</span>
+                    </div>
+
+                    <div class="grid-item" onclick="navigateTo('empty-page', 'Exam Grades')">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Exam Grades</span>
+                    </div>
+                    <div class="grid-item" onclick="navigateTo('empty-page', 'Assessment')">
+                        <i class="fa-solid fa-pencil"></i>
+                        <span>Assessment</span>
+                    </div>
+
+                    <div class="grid-item" onclick="navigateTo('empty-page', 'Percentage (%)')">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <span>Percentage (%)</span>
+                    </div>
+                    <div class="grid-item" onclick="navigateTo('empty-page', 'Academic transcripts')">
+                        <i class="fa-regular fa-folder"></i>
+                        <span>Academic transcripts</span>
+                    </div>
+
+                    <div class="grid-item" onclick="navigateTo('empty-page', 'Debts')">
+                        <i class="fa-solid fa-calculator"></i>
+                        <span>Debts</span>
+                    </div>
+                    <div class="grid-item" onclick="navigateTo('empty-page', 'Academic vacation')">
+                        <i class="fa-regular fa-file"></i>
+                        <span>Academic vacation</span>
+                    </div>
+
+                    <div class="grid-item" onclick="navigateTo('empty-page', 'Enrollments')">
+                        <i class="fa-regular fa-envelope"></i>
+                        <span>Enrollments</span>
+                    </div>
+                    <div class="grid-item" onclick="navigateTo('empty-page', 'Absences & Exclusions')">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <span>Absences & Exclusions</span>
+                    </div>
+
+                    <div class="grid-item" onclick="navigateTo('onou-page', 'ONOU Services')">
+                        <i class="fa-solid fa-city"></i>
+                        <span>ONOU Services</span>
+                    </div>
+                    <div class="grid-item" onclick="navigateTo('empty-page', 'Other services')">
+                        <i class="fa-solid fa-table-cells"></i>
+                        <span>Other services</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barre de navigation bas fixe (Home) -->
+            <div class="bottom-nav-wrapper">
+                <nav class="bottom-nav">
+                    <div class="nav-item active" onclick="navigateTo('home-page')">
+                        <i class="fa-solid fa-house"></i>
+                        Maison
+                    </div>
+                    <div class="nav-item" onclick="navigateTo('card-page', 'Cartes')">
+                        <i class="fa-regular fa-credit-card"></i>
+                        Cartes
+                    </div>
+                    <div class="nav-item" onclick="navigateTo('empty-page', 'Profil')">
+                        <i class="fa-regular fa-user"></i>
+                        Profil
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- 3. PAGE CARTE : VERTICAL PORTRAIT PERFECT -->
+        <div id="card-page" class="page">
+            <div class="cards-page-container">
+                <div class="card-flip-container" onclick="flipCard(this)">
+                    <div class="card-inner">
+                        <!-- Recto -->
+                        <div class="card-front">
+                            <img src="alilou.JPG" alt="Carte Recto">
+                        </div>
+                        <!-- Verso -->
+                        <div class="card-back">
+                            <img src="alilouu.JPG" alt="Carte Verso">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-hint">
+                    <i class="fa-solid fa-rotate"></i> Appuyez sur la carte pour tourner
+                </div>
+            </div>
+
+            <!-- Barre de navigation bas fixe (Cartes) -->
+            <div class="bottom-nav-wrapper">
+                <nav class="bottom-nav">
+                    <div class="nav-item" onclick="navigateTo('home-page')">
+                        <i class="fa-solid fa-house"></i>
+                        Maison
+                    </div>
+                    <div class="nav-item active" onclick="navigateTo('card-page', 'Cartes')">
+                        <i class="fa-regular fa-credit-card"></i>
+                        Cartes
+                    </div>
+                    <div class="nav-item" onclick="navigateTo('empty-page', 'Profil')">
+                        <i class="fa-regular fa-user"></i>
+                        Profil
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- 4. PAGE ONOU SERVICES -->
+        <div id="onou-page" class="page">
+            <div class="subpage-header">
+                <button class="btn-back" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+                <div class="subpage-title">ONOU Services</div>
+            </div>
+
+            <div class="onou-container">
+                <div class="onou-card restauration" onclick="navigateTo('empty-page', 'Restauration')">
+                    <div class="onou-icon-circle"><i class="fa-solid fa-utensils"></i></div>
+                    <div class="onou-card-title">Restauration</div>
+                    <div class="onou-card-sub">Menu, Réservation</div>
+                </div>
+
+                <div class="onou-card transport" onclick="navigateTo('empty-page', 'Transportation plan')">
+                    <div class="onou-icon-circle"><i class="fa-solid fa-bus"></i></div>
+                    <div class="onou-card-title">Transport</div>
+                    <div class="onou-card-sub">Lignes & Horaires</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. PAGE GENERIQUE / VIDE -->
+        <div id="empty-page" class="page">
+            <div class="subpage-header">
+                <button class="btn-back" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+                <div class="subpage-title" id="empty-page-title">Service</div>
+            </div>
+
+            <div class="empty-state-container">
+                <i class="fa-solid fa-box-open" style="font-size: 60px; color: #009677;"></i>
+                <div class="empty-state-text">Aucune donnée disponible</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let navigationHistory = ['login-page'];
+
+        function handleLogin(event) {
+            event.preventDefault();
+            navigateTo('home-page');
+        }
+
+        function togglePassword() {
+            const pwd = document.getElementById('password');
+            const icon = event.target;
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                pwd.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        function navigateTo(pageId, title = '') {
+            if (title) {
+                const titleElem = document.getElementById(pageId + '-title');
+                if (titleElem) titleElem.textContent = title;
+            }
+
+            const current = document.querySelector('.page.active');
+            if (current) current.classList.remove('active');
+
+            const next = document.getElementById(pageId);
+            if (next) {
+                next.classList.add('active');
+                navigationHistory.push(pageId);
+            }
+        }
+
+        function goBack() {
+            if (navigationHistory.length > 1) {
+                navigationHistory.pop();
+                const previousPageId = navigationHistory[navigationHistory.length - 1];
+
+                const current = document.querySelector('.page.active');
+                if (current) current.classList.remove('active');
+
+                const prev = document.getElementById(previousPageId);
+                if (prev) prev.classList.add('active');
+            }
+        }
+
+        function flipCard(element) {
+            element.classList.toggle('flipped');
+        }
+    </script>
+</body>
+</html>
